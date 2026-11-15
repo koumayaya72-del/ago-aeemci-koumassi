@@ -13,8 +13,8 @@
  */
 
 const CONFIG = {
-  // Date officielle de l'Assemblée Générale Ordinaire
-  targetDate: new Date('2026-11-28T08:00:00'),
+  // Date officielle de l'Assemblée Générale Ordinaire : Samedi 28 Novembre 2026 à 08h00 GMT
+  targetDate: new Date(2026, 10, 28, 8, 0, 0),
   // Numéro WhatsApp officiel du Comité d'Organisation / Secrétariat
   whatsappPhone: '2250711985810',
   // Titre pour le partage
@@ -104,19 +104,10 @@ function initBureauFilter() {
    ========================================================================== */
 function initScrollReveal() {
   const reveals = document.querySelectorAll('.reveal');
-
-  function checkReveal() {
-    const triggerBottom = window.innerHeight * 0.92;
-    reveals.forEach(el => {
-      const top = el.getBoundingClientRect().top;
-      if (top < triggerBottom) {
-        el.classList.add('revealed');
-      }
-    });
-  }
-
-  window.addEventListener('scroll', checkReveal, { passive: true });
-  checkReveal();
+  reveals.forEach(el => {
+    el.classList.add('active');
+    el.classList.add('revealed');
+  });
 }
 
 /* ==========================================================================
