@@ -7,10 +7,49 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="base_de_donnees.css">
+  <link rel="stylesheet" href="style.css?v=20261115_v2">
+  <link rel="stylesheet" href="base_de_donnees.css?v=20261115_v2">
 </head>
 <body class="db-body">
+
+  <!-- ============================================ -->
+  <!-- MODAL DE SÉCURITÉ : ACCÈS COMMISSION PRIVÉ   -->
+  <!-- ============================================ -->
+  <div class="db-auth-overlay" id="dbAuthOverlay">
+    <div class="db-auth-card">
+      <div class="db-auth-emblem">
+        <img src="logo-aeemci.jpeg" alt="Logo AEEMCI" class="db-auth-logo">
+      </div>
+      <span class="db-auth-badge">🔒 ACCÈS CONFIDENTIEL &amp; SÉCURISÉ</span>
+      <h2 class="db-auth-title">Commission d'Organisation &amp; Accueil</h2>
+      <p class="db-auth-subtitle">
+        L'accès à la base de données, aux listes d'émargement et au scanner QR est strictement réservé aux membres mandatés du Sous-Comité AEEMCI de Koumassi.
+      </p>
+
+      <form id="dbAuthForm" class="db-auth-form">
+        <div class="db-auth-group">
+          <label for="dbPasscodeInput">Code d'Accès Officiel (PIN) :</label>
+          <div class="db-auth-input-box">
+            <span class="db-auth-input-icon">🔑</span>
+            <input type="password" id="dbPasscodeInput" placeholder="Saisir le code d'accès (ex: 2026)" autocomplete="current-password" autofocus required>
+          </div>
+        </div>
+
+        <div id="dbAuthError" class="db-auth-error" style="display: none;">
+          ⚠️ Code incorrect. Veuillez contacter le Secrétariat de l'A.G.O.
+        </div>
+
+        <button type="submit" class="btn-royal" style="width: 100%; justify-content: center; padding: 13px 20px; font-size: 14px; margin-top: 14px; cursor: pointer; border-color: var(--color-gold-bright);">
+          <span>Déverrouiller la Console</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <a href="index.html" class="db-auth-back-link">
+          ← Retourner au Portail Public de la Convocation
+        </a>
+      </form>
+    </div>
+  </div>
 
   <!-- ============================================ -->
   <!-- BARRE SUPÉRIEURE DE NAVIGATION / CONSOLE     -->
@@ -31,6 +70,9 @@
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
           <span>Portail Public</span>
         </a>
+        <button type="button" id="btnDbLockConsole" class="btn-db-outline" style="border-color: rgba(212,175,55,0.4); color: var(--color-gold);">
+          🔒 Verrouiller
+        </button>
         <button type="button" id="btnDbOpenSupabaseModal" class="btn-db-outline" style="border-color: #2ECC71; color: #2ECC71;">
           ⚡ Cloud Supabase
         </button>
@@ -453,7 +495,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="qrcode.min.js"></script>
   <script src="html5-qrcode.min.js"></script>
-  <script src="base_donnees_ago.js"></script>
-  <script src="base_de_donnees_page.js"></script>
+  <script src="base_donnees_ago.js?v=20261115_v2"></script>
+  <script src="base_de_donnees_page.js?v=20261115_v2"></script>
 </body>
 </html>

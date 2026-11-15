@@ -13,7 +13,74 @@ let currentSearchQuery = '';
 let lastScannedMatricule = '';
 let lastScanTime = 0;
 
+const DB_AUTH_KEY = 'aeemci_koumassi_db_authorized_v2';
+const VALID_PASSCODES = ['2026', 'AGO2026', 'KOUMASSI2026', 'KOU2026', 'AGO'];
+
+function initDbAuth() {
+  const overlay = document.getElementById('dbAuthOverlay');
+  const authForm = document.getElementById('dbAuthForm');
+  const passInput = document.getElementById('dbPasscodeInput');
+  const authError = document.getElementById('dbAuthError');
+  const btnLock = document.getElementById('btnDbLockConsole');
+
+  function isAuthorized() {
+    return sessionStorage.getItem(DB_AUTH_KEY) === 'true';
+  }
+
+  function updateLockState() {
+    if (isAuthorized()) {
+      if (overlay) overlay.style.display = 'none';
+      document.body.classList.remove('db-locked');
+    } else {
+      if (overlay) overlay.style.display = 'flex';
+      document.body.classList.add('db-locked');
+      if (passInput) {
+        passInput.value = '';
+        setTimeout(() => passInput.focus(), 200);
+      }
+    }
+  }
+
+  if (authForm) {
+    authForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const code = passInput ? passInput.value.trim().toUpperCase() : '';
+      if (VALID_PASSCODES.includes(code)) {
+        sessionStorage.setItem(DB_AUTH_KEY, 'true');
+        if (authError) authError.style.display = 'none';
+        if (overlay) {
+          overlay.style.opacity = '0';
+          setTimeout(() => {
+            overlay.style.display = 'none';
+            overlay.style.opacity = '1';
+            document.body.classList.remove('db-locked');
+          }, 300);
+        }
+        playDbBeep(true);
+        refreshAllDbViews();
+      } else {
+        if (authError) authError.style.display = 'block';
+        if (passInput) {
+          passInput.value = '';
+          passInput.focus();
+        }
+        playDbBeep(false);
+      }
+    });
+  }
+
+  if (btnLock) {
+    btnLock.addEventListener('click', () => {
+      sessionStorage.removeItem(DB_AUTH_KEY);
+      updateLockState();
+    });
+  }
+
+  updateLockState();
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  initDbAuth();
   initDbConsole();
 });
 

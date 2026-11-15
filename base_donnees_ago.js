@@ -210,9 +210,9 @@ async function synchroniserDepuisSupabase() {
 }
 
 /**
- * Ajoute une nouvelle inscription (Local + Cloud Supabase)
+ * Ajoute une nouvelle inscription (Local synchrone + Cloud Supabase en arrière-plan)
  */
-async function ajouterInscriptionAGO(data) {
+function ajouterInscriptionAGO(data) {
   const registre = getRegistreAGO();
   const matricule = genererMatriculeAGO();
 
@@ -224,7 +224,7 @@ async function ajouterInscriptionAGO(data) {
 
   const nouvelleInscription = {
     matricule: matricule,
-    nom: data.nom.trim(),
+    nom: data.nom ? data.nom.trim() : '',
     role: data.role || 'Délégué Officiel de Section (Votant)',
     section: data.section ? data.section.trim() : 'Sous-Comité Koumassi',
     telephone: data.telephone ? data.telephone.trim() : '',
@@ -235,27 +235,31 @@ async function ajouterInscriptionAGO(data) {
     date_emargement: null
   };
 
-  // 1. Sauvegarde locale instantanée
-  registre.unshift(nouvelleInscription);
-  saveRegistreAGO(registre);
+  // 1. Sauvegarde locale instantanée et fiable
+  try {
+    registre.unshift(nouvelleInscription);
+    saveRegistreAGO(registre);
+  } catch (err) {
+    console.error("Erreur sauvegarde locale registre:", err);
+  }
 
-  // 2. Synchronisation Cloud Supabase si actif
+  // 2. Synchronisation Cloud Supabase en tâche de fond (non bloquante)
   if (supabaseClient) {
-    try {
-      await supabaseClient.from('ago_inscriptions').insert([{
-        matricule: nouvelleInscription.matricule,
-        nom: nouvelleInscription.nom,
-        role: nouvelleInscription.role,
-        section: nouvelleInscription.section,
-        telephone: nouvelleInscription.telephone,
-        presence: nouvelleInscription.presence,
-        message: nouvelleInscription.message,
-        emarge: false,
-        date_emargement: null
-      }]);
-    } catch (err) {
-      console.warn("Erreur envoi Supabase, sauvegardé localement:", err);
-    }
+    supabaseClient.from('ago_inscriptions').insert([{
+      matricule: nouvelleInscription.matricule,
+      nom: nouvelleInscription.nom,
+      role: nouvelleInscription.role,
+      section: nouvelleInscription.section,
+      telephone: nouvelleInscription.telephone,
+      presence: nouvelleInscription.presence,
+      message: nouvelleInscription.message,
+      emarge: false,
+      date_emargement: null
+    }]).then(res => {
+      console.log("Synchronisation Supabase effectuée:", res);
+    }).catch(err => {
+      console.warn("Erreur envoi Supabase (sauvegarde locale préservée):", err);
+    });
   }
 
   return nouvelleInscription;
