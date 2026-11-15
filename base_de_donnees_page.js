@@ -92,6 +92,23 @@ function initDbConsole() {
     });
   }
 
+  // Navigation Mobile Basse
+  const mNavNew = document.getElementById('mNavNew');
+  const modalNew = document.getElementById('dbNewModalBackdrop');
+  if (mNavNew && modalNew) {
+    mNavNew.addEventListener('click', () => {
+      modalNew.classList.add('active');
+    });
+  }
+
+  const mNavItems = document.querySelectorAll('.m-nav-item');
+  mNavItems.forEach(item => {
+    item.addEventListener('click', () => {
+      mNavItems.forEach(i => i.classList.remove('active'));
+      item.classList.add('active');
+    });
+  });
+
   // Modals : Pass & Nouveau Délégué & Supabase
   initModalListeners();
   initNewDelegateForm();

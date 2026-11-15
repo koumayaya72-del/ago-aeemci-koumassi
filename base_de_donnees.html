@@ -108,7 +108,7 @@
     <!-- ============================================ -->
     <!-- 2. SECTION CENTRALE : LE SCANNEUR INTÉGRÉ    -->
     <!-- ============================================ -->
-    <section class="db-scanner-section">
+    <section class="db-scanner-section" id="sectionScanner">
       <div class="db-scanner-grid">
         
         <!-- Panneau Gauche : Lecteur Caméra & Saisie Manuelle -->
@@ -201,7 +201,7 @@
     <!-- ============================================ -->
     <!-- 3. LA BASE DE DONNÉES COMPLÈTE & FILTRABLE   -->
     <!-- ============================================ -->
-    <section class="db-table-section">
+    <section class="db-table-section" id="sectionRegistre">
       <div class="db-table-card">
         
         <div class="db-table-header-row">
@@ -432,6 +432,22 @@
       </div>
     </div>
   </div>
+
+  <!-- Barre de Navigation Rapide Mobile (App Style) -->
+  <nav class="db-mobile-bottom-nav">
+    <a href="#sectionScanner" class="m-nav-item active" id="mNavScanner">
+      <span class="m-nav-icon">📷</span>
+      <span class="m-nav-label">Scanneur</span>
+    </a>
+    <a href="#sectionRegistre" class="m-nav-item" id="mNavRegistre">
+      <span class="m-nav-icon">📑</span>
+      <span class="m-nav-label">Registre</span>
+    </a>
+    <button type="button" class="m-nav-item m-nav-btn" id="mNavNew">
+      <span class="m-nav-icon">➕</span>
+      <span class="m-nav-label">Inscrire</span>
+    </button>
+  </nav>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

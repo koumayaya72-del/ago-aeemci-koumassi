@@ -861,6 +861,333 @@ body.db-body {
 }
 
 /* ==========================================================================
+   5.5 OPTIMISATIONS HAUTE FIDÉLITÉ POUR SMARTPHONES (MOBILE PRO)
+   ========================================================================== */
+.db-mobile-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  body.db-body {
+    padding-bottom: 74px; /* Espace réservé pour la barre de navigation basse */
+  }
+
+  .db-container {
+    padding: 0 14px;
+  }
+
+  /* Barre d'action basse permanente mobile */
+  .db-mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(5, 29, 20, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 2px solid var(--db-gold);
+    z-index: 9999;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .m-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #A3C9B8;
+    font-size: 11px;
+    font-weight: 600;
+    gap: 2px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    padding: 6px 0;
+  }
+
+  .m-nav-item.active,
+  .m-nav-item:hover {
+    color: var(--db-gold);
+  }
+
+  .m-nav-icon {
+    font-size: 18px;
+  }
+
+  .m-nav-btn {
+    color: #FFFFFF;
+    background: var(--db-emerald);
+    border-radius: 10px;
+    margin: 4px 6px;
+    border: 1px solid var(--db-gold);
+  }
+
+  /* Barre supérieure mobile */
+  .db-navbar {
+    padding: 10px 0;
+  }
+
+  .db-nav-content {
+    gap: 10px;
+  }
+
+  .db-brand {
+    gap: 10px;
+    width: 100%;
+  }
+
+  .db-logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .db-brand-title {
+    font-size: 15px;
+    line-height: 1.2;
+  }
+
+  .db-brand-sub {
+    font-size: 10px;
+  }
+
+  .db-nav-actions {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .db-nav-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .btn-db-outline,
+  .btn-db-gold,
+  .btn-db-primary {
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  /* Bandeau lieu & Quorum */
+  .db-event-bar {
+    font-size: 11px;
+    padding: 8px 0;
+  }
+
+  .db-event-grid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  /* Grille KPI 2x2 harmonieuse */
+  .db-kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .db-kpi-card {
+    padding: 12px 14px;
+  }
+
+  .db-kpi-label {
+    font-size: 10px;
+  }
+
+  .db-kpi-value {
+    font-size: 24px;
+  }
+
+  .db-kpi-sub {
+    font-size: 10px;
+  }
+
+  /* Zone Caméra & Scanneur */
+  .db-scanner-section {
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .db-card-title {
+    font-size: 16px;
+  }
+
+  .db-camera-container {
+    max-height: 230px;
+  }
+
+  .db-manual-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .db-manual-bar input {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .btn-manual-valider {
+    width: 100%;
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  /* Filtres & Recherche */
+  .db-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .db-search-box {
+    min-width: 100%;
+  }
+
+  .db-filter-pills {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .db-filter-pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .db-filter-pill {
+    white-space: nowrap;
+    padding: 5px 12px;
+    font-size: 11px;
+  }
+
+  /* Transformation du Tableau en Fiches Exécutives sur Smartphone */
+  .db-table-card {
+    padding: 14px;
+  }
+
+  .db-table-responsive {
+    border: none;
+    overflow: visible;
+  }
+
+  .db-main-table,
+  .db-main-table tbody,
+  .db-main-table tr,
+  .db-main-table td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .db-main-table thead {
+    display: none;
+  }
+
+  .db-main-table tbody tr {
+    background: #FFFFFF;
+    border: 1.5px solid var(--db-border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 2px 10px rgba(5, 29, 20, 0.05);
+  }
+
+  .db-main-table td {
+    padding: 2px 0;
+  }
+
+  /* Ligne 1 : Matricule + Badge Statut */
+  .db-main-table td:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  /* Ligne 2 : Nom du Délégué */
+  .db-main-table td:nth-child(2) strong {
+    font-size: 14.5px !important;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* Ligne 3 : Section */
+  .db-main-table td:nth-child(3) {
+    font-size: 11.5px;
+    color: #104F36;
+    font-weight: 600;
+  }
+
+  /* Ligne 4 : Qualité / Titre */
+  .db-main-table td:nth-child(4) {
+    font-size: 11px;
+    color: #666;
+  }
+
+  /* Ligne 5 : Contact */
+  .db-main-table td:nth-child(5) {
+    font-size: 11px;
+    color: #888;
+  }
+
+  /* Ligne 6 : Statut */
+  .db-main-table td:nth-child(6) {
+    margin: 4px 0;
+  }
+
+  /* Ligne 7 : Heure */
+  .db-main-table td:nth-child(7) {
+    font-size: 10.5px;
+    color: #999;
+  }
+
+  /* Ligne 8 : Boutons d'Action */
+  .db-main-table td:nth-child(8) {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--db-border);
+  }
+
+  .db-table-actions {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .btn-action-emarge {
+    flex: 1.5;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .btn-action-pass {
+    flex: 1;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 8px;
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
    6. IMPRESSION
    ========================================================================== */
 @media print {
