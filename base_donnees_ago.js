@@ -13,15 +13,8 @@ const STORAGE_KEY_SUPABASE_KEY = 'ago_supabase_key';
 const DEFAULT_SUPABASE_URL = 'https://bdlhmffedkqjcnsezwzc.supabase.co';
 const DEFAULT_SUPABASE_KEY = 'sb_publishable_w8uK91Q41lqBStC-LhbZEg_-_KNFRST';
 
-// Nettoyage automatique en cas d'ancienne cle secrete invalide dans le navigateur
-let _storedKey = localStorage.getItem(STORAGE_KEY_SUPABASE_KEY);
-if (_storedKey && _storedKey.startsWith('sb_secret_')) {
-  localStorage.removeItem(STORAGE_KEY_SUPABASE_KEY);
-  _storedKey = null;
-}
-
 let SUPABASE_URL = localStorage.getItem(STORAGE_KEY_SUPABASE_URL) || DEFAULT_SUPABASE_URL;
-let SUPABASE_ANON_KEY = _storedKey || DEFAULT_SUPABASE_KEY;
+let SUPABASE_ANON_KEY = localStorage.getItem(STORAGE_KEY_SUPABASE_KEY) || DEFAULT_SUPABASE_KEY;
 
 let supabaseClient = null;
 
