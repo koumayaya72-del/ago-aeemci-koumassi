@@ -202,7 +202,7 @@ function playScanBeep(success) {
 }
 
 function initAudioToggle() {
-  const toggleBtns = document.querySelectorAll('.nav-audio-btn, #audioToggle');
+  const toggleBtns = document.querySelectorAll('.nav-audio-btn, #audioToggle, .floating-audio-btn');
   toggleBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       toggleAudio(!isAudioPlaying);
@@ -212,7 +212,7 @@ function initAudioToggle() {
 
 function toggleAudio(enable) {
   isAudioPlaying = enable;
-  const toggleBtns = document.querySelectorAll('.nav-audio-btn, #audioToggle');
+  const toggleBtns = document.querySelectorAll('.nav-audio-btn, #audioToggle, .floating-audio-btn');
 
   toggleBtns.forEach(btn => {
     if (isAudioPlaying) {
