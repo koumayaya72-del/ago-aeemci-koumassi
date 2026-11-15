@@ -2569,3 +2569,504 @@ button, input, select, textarea {
     min-height: 44px !important;
   }
 }
+
+
+/* ==========================================================================
+   NOUVEAU DESIGN HÉRO SOLENNEL & PRESTIGE INSTITUTIONNEL
+   ========================================================================== */
+.royal-hero {
+  position: relative;
+  padding: 55px 0 65px;
+  text-align: center;
+  color: var(--color-ivory);
+  background: radial-gradient(circle at 50% 15%, rgba(16, 79, 54, 0.35) 0%, rgba(5, 29, 20, 0.98) 60%, #03140E 100%);
+  border-bottom: 2px solid rgba(212, 175, 55, 0.45);
+  box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+}
+
+.hero-institution-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin-bottom: 26px;
+  text-align: left;
+}
+
+.hero-logo-emblem {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  padding: 4px;
+  background: #FFFFFF;
+  border: 2.5px solid var(--color-gold);
+  box-shadow: 0 0 25px rgba(212, 175, 55, 0.45), 0 8px 25px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.hero-inst-labels {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-national-motto {
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  font-weight: 800;
+  color: var(--color-gold);
+  text-transform: uppercase;
+}
+
+.hero-org-title {
+  font-family: var(--font-title);
+  font-size: 26px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 2.5px;
+  line-height: 1.1;
+  margin: 3px 0;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.hero-org-desc {
+  font-size: 12.5px;
+  color: #D2E4DA;
+  font-weight: 500;
+}
+
+.hero-org-jurisdiction {
+  font-size: 12px;
+  color: var(--color-gold-bright);
+  margin-top: 3px;
+  font-weight: 600;
+}
+
+.hero-ceremonial-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  max-width: 520px;
+  margin: 0 auto 20px;
+}
+
+.divider-line {
+  height: 1.5px;
+  flex-grow: 1;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+.divider-crest {
+  color: var(--color-gold-bright);
+  font-size: 15px;
+  letter-spacing: 6px;
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+}
+
+.hero-status-pill {
+  display: inline-block;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  padding: 6px 22px;
+  border-radius: 25px;
+  color: var(--color-gold-bright);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.hero-main-title {
+  font-family: var(--font-title);
+  font-size: clamp(28px, 6vw, 48px);
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 2px;
+  line-height: 1.15;
+  margin-bottom: 22px;
+  text-shadow: 0 4px 25px rgba(0, 0, 0, 0.7);
+}
+
+.hero-title-edition {
+  display: block;
+  font-size: 0.62em;
+  letter-spacing: 2.8px;
+  color: var(--color-gold-bright);
+  margin-top: 6px;
+  font-weight: 800;
+  text-shadow: 0 2px 14px rgba(212, 175, 55, 0.45);
+}
+
+/* Sceau de Haute Présidence */
+.hero-presidency-seal {
+  max-width: 760px;
+  margin: 0 auto 32px;
+}
+
+.presidency-seal-inner {
+  background: linear-gradient(135deg, rgba(16, 79, 54, 0.75) 0%, rgba(5, 29, 20, 0.92) 100%);
+  border: 1.8px solid var(--color-gold);
+  border-radius: 50px;
+  padding: 12px 30px;
+  display: inline-flex;
+  align-items: center;
+  gap: 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(212, 175, 55, 0.25);
+}
+
+.presidency-icon {
+  font-size: 22px;
+  color: var(--color-gold-bright);
+  flex-shrink: 0;
+}
+
+.presidency-text {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.presidency-mention {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #D2E4DA;
+  font-weight: 700;
+}
+
+.presidency-name {
+  font-family: var(--font-title);
+  font-size: 20px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 1.2px;
+  line-height: 1.2;
+  margin: 3px 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.presidency-sub {
+  font-size: 11.5px;
+  color: var(--color-gold-bright);
+  font-weight: 600;
+}
+
+/* Thème Cérémonial Box */
+.theme-ceremonial-box {
+  background: linear-gradient(180deg, rgba(16, 79, 54, 0.38) 0%, rgba(4, 20, 13, 0.75) 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.5);
+  border-radius: 18px;
+  padding: 24px 32px;
+  max-width: 820px;
+  margin: 0 auto 34px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45), inset 0 0 25px rgba(212, 175, 55, 0.08);
+  position: relative;
+}
+
+.theme-header-bar {
+  margin-bottom: 14px;
+}
+
+.theme-badge-label {
+  font-size: 11px;
+  letter-spacing: 2.6px;
+  font-weight: 800;
+  color: var(--color-gold-bright);
+  text-transform: uppercase;
+  background: rgba(212, 175, 55, 0.16);
+  padding: 5px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.45);
+  display: inline-block;
+}
+
+.theme-quote {
+  font-family: var(--font-title);
+  font-size: clamp(16px, 2.8vw, 21px);
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.55;
+  color: #FFFFFF;
+  margin-bottom: 14px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.theme-card-footer {
+  font-size: 12px;
+  color: #B5D4C4;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+}
+
+/* Les 3 Piliers (Date, Heure, Lieu) */
+.hero-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  max-width: 860px;
+  margin: 0 auto 34px;
+}
+
+.hero-pillar-card {
+  background: rgba(5, 29, 20, 0.82);
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  border-radius: 16px;
+  padding: 22px 16px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.hero-pillar-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold);
+  box-shadow: 0 14px 35px rgba(212, 175, 55, 0.25);
+}
+
+.hero-pillar-card.highlight {
+  border-color: var(--color-gold);
+  background: linear-gradient(180deg, rgba(16, 79, 54, 0.65) 0%, rgba(5, 29, 20, 0.9) 100%);
+  box-shadow: 0 10px 35px rgba(212, 175, 55, 0.3);
+}
+
+.pillar-badge {
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  background: var(--color-gold);
+  color: #07261A;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 12px;
+}
+
+.pillar-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.pillar-label {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: var(--color-gold);
+  margin-bottom: 6px;
+}
+
+.pillar-value {
+  font-family: var(--font-title);
+  font-size: 17px;
+  font-weight: 800;
+  color: #FFFFFF;
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+
+.pillar-note {
+  font-size: 11.5px;
+  color: #B5D4C4;
+  font-weight: 500;
+}
+
+/* Compte à rebours de prestige */
+.countdown-prestige-card {
+  max-width: 620px;
+  margin: 0 auto 34px;
+  background: rgba(4, 20, 13, 0.88);
+  border: 1.5px solid rgba(212, 175, 55, 0.55);
+  border-radius: 18px;
+  padding: 22px 24px;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.55), 0 0 25px rgba(212, 175, 55, 0.18);
+}
+
+.countdown-header-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-title);
+  font-size: 11.5px;
+  letter-spacing: 2.8px;
+  color: var(--color-gold-bright);
+  font-weight: 800;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.pulse-gold-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  box-shadow: 0 0 10px var(--color-gold);
+  display: inline-block;
+}
+
+/* Boutons d'action du Héro */
+.hero-executive-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.btn-hero-prestige {
+  background: linear-gradient(135deg, #FDF7E7 0%, #D4AF37 50%, #9E7D1C 100%);
+  color: #07261A;
+  text-decoration: none;
+  font-family: var(--font-title);
+  font-size: 13.5px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  padding: 14px 28px;
+  border-radius: 35px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 6px 25px rgba(212, 175, 55, 0.45);
+  transition: var(--transition-smooth);
+}
+
+.btn-hero-prestige:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 32px rgba(212, 175, 55, 0.65);
+  background: #FFF2C6;
+}
+
+.btn-hero-outline-gold {
+  background: rgba(255, 255, 255, 0.05);
+  color: #E8F5EE;
+  border: 1.5px solid rgba(212, 175, 55, 0.6);
+  text-decoration: none;
+  font-family: var(--font-title);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 13px 22px;
+  border-radius: 35px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition-smooth);
+}
+
+.btn-hero-outline-gold:hover {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: var(--color-gold-bright);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+}
+
+/* Positionnement discret du bouton flottant Harmonie pour ne JAMAIS chevaucher le héro */
+.floating-audio-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+
+@media (max-width: 768px) {
+  .royal-hero {
+    padding: 38px 0 45px;
+  }
+  .hero-institution-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  .hero-logo-emblem {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto;
+  }
+  .hero-org-title {
+    font-size: 22px !important;
+  }
+  .hero-org-desc {
+    font-size: 11.5px !important;
+  }
+  .hero-main-title {
+    font-size: clamp(23px, 6.5vw, 32px) !important;
+  }
+  .hero-title-edition {
+    font-size: 0.65em !important;
+    letter-spacing: 1.5px !important;
+  }
+  .hero-presidency-seal {
+    margin-bottom: 24px;
+  }
+  .presidency-seal-inner {
+    border-radius: 20px;
+    padding: 10px 14px;
+    gap: 10px;
+    width: 100%;
+  }
+  .presidency-name {
+    font-size: 16px !important;
+  }
+  .theme-ceremonial-box {
+    padding: 18px 16px;
+    margin-bottom: 24px;
+  }
+  .theme-quote {
+    font-size: 15px !important;
+  }
+  .hero-pillars-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .hero-pillar-card {
+    padding: 16px 14px;
+  }
+  .countdown-prestige-card {
+    padding: 16px 14px;
+    margin-bottom: 24px;
+  }
+  .count-box {
+    min-width: 54px !important;
+    padding: 8px 8px !important;
+  }
+  .count-number {
+    font-size: 22px !important;
+  }
+  .hero-executive-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  .btn-hero-prestige,
+  .btn-hero-outline-gold {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 18px;
+    font-size: 12.5px;
+  }
+  .floating-audio-btn {
+    bottom: 14px;
+    right: 14px;
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+}
+
