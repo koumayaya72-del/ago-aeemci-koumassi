@@ -830,14 +830,14 @@ button, input, select, textarea {
 
 .anciens-presidents-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 24px;
 }
 
 .ancien-president-card {
   background: #FFFFFF;
   border-radius: 16px;
-  padding: 26px 22px;
+  padding: 26px 20px;
   border: 1px solid rgba(212, 175, 55, 0.35);
   box-shadow: var(--shadow-sm);
   text-align: center;
@@ -869,17 +869,18 @@ button, input, select, textarea {
 }
 
 .ancien-avatar-frame {
-  width: 90px;
-  height: 90px;
+  width: 115px;
+  height: 115px;
   border-radius: 50%;
-  margin: 12px auto 14px;
-  border: 3px solid var(--color-gold);
+  margin: 14px auto 16px;
+  border: 3.5px solid var(--color-gold);
   padding: 3px;
   background: #FFFFFF;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), 0 0 15px rgba(212, 175, 55, 0.25);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .ancien-avatar-frame img {
@@ -887,6 +888,7 @@ button, input, select, textarea {
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
+  display: block;
 }
 
 .ancien-avatar-placeholder {
