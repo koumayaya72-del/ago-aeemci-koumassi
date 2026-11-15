@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Portail Officiel A.G.O. — AEEMCI Sous-Comité de Koumassi | Président Sow Mohamed</title>
+  <title>Portail Officiel A.G.O. 2026 — AEEMCI Sous-Comité de Koumassi | Frère Sow Mohamed</title>
 
-  <meta name="description" content="Portail Officiel de convocation à l'Assemblée Générale Ordinaire (A.G.O.) du Sous-Comité AEEMCI de Koumassi. Galerie des anciens présidents, bureau exécutif actuel, chronogramme et confirmation statutaire.">
+  <meta name="description" content="Portail Officiel de convocation à l'Assemblée Générale Ordinaire (A.G.O.) du Sous-Comité AEEMCI de Koumassi. Samedi 28 Novembre 2026 à la Cantine du Lycée Municipal de Koumassi. Ordre du jour, bureau exécutif, quitus et pass d'accès QR Code.">
   <meta property="og:title" content="A.G.O. 2026 — AEEMCI Sous-Comité de Koumassi">
-  <meta property="og:description" content="Découvrez la lignée des anciens présidents, le bureau exécutif du Frère Sow Mohamed et confirmez votre participation statutaire.">
+  <meta property="og:description" content="Sous la Présidence effective du Frère SOW Mohamed. Découvrez le bureau exécutif, l'ordre du jour et confirmez votre participation statutaire.">
   <meta property="og:image" content="president-sow-mohamed.jpeg">
   <meta property="og:type" content="website">
   <meta name="theme-color" content="#051D14">
@@ -15,73 +15,46 @@
   <!-- Polices Officielles de Prestige -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cinzel+Decorative:wght@700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cinzel+Decorative:wght@700&family=Jost:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
   <!-- ============================================ -->
-  <!-- 1. EXPÉRIENCE 3D : L'ENVELOPPE SOLENNELLE    -->
+  <!-- 1. EN-TÊTE INSTITUTIONNEL SOBRE & PROFESSIONNEL -->
   <!-- ============================================ -->
-  <div class="intro-screen" id="introScreen">
-    <div class="ambient-glow"></div>
-    
-    <div class="envelope-scene">
-      <div class="envelope-outer" id="envelopeWrapper">
-        <div class="envelope-flap" id="envelopeFlap">
-          <div class="flap-border-gold"></div>
-        </div>
-
-        <div class="envelope-body">
-          <div class="arabesque-overlay"></div>
-          
-          <!-- Sceau Officiel de l'AEEMCI Koumassi -->
-          <div class="royal-seal" id="waxSeal" role="button" aria-label="Desceller la convocation officielle" tabindex="0">
-            <div class="seal-inner">
-              <div class="seal-ring"></div>
-              <div class="seal-symbol">
-                <svg viewBox="0 0 24 24" width="28" height="28" fill="#120F0D">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                </svg>
-              </div>
-              <span class="seal-initials">KOUMASSI</span>
-            </div>
-            <div class="seal-pulse"></div>
-          </div>
+  <header class="official-portal-topbar">
+    <div class="container topbar-inner">
+      <div class="topbar-brand">
+        <img src="logo-aeemci.jpeg" alt="Logo AEEMCI" class="topbar-logo">
+        <div class="topbar-text">
+          <span class="topbar-republique">RÉPUBLIQUE DE CÔTE D'IVOIRE • FOI — UNION — DISCIPLINE</span>
+          <h1 class="topbar-title">A.E.E.M.C.I. — SOUS-COMITÉ DE KOUMASSI</h1>
+          <p class="topbar-sub">Secrétariat Régional Abidjan-Sud (SERAS) • Mandature 2025–2026</p>
         </div>
       </div>
 
-      <div class="intro-prompt" id="introPrompt">
-        <span class="prompt-crest">✦ ✦ ✦</span>
-        <p class="prompt-text">Touchez le sceau officiel pour desceller la convocation</p>
-        <span class="prompt-subtext">Assemblée Générale Ordinaire • AEEMCI Sous-Comité de Koumassi</span>
-        <div style="margin-top: 18px;">
-          <button id="btnOpenDirect" class="btn-royal" style="padding: 11px 26px; font-size: 13px; margin: 0 auto; cursor: pointer; border-color: var(--color-gold-bright);">
-            <span>Ouvrir la Convocation Solennelle</span>
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </div>
+      <div class="topbar-actions">
+        <a href="#rsvp" class="btn-topbar-primary">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          <span>Confirmer ma Présence</span>
+        </a>
+        <a href="base_de_donnees.html" class="btn-topbar-outline">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+          <span>Console Émargement</span>
+        </a>
       </div>
     </div>
-  </div>
-
-  <!-- Bouton Flottant Discret Harmonie (Musique) en bas à droite -->
-  <button class="floating-audio-btn" id="audioToggle" title="Activer / Couper l'harmonie">
-    <div class="audio-bars">
-      <span></span><span></span><span></span>
-    </div>
-    <span>Harmonie</span>
-  </button>
+  </header>
 
   <!-- ============================================ -->
-  <!-- 3. MAIN PORTAL : INVITATION SOLENNELLE      -->
+  <!-- 2. MAIN CONTENT                             -->
   <!-- ============================================ -->
   <main class="invitation-main" id="invitationMain">
     
-    <!-- EN-TÊTE OFFICIEL & HÉRO -->
-    <header class="royal-hero" id="hero">
-      <div class="hero-backdrop-glow"></div>
+    <!-- BANNIÈRE HÉRO SOLENNELLE & CLAIRE -->
+    <section class="royal-hero" id="hero">
       <div class="container hero-content reveal">
         
         <div class="official-badges-bar">
@@ -98,7 +71,7 @@
         <div class="royal-crest-box">
           <div class="crest-lines-left"></div>
           <div class="crest-icon">
-            <svg viewBox="0 0 24 24" width="34" height="34" fill="#D4AF37">
+            <svg viewBox="0 0 24 24" width="32" height="32" fill="#D4AF37">
               <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
             </svg>
           </div>
@@ -109,12 +82,12 @@
 
         <h1 class="hero-main-title">
           ASSEMBLÉE GÉNÉRALE ORDINAIRE
-          <span>(A.G.O. SOUS-COMITÉ DE KOUMASSI)</span>
+          <span>(A.G.O. DU SOUS-COMITÉ DE KOUMASSI)</span>
         </h1>
 
         <!-- Badge Présidence Sow Mohamed -->
         <div class="presidence-badge">
-          <svg viewBox="0 0 24 24" width="20" height="20">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
           <span>Sous la Haute Présidence effective du Frère SOW Mohamed</span>
@@ -128,10 +101,11 @@
           </p>
         </div>
 
+        <!-- Date, Heure et Lieu en évidence -->
         <div class="royal-date-place">
           <span class="royal-day">SAMEDI 28 NOVEMBRE 2026</span>
           <span class="royal-time">À PARTIR DE 08H00 GMT PRÉCISES (ACCUEIL &amp; ÉMARGEMENT DÈS 07H30)</span>
-          <span class="royal-venue">Cantine du Lycée Municipal de Koumassi (LMK) — Abidjan</span>
+          <span class="royal-venue">📍 Cantine du Lycée Municipal de Koumassi (LMK) — Abidjan</span>
         </div>
 
         <!-- Compte à rebours dynamique -->
@@ -160,87 +134,23 @@
           </div>
         </div>
 
-      </div>
-    </header>
-
-    <!-- ======================================================== -->
-    <!-- 4. SECTION : LA GALERIE D'HONNEUR DES ANCIENS PRÉSIDENTS -->
-    <!-- ======================================================== -->
-    <section class="section section-alt" id="anciens-presidents">
-      <div class="container reveal">
-        <div class="section-header">
-          <div class="section-ornament">۞</div>
-          <span class="section-sub">MÉMOIRE &amp; HÉRITAGE HISTORIQUE</span>
-          <h2 class="section-title">Lignée des Anciens Présidents de Koumassi</h2>
-          <div class="gold-line"></div>
+        <!-- Liens d'accès rapide -->
+        <div class="hero-quick-links">
+          <a href="#president-actuel" class="hero-pill">👥 Mot du Président &amp; Bureau</a>
+          <a href="#ordre-du-jour" class="hero-pill">📜 Ordre du Jour Statutaire</a>
+          <a href="#anciens-presidents" class="hero-pill">🏛️ Les 3AK (Anciens)</a>
+          <a href="#quitus-soutien" class="hero-pill">💳 Quitus &amp; Cotisations</a>
+          <a href="#lieu" class="hero-pill">📍 Lieu &amp; Accès</a>
+          <a href="#rsvp" class="hero-pill hero-pill-gold">🎟️ Confirmer &amp; Pass QR Code</a>
         </div>
 
-        <p class="anciens-presidents-intro">
-          Le Sous-Comité AEEMCI de Koumassi s'est bâti grâce au dévouement, aux sacrifices et à la vision de générations de présidents et d'aînés exemplaires. Cette tribune rend un hommage solennel à ceux qui ont porté et transmis le flambeau du militantisme islamique à Koumassi (Amicale des Anciens Aeemcistes de Koumassi — <strong>3AK</strong>).
-        </p>
-
-        <div class="anciens-presidents-grid">
-          
-          <!-- Carte Ancien 1 : M. DEMBELE Brahima -->
-          <div class="ancien-president-card">
-            <span class="ancien-mandat-pill">Président d'Honneur • 3AK</span>
-            <div class="ancien-avatar-frame">
-              <div class="ancien-avatar-placeholder">DB</div>
-            </div>
-            <h3 class="ancien-nom">M. DEMBELE Brahima</h3>
-            <p class="ancien-titre">Président de l'Amicale des Anciens de Koumassi (3AK)</p>
-            <p class="ancien-impact">
-              Ancien Président emblématique du Sous-Comité. Guide spirituel et moral, artisan infatigable de la solidarité intergénérationnelle et protecteur bienveillant des jeunes militants de la commune.
-            </p>
-          </div>
-
-          <!-- Carte Ancien 2 : M. DAMA Younouss -->
-          <div class="ancien-president-card">
-            <span class="ancien-mandat-pill">Ancien Président • Tutelle Régionale</span>
-            <div class="ancien-avatar-frame">
-              <div class="ancien-avatar-placeholder">DY</div>
-            </div>
-            <h3 class="ancien-nom">M. DAMA Younouss</h3>
-            <p class="ancien-titre">Secrétaire Régional Abidjan-Sud (SERAS)</p>
-            <p class="ancien-impact">
-              Figure majeure de la rigueur administrative et formateur émérite. A piloté avec brio le sous-comité avant d'être appelé à la tête du Secrétariat Régional Abidjan-Sud.
-            </p>
-          </div>
-
-          <!-- Carte Ancien 3 : Pères Fondateurs & Pionniers -->
-          <div class="ancien-president-card">
-            <span class="ancien-mandat-pill">Pères Fondateurs • Années 80–90</span>
-            <div class="ancien-avatar-frame">
-              <div class="ancien-avatar-placeholder">PF</div>
-            </div>
-            <h3 class="ancien-nom">Les Présidents Pionniers</h3>
-            <p class="ancien-titre">Pionniers de l'Implantation à Koumassi</p>
-            <p class="ancien-impact">
-              Initiateurs des premières cellules scolaires au Lycée Municipal, au Collège Moderne et dans les cités de Koumassi, posant les fondations de ce qui est devenu aujourd'hui un sous-comité de 21 sections.
-            </p>
-          </div>
-
-          <!-- Carte Ancien 4 : Présidents des Mandats Précédents -->
-          <div class="ancien-president-card">
-            <span class="ancien-mandat-pill">Mandats Réalisations (2018–2024)</span>
-            <div class="ancien-avatar-frame">
-              <div class="ancien-avatar-placeholder">3AK</div>
-            </div>
-            <h3 class="ancien-nom">Prédécesseurs Immédiats</h3>
-            <p class="ancien-titre">Bâtisseurs de la SEFIK &amp; de la JCE</p>
-            <p class="ancien-impact">
-              Créateurs de la Semaine de Formation Islamique de Koumassi (SEFIK) et des grandes compétitions culturelles, qui ont transmis les rênes au Président Sow Mohamed dans un esprit d'excellence et de fraternité.
-            </p>
-          </div>
-
-        </div>
       </div>
     </section>
 
     <!-- ======================================================== -->
-    <!-- 5. SECTION : LE PRÉSIDENT ACTUEL & TOUT LE BUREAU EXÉCUTIF-->
+    <!-- 3. SECTION : LE PRÉSIDENT ACTUEL & TOUT LE BUREAU EXÉCUTIF-->
     <!-- ======================================================== -->
-    <section class="section section-alt" id="president-actuel" style="padding-top: 20px;">
+    <section class="section section-alt" id="president-actuel">
       <div class="container reveal">
         
         <div class="section-header">
@@ -253,7 +163,7 @@
           </p>
         </div>
 
-        <!-- Carte en Majesté : Frère SOW Mohamed -->
+        <!-- Carte d'Honneur : Frère SOW Mohamed -->
         <div class="president-card">
           <div class="president-photo-wrap">
             <div class="president-photo-frame">
@@ -266,9 +176,9 @@
             <div class="president-quote-symbol">“</div>
             <p class="president-quote-text">
               Chers frères et sœurs militants, membres des bureaux de nos 21 sections, respectables aînés des 3AK et partenaires dévoués : 
-              cette Assemblée Générale Ordinaire est le couronnement de notre engagement commun. 
-              Au cours de cette mandature, avec le soutien indéfectible de chaque membre de ce bureau, nous avons relevé le défi de la remobilisation, de la SEFIK et du rayonnement de l'islam à Koumassi. 
-              Ensemble, avec rigueur et foi, dressons le bilan de notre action commune et posons les jalons d'un futur encore plus éclatant !
+              cette Assemblée Générale Ordinaire est le moment statutaire privilégié de notre engagement commun. 
+              Au cours de cette mandature, avec le soutien indéfectible de chaque membre de ce bureau, nous avons relevé le défi de la remobilisation, de la SEFIK et du rayonnement islamique et académique à Koumassi. 
+              Ensemble, avec rigueur, humilité et foi, dressons le bilan de notre action et posons les jalons d'un avenir encore plus rayonnant pour notre jeunesse !
             </p>
             <div class="president-signature-block">
               <p class="president-name">Frère SOW Mohamed (Sawadogo)</p>
@@ -325,7 +235,7 @@
             <a href="tel:+2250748678145" class="member-contact-link">📞 07 48 67 81 45</a>
           </div>
 
-          <!-- 4. KONATE Mariam / OUEDRAOGO Ami (Vice-Présidente / CFAEEMCI) -->
+          <!-- 4. KONATE Mariam (Vice-Présidente / CFAEEMCI) -->
           <div class="member-card" data-category="presidence">
             <div class="member-avatar-wrap">
               <img src="images/membres/konate-mariam.jpg" alt="KONATE Mariam">
@@ -339,45 +249,47 @@
           <!-- 5. TALL Seydou (Secrétaire Général) -->
           <div class="member-card" data-category="secretariat">
             <div class="member-avatar-wrap">
-              <img src="images/membres/diabate-fode.jpg" alt="TALL Seydou" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <img src="images/membres/sawadodo-muslim.jpg" alt="TALL Seydou" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
               <div class="member-initials">TS</div>
             </div>
             <span class="member-dept-tag">Secrétariat Général</span>
             <h4 class="member-name">TALL Seydou</h4>
             <p class="member-role">Secrétaire Général</p>
-            <a href="tel:+2250103402071" class="member-contact-link">📞 01 03 40 20 71</a>
+            <a href="tel:+2250584896531" class="member-contact-link">📞 05 84 89 65 31</a>
           </div>
 
-          <!-- 6. DIABATE Fodé (SG Adjoint) -->
+          <!-- 6. COULIBALY Aboubakar (SGA) -->
           <div class="member-card" data-category="secretariat">
             <div class="member-avatar-wrap">
-              <img src="images/membres/diabate-fode.jpg" alt="DIABATE Fodé">
+              <img src="images/membres/sow-mohamed.jpg" alt="COULIBALY Aboubakar" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">CA</div>
             </div>
             <span class="member-dept-tag">Secrétariat Général</span>
-            <h4 class="member-name">DIABATE Fodé</h4>
+            <h4 class="member-name">COULIBALY Aboubakar</h4>
             <p class="member-role">Secrétaire Général Adjoint</p>
-            <a href="tel:+2250757477372" class="member-contact-link">📞 07 57 47 73 72</a>
+            <a href="tel:+2250759134227" class="member-contact-link">📞 07 59 13 42 27</a>
           </div>
 
-          <!-- 7. KOUMA Yaya (SG Adjoint / Formateur) -->
+          <!-- 7. SAWADOGO Muslim (SGA) -->
           <div class="member-card" data-category="secretariat">
             <div class="member-avatar-wrap">
-              <img src="images/membres/kouma-yaya.jpg" alt="KOUMA Yaya">
+              <img src="images/membres/sawadodo-muslim.jpg" alt="SAWADOGO Muslim">
             </div>
             <span class="member-dept-tag">Secrétariat Général</span>
-            <h4 class="member-name">KOUMA Yaya</h4>
-            <p class="member-role">SG Adjoint (Formateur)</p>
-            <a href="tel:+2250757477372" class="member-contact-link">📞 Formateur Secrétariat</a>
+            <h4 class="member-name">SAWADOGO Muslim</h4>
+            <p class="member-role">Secrétaire Général Adjoint</p>
+            <a href="tel:+2250779404672" class="member-contact-link">📞 07 79 40 46 72</a>
           </div>
 
-          <!-- 8. DABRE Nassira (SG Adjointe) -->
+          <!-- 8. TRAORE Ibrahim (SGA) -->
           <div class="member-card" data-category="secretariat">
             <div class="member-avatar-wrap">
-              <img src="images/membres/dabre-nassira.jpg" alt="DABRE Nassira">
+              <img src="images/membres/sow-mohamed.jpg" alt="TRAORE Ibrahim" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">TI</div>
             </div>
             <span class="member-dept-tag">Secrétariat Général</span>
-            <h4 class="member-name">DABRE Nassira</h4>
-            <p class="member-role">Secrétaire Générale Adjointe</p>
+            <h4 class="member-name">TRAORE Ibrahim</h4>
+            <p class="member-role">Secrétaire Général Adjoint</p>
             <a href="tel:+2250150245822" class="member-contact-link">📞 01 50 24 58 22</a>
           </div>
 
@@ -414,7 +326,7 @@
             <a href="tel:+2250172426757" class="member-contact-link">📞 01 72 42 67 57</a>
           </div>
 
-          <!-- 12. SOGNE Foussena / Ousseina (Trésorière Générale) -->
+          <!-- 12. SOGNE Foussena (Trésorière Générale) -->
           <div class="member-card" data-category="tresorerie">
             <div class="member-avatar-wrap">
               <img src="images/membres/sogne-foussena.jpg" alt="SOGNE Foussena">
@@ -436,7 +348,7 @@
             <a href="tel:+2250767682753" class="member-contact-link">📞 Contact Trésorerie</a>
           </div>
 
-          <!-- 14. TRAORE Aïcha (Trésorerie / Membre) -->
+          <!-- 14. TRAORE Aïcha (Trésorière Adjointe) -->
           <div class="member-card" data-category="tresorerie">
             <div class="member-avatar-wrap">
               <img src="images/membres/traore-aicha.jpg" alt="TRAORE Aïcha">
@@ -470,7 +382,7 @@
             <a href="tel:+2250788212922" class="member-contact-link">📞 07 88 21 29 22</a>
           </div>
 
-          <!-- 17. ZEBA Samira (Délégation Culturelle Adjointe) -->
+          <!-- 17. ZEBA Samira (Déléguée Culturelle Adjointe) -->
           <div class="member-card" data-category="culturel">
             <div class="member-avatar-wrap">
               <img src="images/membres/zeba-samira.jpg" alt="ZEBA Samira">
@@ -510,7 +422,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- 6. SECTION : ORDRE DU JOUR & CHRONOGRAMME    -->
+    <!-- 4. SECTION : ORDRE DU JOUR & CHRONOGRAMME    -->
     <!-- ============================================ -->
     <section class="section section-dark" id="ordre-du-jour">
       <div class="container">
@@ -522,7 +434,7 @@
         </div>
 
         <div class="statutory-banner reveal">
-          Conformément aux <strong>Articles 38 (Alinéas 1 à 7) et Article 39</strong> des Statuts de l'AEEMCI régissant le plein droit de siéger des Assemblées Générales Ordinaires.
+          Conformément aux <strong>Articles 38 (Alinéas 1 à 7) et Article 39</strong> des Statuts et Règlement Intérieur de l'AEEMCI régissant le plein droit de siéger des Assemblées Générales Ordinaires.
         </div>
 
         <div class="timeline-royal reveal">
@@ -635,8 +547,82 @@
       </div>
     </section>
 
+    <!-- ======================================================== -->
+    <!-- 5. SECTION : LA GALERIE D'HONNEUR DES ANCIENS PRÉSIDENTS -->
+    <!-- ======================================================== -->
+    <section class="section section-alt" id="anciens-presidents">
+      <div class="container reveal">
+        <div class="section-header">
+          <div class="section-ornament">❖</div>
+          <span class="section-sub">MÉMOIRE &amp; HÉRITAGE HISTORIQUE</span>
+          <h2 class="section-title">Lignée des Anciens Présidents de Koumassi</h2>
+          <div class="gold-line"></div>
+        </div>
+
+        <p class="anciens-presidents-intro">
+          Le Sous-Comité AEEMCI de Koumassi s'est bâti grâce au dévouement, aux sacrifices et à la vision de générations de présidents et d'aînés exemplaires. Cette tribune rend un hommage solennel à ceux qui ont porté et transmis le flambeau du militantisme islamique à Koumassi (Amicale des Anciens Aeemcistes de Koumassi — <strong>3AK</strong>).
+        </p>
+
+        <div class="anciens-presidents-grid">
+          
+          <!-- Carte Ancien 1 : M. DEMBELE Brahima -->
+          <div class="ancien-president-card">
+            <span class="ancien-mandat-pill">Président d'Honneur • 3AK</span>
+            <div class="ancien-avatar-frame">
+              <div class="ancien-avatar-placeholder">DB</div>
+            </div>
+            <h3 class="ancien-nom">M. DEMBELE Brahima</h3>
+            <p class="ancien-titre">Président de l'Amicale des Anciens de Koumassi (3AK)</p>
+            <p class="ancien-impact">
+              Ancien Président emblématique du Sous-Comité. Guide spirituel et moral, artisan infatigable de la solidarité intergénérationnelle et protecteur bienveillant des jeunes militants de la commune.
+            </p>
+          </div>
+
+          <!-- Carte Ancien 2 : M. DAMA Younouss -->
+          <div class="ancien-president-card">
+            <span class="ancien-mandat-pill">Ancien Président • Tutelle Régionale</span>
+            <div class="ancien-avatar-frame">
+              <div class="ancien-avatar-placeholder">DY</div>
+            </div>
+            <h3 class="ancien-nom">M. DAMA Younouss</h3>
+            <p class="ancien-titre">Secrétaire Régional Abidjan-Sud (SERAS)</p>
+            <p class="ancien-impact">
+              Figure majeure de la rigueur administrative et formateur émérite. A piloté avec brio le sous-comité avant d'être appelé à la tête du Secrétariat Régional Abidjan-Sud.
+            </p>
+          </div>
+
+          <!-- Carte Ancien 3 : Pères Fondateurs & Pionniers -->
+          <div class="ancien-president-card">
+            <span class="ancien-mandat-pill">Pères Fondateurs • Années 80–90</span>
+            <div class="ancien-avatar-frame">
+              <div class="ancien-avatar-placeholder">PF</div>
+            </div>
+            <h3 class="ancien-nom">Les Présidents Pionniers</h3>
+            <p class="ancien-titre">Pionniers de l'Implantation à Koumassi</p>
+            <p class="ancien-impact">
+              Initiateurs des premières cellules scolaires au Lycée Municipal, au Collège Moderne et dans les cités de Koumassi, posant les fondations de ce qui est devenu aujourd'hui un sous-comité de 21 sections.
+            </p>
+          </div>
+
+          <!-- Carte Ancien 4 : Présidents des Mandats Précédents -->
+          <div class="ancien-president-card">
+            <span class="ancien-mandat-pill">Mandats Réalisations (2018–2024)</span>
+            <div class="ancien-avatar-frame">
+              <div class="ancien-avatar-placeholder">3AK</div>
+            </div>
+            <h3 class="ancien-nom">Prédécesseurs Immédiats</h3>
+            <p class="ancien-titre">Bâtisseurs de la SEFIK &amp; de la JCE</p>
+            <p class="ancien-impact">
+              Créateurs de la Semaine de Formation Islamique de Koumassi (SEFIK) et des grandes compétitions culturelles, qui ont transmis les rênes au Président Sow Mohamed dans un esprit d'excellence et de fraternité.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- ============================================ -->
-    <!-- 7. SECTION : QUITUS & SOUTIEN FINANCIER      -->
+    <!-- 6. SECTION : QUITUS & SOUTIEN FINANCIER      -->
     <!-- ============================================ -->
     <section class="section section-alt" id="quitus-soutien">
       <div class="container">
@@ -698,7 +684,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- 8. SECTION : DOCUMENTS OFFICIELS & KIT       -->
+    <!-- 7. SECTION : DOCUMENTS OFFICIELS & KIT       -->
     <!-- ============================================ -->
     <section class="section section-dark" id="documents">
       <div class="container">
@@ -762,7 +748,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- 9. SECTION : LIEU & ACCÈS GPS                -->
+    <!-- 8. SECTION : LIEU & ACCÈS GPS                -->
     <!-- ============================================ -->
     <section class="section section-alt" id="lieu">
       <div class="container reveal">
@@ -794,7 +780,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- 10. SECTION : RSVP STATUTAIRE SUR WHATSAPP   -->
+    <!-- 9. SECTION : RSVP & PASS QR CODE             -->
     <!-- ============================================ -->
     <section class="section section-alt" id="rsvp" style="padding-top: 10px;">
       <div class="container reveal">
@@ -804,7 +790,7 @@
           <h2 class="section-title">RSVP des Délégués &amp; Invités</h2>
           <div class="gold-line"></div>
           <p class="rsvp-note">
-            Afin d'assurer le quorum, les dossiers de travail et la restauration fraternelle, chaque délégué ou invité est prié de confirmer avant le <strong>Jeudi 26 Novembre 2026</strong>.
+            Afin d'assurer le quorum statutaire, les kits de travail et la restauration fraternelle, chaque délégué ou invité est prié de confirmer avant le <strong>Jeudi 26 Novembre 2026</strong>.
           </p>
 
           <form class="rsvp-form" id="rsvpForm">
@@ -832,7 +818,7 @@
 
               <div class="form-group">
                 <label for="rsvpSection">Section ou Institution représentée *</label>
-                <input type="text" id="rsvpSection" placeholder="Ex: Section EMSP, Lycée Municipal, Collège Saint-Thérèse..." required>
+                <input type="text" id="rsvpSection" placeholder="Ex: Section Lycée Municipal (LMK), Section EMSP..." required>
               </div>
             </div>
 
@@ -866,11 +852,11 @@
           </form>
 
           <!-- Accès Commission Accueil Base de données -->
-          <div style="margin-top: 28px; text-align: center; padding: 18px; background: rgba(5,29,20,0.03); border: 1.5px dashed var(--color-gold); border-radius: 14px;">
+          <div style="margin-top: 26px; text-align: center; padding: 16px; background: rgba(5,29,20,0.03); border: 1.5px dashed var(--color-gold); border-radius: 12px;">
             <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: 700; color: var(--color-emerald-deep);">
               🏛️ Espace réservé à la Commission Accueil &amp; Secrétariat de l'A.G.O. :
             </p>
-            <a href="base_de_donnees.html" class="btn-royal" style="padding: 10px 24px; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+            <a href="base_de_donnees.html" class="btn-royal" style="padding: 10px 22px; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
               <span>Consulter la Base de Données &amp; Ouvrir le Scanneur</span>
               <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
             </a>
@@ -881,7 +867,7 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- 11. FOOTER SOLENNEL                          -->
+    <!-- 10. FOOTER SOLENNEL                          -->
     <!-- ============================================ -->
     <footer class="royal-footer">
       <div class="container">
@@ -905,7 +891,7 @@
 
           <a href="base_de_donnees.html" class="btn-share" style="text-decoration: none; border-color: var(--color-gold); color: var(--color-gold-bright);">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-            <span>Console Base de Données &amp; Scanneur</span>
+            <span>Console Base de Données</span>
           </a>
         </div>
 
@@ -914,7 +900,7 @@
     </footer>
 
     <!-- ============================================ -->
-    <!-- 12. MODAL : PASS OFFICIEL D'ÉMARGEMENT & QR  -->
+    <!-- 11. MODAL : PASS OFFICIEL D'ÉMARGEMENT & QR  -->
     <!-- ============================================ -->
     <div class="pass-modal-backdrop" id="passModalBackdrop">
       <div class="pass-modal-card">
@@ -990,107 +976,11 @@
       </div>
     </div>
 
-    <!-- ============================================ -->
-    <!-- 13. MODAL : ESPACE COMMISSION ACCUEIL SCANNER-->
-    <!-- ============================================ -->
-    <div class="scanner-modal-backdrop" id="scannerModalBackdrop">
-      <div class="scanner-modal-card">
-        <div class="scanner-modal-header">
-          <div>
-            <h3 class="scanner-title">Espace Commission Accueil &amp; Émargement</h3>
-            <p class="scanner-subtitle">Scanner de présence QR Code en direct • A.G.O. Koumassi 2026</p>
-          </div>
-          <button type="button" class="pass-modal-close" id="btnCloseScannerModal" style="position: static; color: #FFFFFF; background: rgba(255,255,255,0.15);">✕</button>
-        </div>
-
-        <div class="scanner-modal-body">
-          
-          <!-- Statistiques Quorum en direct -->
-          <div class="quorum-stats-grid">
-            <div class="quorum-stat-box">
-              <div class="quorum-stat-number" id="statTotalInscrits">0</div>
-              <div class="quorum-stat-label">Inscrits Totaux</div>
-            </div>
-            <div class="quorum-stat-box" style="background: #E8F8EE; border-color: #2ECC71;">
-              <div class="quorum-stat-number" id="statTotalEmarges" style="color: #0E733D;">0</div>
-              <div class="quorum-stat-label">Présents Émargés</div>
-            </div>
-            <div class="quorum-stat-box">
-              <div class="quorum-stat-number" id="statSectionsCount">0 / 21</div>
-              <div class="quorum-stat-label">Sections Présentes</div>
-            </div>
-            <div class="quorum-stat-box" id="statQuorumBox" style="background: #FFF7E6; border-color: #F39C12;">
-              <div class="quorum-stat-number" id="statQuorumStatus" style="font-size: 14px; color: #8C5305;">EN COURS</div>
-              <div class="quorum-stat-label">Quorum (2/3 requis)</div>
-            </div>
-          </div>
-
-          <!-- Caméra QR Code Scanner -->
-          <div class="scanner-viewport-box">
-            <div id="qrCameraReader"></div>
-          </div>
-
-          <div style="text-align: center; margin-bottom: 16px;">
-            <button type="button" class="btn-royal" id="btnToggleCamera" style="padding: 8px 18px; font-size: 12px; margin: 0 auto;">
-              <span>Activer / Arrêter la Caméra</span>
-            </button>
-          </div>
-
-          <!-- Résultat du Scan Instantané -->
-          <div class="scan-result-card" id="scanResultCard">
-            <div class="scan-result-title" id="scanResultTitle">
-              <span>✅ ÉMARGEMENT VALIDÉ AVEC SUCCÈS</span>
-            </div>
-            <div class="scan-result-desc" id="scanResultDesc">
-              Délégué identifié et présence enregistrée dans la base de données.
-            </div>
-          </div>
-
-          <!-- Validation Manuelle Express -->
-          <div style="margin-bottom: 8px; font-size: 12px; font-weight: 700; color: var(--color-emerald-deep);">
-            Recherche ou Émargement Manuel :
-          </div>
-          <div class="manual-checkin-bar">
-            <input type="text" id="manualCheckinInput" placeholder="Saisir un Matricule (ex: AGO-KMSSI-26-A101) ou un Nom">
-            <button type="button" class="btn-manual-valider" id="btnManualValider">Valider Présence</button>
-          </div>
-
-          <!-- Registre d'Émargement en Direct -->
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <span style="font-size: 12px; font-weight: 700; color: var(--color-emerald-deep);">Registre d'Émargement des Travaux :</span>
-            <button type="button" id="btnExportCSV" class="btn-copy" style="background: var(--color-emerald); padding: 4px 12px; font-size: 11px;">
-              📊 Exporter en Excel (CSV)
-            </button>
-          </div>
-
-          <div class="registre-table-wrapper">
-            <table class="registre-table">
-              <thead>
-                <tr>
-                  <th>Matricule</th>
-                  <th>Délégué</th>
-                  <th>Section</th>
-                  <th>Qualité</th>
-                  <th>Statut</th>
-                  <th>Heure Émargement</th>
-                </tr>
-              </thead>
-              <tbody id="registreTableBody">
-                <!-- Rempli dynamiquement en JS -->
-              </tbody>
-            </table>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
   </main>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="qrcode.min.js"></script>
-  <script src="html5-qrcode.min.js"></script>
   <script src="base_donnees_ago.js"></script>
   <script src="script.js"></script>
 </body>
