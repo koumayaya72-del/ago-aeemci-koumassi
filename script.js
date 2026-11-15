@@ -408,17 +408,18 @@ function initRsvpForm() {
       passStatusPill.textContent = delegue.emarge ? "Présence Validée" : "En attente d'émargement";
     }
 
-    // 3. Rendu dynamique du QR Code
+    // 3. Rendu dynamique du QR Code (Payload autonome pour émargement instantané)
     const qrCanvas = document.getElementById('passQrCodeCanvas');
     if (qrCanvas && typeof QRCode !== 'undefined') {
       qrCanvas.innerHTML = '';
+      const qrPayload = `${delegue.matricule}|${delegue.nom}|${delegue.section || 'Sous-Comité Koumassi'}|${delegue.role}`;
       new QRCode(qrCanvas, {
-        text: delegue.matricule,
+        text: qrPayload,
         width: 140,
         height: 140,
         colorDark: '#051D14',
         colorLight: '#FFFFFF',
-        correctLevel: QRCode.CorrectLevel.H
+        correctLevel: QRCode.CorrectLevel.M
       });
     }
 

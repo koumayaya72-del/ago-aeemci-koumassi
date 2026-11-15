@@ -92,9 +92,39 @@ function initDbConsole() {
     });
   }
 
-  // Modals : Pass & Nouveau Délégué
+  // Modals : Pass & Nouveau Délégué & Supabase
   initModalListeners();
   initNewDelegateForm();
+  initSupabaseModal();
+  syncCloudInitial();
+}
+
+async function syncCloudInitial() {
+  if (typeof isSupabaseActif === 'function' && isSupabaseActif()) {
+    showDbToast("⚡ Connexion Cloud Supabase...");
+    if (typeof synchroniserDepuisSupabase === 'function') {
+      await synchroniserDepuisSupabase();
+      refreshAllDbViews();
+      showDbToast("🟢 Synchronisé avec le Cloud Supabase !");
+    }
+
+    // Écoute en temps réel (Realtime)
+    if (typeof supabaseClient !== 'undefined' && supabaseClient) {
+      try {
+        supabaseClient.channel('ago_inscriptions_realtime')
+          .on('postgres_changes', { event: '*', schema: 'public', table: 'ago_inscriptions' }, async () => {
+            if (typeof synchroniserDepuisSupabase === 'function') {
+              await synchroniserDepuisSupabase();
+              refreshAllDbViews();
+              showDbToast("🔄 Base mise à jour en direct (Cloud)");
+            }
+          })
+          .subscribe();
+      } catch (e) {
+        console.warn("Erreur souscription realtime:", e);
+      }
+    }
+  }
 }
 
 /* ==========================================================================
@@ -664,6 +694,101 @@ function initNewDelegateForm() {
     refreshAllDbViews();
     showDbToast(`Délégué ${nouveau.nom} inscrit avec succès (${nouveau.matricule}) !`);
   });
+}
+
+/* ==========================================================================
+   9. MODAL & GESTION CLOUD SUPABASE
+   ========================================================================== */
+function initSupabaseModal() {
+  const modal = document.getElementById('dbSupabaseModalBackdrop');
+  const btnOpen = document.getElementById('btnDbOpenSupabaseModal');
+  const btnClose = document.getElementById('btnCloseSupabaseModal');
+  const btnSave = document.getElementById('btnSaveSupabaseConfig');
+  const btnDisconnect = document.getElementById('btnDisconnectSupabase');
+  const badge = document.getElementById('supabaseStatusBadge');
+  const inputUrl = document.getElementById('supabaseInputUrl');
+  const inputKey = document.getElementById('supabaseInputKey');
+
+  function updateBadgeStatus() {
+    if (!badge) return;
+    const isActif = typeof isSupabaseActif === 'function' && isSupabaseActif();
+    if (isActif) {
+      badge.style.background = '#E8F8EE';
+      badge.style.color = '#0E733D';
+      badge.style.borderColor = '#2ECC71';
+      badge.innerHTML = `🟢 <strong>Cloud Supabase Connecté &amp; Actif</strong><br><span style="font-size:11px; font-weight:normal;">Les données sont synchronisées en direct avec le serveur PostgreSQL.</span>`;
+      if (btnOpen) {
+        btnOpen.style.borderColor = '#2ECC71';
+        btnOpen.style.color = '#2ECC71';
+        btnOpen.textContent = '🟢 Cloud Supabase';
+      }
+    } else {
+      badge.style.background = '#FFF7E6';
+      badge.style.color = '#8C5305';
+      badge.style.borderColor = '#F39C12';
+      badge.innerHTML = `⚪ <strong>Mode Local (Hors Ligne)</strong><br><span style="font-size:11px; font-weight:normal;">Saisissez vos identifiants pour synchroniser tous les appareils en direct.</span>`;
+      if (btnOpen) {
+        btnOpen.style.borderColor = 'rgba(255,255,255,0.3)';
+        btnOpen.style.color = '#FFFFFF';
+        btnOpen.textContent = '⚡ Cloud Supabase';
+      }
+    }
+  }
+
+  updateBadgeStatus();
+
+  if (btnOpen && modal) {
+    btnOpen.addEventListener('click', () => {
+      if (inputUrl) inputUrl.value = localStorage.getItem('ago_supabase_url') || '';
+      if (inputKey) inputKey.value = localStorage.getItem('ago_supabase_key') || '';
+      updateBadgeStatus();
+      modal.classList.add('active');
+    });
+  }
+
+  if (btnClose && modal) {
+    btnClose.addEventListener('click', () => modal.classList.remove('active'));
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+  }
+
+  if (btnSave && modal) {
+    btnSave.addEventListener('click', async () => {
+      const url = inputUrl ? inputUrl.value.trim() : '';
+      const key = inputKey ? inputKey.value.trim() : '';
+
+      if (!url || !key) {
+        alert("Veuillez renseigner à la fois l'URL du projet et la clé Anon Supabase.");
+        return;
+      }
+
+      if (typeof configurerSupabase === 'function') {
+        const ok = configurerSupabase(url, key);
+        if (ok) {
+          updateBadgeStatus();
+          showDbToast("Connexion à Supabase réussie !");
+          modal.classList.remove('active');
+          await syncCloudInitial();
+        } else {
+          alert("Impossible d'initialiser Supabase avec ces identifiants. Vérifiez l'URL.");
+        }
+      }
+    });
+  }
+
+  if (btnDisconnect && modal) {
+    btnDisconnect.addEventListener('click', () => {
+      if (confirm("Déconnecter Supabase et repasser en mode local ?")) {
+        if (typeof configurerSupabase === 'function') {
+          configurerSupabase('', '');
+          updateBadgeStatus();
+          modal.classList.remove('active');
+          showDbToast("Déconnecté de Supabase (Mode local actif).");
+        }
+      }
+    });
+  }
 }
 
 /* Toast de notification */

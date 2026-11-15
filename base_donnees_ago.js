@@ -1,14 +1,21 @@
 /**
  * ==========================================================================
- * BASE DE DONNÉES & SYSTÈME D'ÉMARGEMENT QR CODE — A.G.O. AEEMCI KOUMASSI
- * Gestion du registre des inscriptions, génération des matricules officiels,
- * validation des présences par scan QR Code, statistiques du Quorum et export CSV.
+ * BASE DE DONNÉES & CONNECTEUR CLOUD SUPABASE — A.G.O. AEEMCI KOUMASSI 2026
+ * Système hybride : Fonctionne en Cloud Supabase (Temps Réel) & Secours Local
  * ==========================================================================
  */
 
 const STORAGE_KEY_AGO = 'aeemci_koumassi_ago_registre_2026';
+const STORAGE_KEY_SUPABASE_URL = 'ago_supabase_url';
+const STORAGE_KEY_SUPABASE_KEY = 'ago_supabase_key';
 
-// Données initiales d'exemple si le registre est vide (pour tester immédiatement le scanner)
+// Configuration Supabase (modifiables via la console ou par défaut)
+let SUPABASE_URL = localStorage.getItem(STORAGE_KEY_SUPABASE_URL) || '';
+let SUPABASE_ANON_KEY = localStorage.getItem(STORAGE_KEY_SUPABASE_KEY) || '';
+
+let supabaseClient = null;
+
+// Données initiales d'exemple si le registre est vide
 const SEED_DELEGUES = [
   {
     matricule: 'AGO-KMSSI-26-A101',
@@ -97,7 +104,51 @@ const SEED_DELEGUES = [
 ];
 
 /**
- * Initialise le registre local
+ * Initialisation du Client Supabase Cloud
+ */
+function initSupabaseClient() {
+  SUPABASE_URL = localStorage.getItem(STORAGE_KEY_SUPABASE_URL) || SUPABASE_URL;
+  SUPABASE_ANON_KEY = localStorage.getItem(STORAGE_KEY_SUPABASE_KEY) || SUPABASE_ANON_KEY;
+
+  if (typeof supabase !== 'undefined' && SUPABASE_URL && SUPABASE_ANON_KEY) {
+    try {
+      supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      console.log("Connecteur Cloud Supabase actif.");
+      return supabaseClient;
+    } catch (e) {
+      console.warn("Échec connexion Supabase:", e);
+    }
+  }
+  return null;
+}
+
+// Initialisation au chargement
+initSupabaseClient();
+
+/**
+ * Vérifie si le Cloud Supabase est configuré et prêt
+ */
+function isSupabaseActif() {
+  return supabaseClient !== null;
+}
+
+/**
+ * Configure ou met à jour les identifiants Supabase
+ */
+function configurerSupabase(url, key) {
+  if (!url || !key) {
+    localStorage.removeItem(STORAGE_KEY_SUPABASE_URL);
+    localStorage.removeItem(STORAGE_KEY_SUPABASE_KEY);
+    supabaseClient = null;
+    return false;
+  }
+  localStorage.setItem(STORAGE_KEY_SUPABASE_URL, url.trim());
+  localStorage.setItem(STORAGE_KEY_SUPABASE_KEY, key.trim());
+  return initSupabaseClient() !== null;
+}
+
+/**
+ * Récupère le registre local mis en cache
  */
 function getRegistreAGO() {
   const data = localStorage.getItem(STORAGE_KEY_AGO);
@@ -106,14 +157,15 @@ function getRegistreAGO() {
     return SEED_DELEGUES;
   }
   try {
-    return JSON.parse(data);
+    const parsed = JSON.parse(data);
+    return Array.isArray(parsed) && parsed.length ? parsed : SEED_DELEGUES;
   } catch (e) {
-    return [];
+    return SEED_DELEGUES;
   }
 }
 
 /**
- * Enregistre le registre local
+ * Sauvegarde le registre en local
  */
 function saveRegistreAGO(registre) {
   localStorage.setItem(STORAGE_KEY_AGO, JSON.stringify(registre));
@@ -133,9 +185,31 @@ function genererMatriculeAGO() {
 }
 
 /**
- * Ajoute une nouvelle inscription dans la base de données
+ * Synchronise les données depuis Supabase vers le cache local
  */
-function ajouterInscriptionAGO(data) {
+async function synchroniserDepuisSupabase() {
+  if (!supabaseClient) return getRegistreAGO();
+
+  try {
+    const { data, error } = await supabaseClient
+      .from('ago_inscriptions')
+      .select('*')
+      .order('id', { ascending: false });
+
+    if (!error && data && data.length) {
+      saveRegistreAGO(data);
+      return data;
+    }
+  } catch (e) {
+    console.warn("Synchronisation Supabase hors ligne, utilisation du cache local.");
+  }
+  return getRegistreAGO();
+}
+
+/**
+ * Ajoute une nouvelle inscription (Local + Cloud Supabase)
+ */
+async function ajouterInscriptionAGO(data) {
   const registre = getRegistreAGO();
   const matricule = genererMatriculeAGO();
 
@@ -158,14 +232,34 @@ function ajouterInscriptionAGO(data) {
     date_emargement: null
   };
 
+  // 1. Sauvegarde locale instantanée
   registre.unshift(nouvelleInscription);
   saveRegistreAGO(registre);
+
+  // 2. Synchronisation Cloud Supabase si actif
+  if (supabaseClient) {
+    try {
+      await supabaseClient.from('ago_inscriptions').insert([{
+        matricule: nouvelleInscription.matricule,
+        nom: nouvelleInscription.nom,
+        role: nouvelleInscription.role,
+        section: nouvelleInscription.section,
+        telephone: nouvelleInscription.telephone,
+        presence: nouvelleInscription.presence,
+        message: nouvelleInscription.message,
+        emarge: false,
+        date_emargement: null
+      }]);
+    } catch (err) {
+      console.warn("Erreur envoi Supabase, sauvegardé localement:", err);
+    }
+  }
 
   return nouvelleInscription;
 }
 
 /**
- * Recherche une inscription par son matricule
+ * Recherche une inscription par matricule
  */
 function trouverParMatricule(matricule) {
   if (!matricule) return null;
@@ -175,16 +269,51 @@ function trouverParMatricule(matricule) {
 }
 
 /**
- * Valide l'émargement d'un participant via son matricule (Scan QR Code)
- * Retourne : { success: boolean, dejaEmarge: boolean, delegue: object }
+ * Valide l'émargement d'un participant (Local + Cloud Supabase)
+ * Gère aussi le payload autonome : MATRICULE|NOM|SECTION|ROLE
  */
-function validerEmargementParMatricule(matricule) {
+async function validerEmargementParMatricule(codeBrut) {
+  if (!codeBrut) return { success: false, introuvable: true };
+
+  let matricule = String(codeBrut).trim();
+  let nomPayload = '';
+  let sectionPayload = '';
+  let rolePayload = '';
+
+  // Décodage du format autonome transporté par le QR Code
+  if (matricule.includes('|')) {
+    const parts = matricule.split('|');
+    matricule = parts[0].trim();
+    nomPayload = parts[1] ? parts[1].trim() : '';
+    sectionPayload = parts[2] ? parts[2].trim() : '';
+    rolePayload = parts[3] ? parts[3].trim() : '';
+  }
+
   const registre = getRegistreAGO();
-  const cleanMat = String(matricule).trim().toUpperCase();
-  const index = registre.findIndex(item => item.matricule.toUpperCase() === cleanMat);
+  const cleanMat = matricule.toUpperCase();
+  let index = registre.findIndex(item => item.matricule.toUpperCase() === cleanMat);
+
+  // Si non trouvé par matricule mais présent avec payload dans le QR code
+  // on l'insère automatiquement (Secours hors ligne)
+  if (index === -1 && nomPayload) {
+    const autoDelegue = {
+      matricule: matricule,
+      nom: nomPayload,
+      role: rolePayload || 'Délégué Officiel de Section (Votant)',
+      section: sectionPayload || 'Sous-Comité Koumassi',
+      telephone: '',
+      presence: 'Présent via Scan QR Autonome',
+      message: '',
+      date_inscription: new Date().toLocaleDateString('fr-FR'),
+      emarge: false,
+      date_emargement: null
+    };
+    registre.unshift(autoDelegue);
+    index = 0;
+  }
 
   if (index === -1) {
-    return { success: false, introuvable: true, message: 'Matricule non reconnu dans le registre officiel de l’A.G.O.' };
+    return { success: false, introuvable: true, message: 'Matricule non reconnu dans le registre de l’A.G.O.' };
   }
 
   const delegue = registre[index];
@@ -209,6 +338,18 @@ function validerEmargementParMatricule(matricule) {
   registre[index] = delegue;
   saveRegistreAGO(registre);
 
+  // Synchronisation Cloud Supabase
+  if (supabaseClient) {
+    try {
+      await supabaseClient
+        .from('ago_inscriptions')
+        .update({ emarge: true, date_emargement: heureStr })
+        .eq('matricule', delegue.matricule);
+    } catch (err) {
+      console.warn("Échec mise à jour Supabase, validé localement:", err);
+    }
+  }
+
   return {
     success: true,
     delegue: delegue,
@@ -217,7 +358,7 @@ function validerEmargementParMatricule(matricule) {
 }
 
 /**
- * Calcule les statistiques en direct pour le Quorum
+ * Calcul du Quorum statutaire (Art. 38)
  */
 function calculerStatistiquesAGO() {
   const registre = getRegistreAGO();
@@ -225,14 +366,13 @@ function calculerStatistiquesAGO() {
   const emarges = registre.filter(d => d.emarge).length;
   const enAttente = total - emarges;
 
-  // Calcul du nombre de sections distinctes représentées
   const sectionsDistinctes = new Set();
   registre.filter(d => d.emarge).forEach(d => {
     if (d.section) sectionsDistinctes.add(d.section.toLowerCase());
   });
 
   const sectionsCount = sectionsDistinctes.size;
-  const quorumObjectif = 14; // 2/3 des 21 sections statutaires de Koumassi
+  const quorumObjectif = 14; // 2/3 des 21 sections de Koumassi
 
   return {
     total,
@@ -245,7 +385,7 @@ function calculerStatistiquesAGO() {
 }
 
 /**
- * Exporte l'intégralité du registre en fichier CSV pour Excel
+ * Export Excel (CSV)
  */
 function exporterRegistreEnCSV() {
   const registre = getRegistreAGO();
