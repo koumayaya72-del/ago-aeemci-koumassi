@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Base de Données & Scanner d'Émargement — A.G.O. AEEMCI Koumassi 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="base_de_donnees.css">
+</head>
+<body class="db-body">
+
+  <!-- ============================================ -->
+  <!-- BARRE SUPÉRIEURE DE NAVIGATION / CONSOLE     -->
+  <!-- ============================================ -->
+  <header class="db-navbar">
+    <div class="db-container db-nav-content">
+      <div class="db-brand">
+        <img src="logo-aeemci.jpeg" alt="Logo AEEMCI" class="db-logo">
+        <div>
+          <div class="db-brand-badge">A.E.E.M.C.I. • SOUS-COMITÉ DE KOUMASSI</div>
+          <h1 class="db-brand-title">Base de Données &amp; Console d'Émargement</h1>
+          <p class="db-brand-sub">Assemblée Générale Ordinaire 2026 • Mandature du Frère SOW Mohamed</p>
+        </div>
+      </div>
+
+      <div class="db-nav-actions">
+        <a href="index.html" class="btn-db-outline">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+          <span>Portail Public</span>
+        </a>
+        <button type="button" id="btnDbExportCSV" class="btn-db-gold">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          <span>Exporter en Excel (CSV)</span>
+        </button>
+        <button type="button" id="btnDbOpenNewModal" class="btn-db-primary">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          <span>Inscrire un Délégué</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================ -->
+  <!-- BANDEAU STATUTAIRE DU LIEU & QUORUM          -->
+  <!-- ============================================ -->
+  <section class="db-event-bar">
+    <div class="db-container db-event-grid">
+      <div class="db-event-info">
+        <span class="db-badge-pill">SESSION OFFICIELLE</span>
+        <strong>Samedi 28 Novembre 2026 à 08h00 GMT</strong> • 📍 Cantine du Lycée Municipal de Koumassi (LMK)
+      </div>
+      <div class="db-event-presence-rate">
+        <span>Taux de Présence Global :</span>
+        <strong id="dbKpiTauxPresence">0%</strong>
+      </div>
+    </div>
+  </section>
+
+  <main class="db-container db-main-layout">
+
+    <!-- ============================================ -->
+    <!-- 1. CARTES KPI / STATISTIQUES STATUTAIRES     -->
+    <!-- ============================================ -->
+    <section class="db-kpi-grid">
+      <div class="db-kpi-card">
+        <div class="db-kpi-header">
+          <span class="db-kpi-label">Délégués Inscrits</span>
+          <span class="db-kpi-icon">📋</span>
+        </div>
+        <div class="db-kpi-value" id="dbKpiTotalInscrits">0</div>
+        <div class="db-kpi-sub">Total enregistré dans la base</div>
+      </div>
+
+      <div class="db-kpi-card kpi-success">
+        <div class="db-kpi-header">
+          <span class="db-kpi-label">Présents Émargés</span>
+          <span class="db-kpi-icon">✅</span>
+        </div>
+        <div class="db-kpi-value" id="dbKpiTotalEmarges">0</div>
+        <div class="db-kpi-sub">Badges validés à l'accueil</div>
+      </div>
+
+      <div class="db-kpi-card kpi-warning">
+        <div class="db-kpi-header">
+          <span class="db-kpi-label">En Attente</span>
+          <span class="db-kpi-icon">⏳</span>
+        </div>
+        <div class="db-kpi-value" id="dbKpiTotalAttente">0</div>
+        <div class="db-kpi-sub">Délégués non encore émargés</div>
+      </div>
+
+      <div class="db-kpi-card kpi-quorum" id="dbKpiQuorumCard">
+        <div class="db-kpi-header">
+          <span class="db-kpi-label">Quorum Statutaire (Art. 38)</span>
+          <span class="db-kpi-icon">⚖️</span>
+        </div>
+        <div class="db-kpi-value" id="dbKpiSectionsCount">0 / 21</div>
+        <div class="db-kpi-sub" id="dbKpiQuorumStatus">Requis : 14 sections (2/3)</div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 2. SECTION CENTRALE : LE SCANNEUR INTÉGRÉ    -->
+    <!-- ============================================ -->
+    <section class="db-scanner-section">
+      <div class="db-scanner-grid">
+        
+        <!-- Panneau Gauche : Lecteur Caméra & Saisie Manuelle -->
+        <div class="db-scanner-panel">
+          <div class="db-card-header">
+            <div>
+              <h2 class="db-card-title">📷 Scanneur QR Code d'Émargement</h2>
+              <p class="db-card-subtitle">Scannez le badge du délégué pour valider sa présence en direct dans la base</p>
+            </div>
+            <div class="db-sound-toggle-wrap">
+              <label class="db-switch-label" title="Activer / Désactiver les bips sonores de validation">
+                <input type="checkbox" id="dbAudioCheck" checked>
+                <span>Bip Sonore</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Zone du viseur de la caméra -->
+          <div class="db-camera-container">
+            <div id="dbCameraReader" class="db-camera-viewport"></div>
+            <div class="db-camera-overlay-frame" id="dbCameraOverlay">
+              <div class="db-scanner-laser"></div>
+            </div>
+          </div>
+
+          <!-- Bouton Contrôle Caméra -->
+          <div class="db-camera-actions">
+            <button type="button" id="btnToggleDbCamera" class="btn-royal" style="padding: 10px 22px;">
+              <span>Activer la Caméra d'Émargement</span>
+            </button>
+            <span class="db-camera-hint">Fonctionne avec webcam PC, smartphone ou lecteur code-barres USB</span>
+          </div>
+
+          <!-- Émargement / Recherche Manuelle Rapide -->
+          <div class="db-manual-bar-wrap">
+            <label for="dbManualInput" class="db-input-label">Ou saisie directe du Matricule ou Nom :</label>
+            <div class="db-manual-bar">
+              <input type="text" id="dbManualInput" placeholder="Ex: AGO-KMSSI-26-A101 ou KONE Ibrahim..." autocomplete="off">
+              <button type="button" id="btnDbManualCheckin" class="btn-manual-valider">
+                Valider Présence
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Panneau Droit : Carte de Résultat Instantané & Derniers Arrivés -->
+        <div class="db-result-panel">
+          
+          <h2 class="db-card-title" style="margin-bottom: 12px;">Résultat du Scan Instantané</h2>
+
+          <!-- Carte de statut dynamique -->
+          <div class="db-status-box initial" id="dbStatusBox">
+            <div class="db-status-icon" id="dbStatusIcon">🎯</div>
+            <div class="db-status-details">
+              <h3 class="db-status-title" id="dbStatusTitle">Scanneur en attente de lecture</h3>
+              <p class="db-status-desc" id="dbStatusDesc">
+                Pointez la caméra vers le Pass QR Code d'un délégué ou saisissez son matricule ci-contre pour valider son émargement.
+              </p>
+            </div>
+          </div>
+
+          <!-- Fiche du dernier délégué émargé -->
+          <div class="db-delegate-preview" id="dbDelegatePreview" style="display: none;">
+            <div class="db-delegate-preview-header">
+              <span class="db-preview-matricule" id="dbPreviewMatricule">AGO-KMSSI-26-XXXX</span>
+              <span class="db-preview-time" id="dbPreviewTime">14:32:05</span>
+            </div>
+            <h4 class="db-preview-name" id="dbPreviewNom">Nom du Délégué</h4>
+            <div class="db-preview-meta">
+              <div><strong>Qualité :</strong> <span id="dbPreviewRole">Délégué Officiel (Votant)</span></div>
+              <div><strong>Section :</strong> <span id="dbPreviewSection">Section LMK</span></div>
+              <div><strong>Contact :</strong> <span id="dbPreviewPhone">+225 07 ...</span></div>
+            </div>
+          </div>
+
+          <!-- Derniers émargements enregistrés -->
+          <div class="db-recent-list-wrap">
+            <h3 class="db-recent-title">⏱️ Derniers Émargements Validés</h3>
+            <ul class="db-recent-list" id="dbRecentList">
+              <li class="db-recent-empty">Aucun émargement pour l'instant.</li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!-- 3. LA BASE DE DONNÉES COMPLÈTE & FILTRABLE   -->
+    <!-- ============================================ -->
+    <section class="db-table-section">
+      <div class="db-table-card">
+        
+        <div class="db-table-header-row">
+          <div>
+            <h2 class="db-card-title">📑 Registre Général de la Base de Données</h2>
+            <p class="db-card-subtitle">Liste exhaustive des participants, statuts de présence, rôles statutaires et horodatages</p>
+          </div>
+
+          <div class="db-table-top-actions">
+            <button type="button" id="btnDbPrintTable" class="btn-db-outline-small">
+              🖨️ Imprimer la Liste
+            </button>
+            <button type="button" id="btnDbResetDemo" class="btn-db-outline-small" style="color: #888;">
+              🔄 Réinitialiser
+            </button>
+          </div>
+        </div>
+
+        <!-- Barre de Filtres & Recherche Dynamique -->
+        <div class="db-filter-bar">
+          <div class="db-search-box">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="#888"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+            <input type="text" id="dbTableSearchInput" placeholder="Filtrer en direct par nom, matricule, section, rôle...">
+          </div>
+
+          <div class="db-filter-pills">
+            <button type="button" class="db-filter-pill active" data-filter="all">Tous (<span id="countAll">0</span>)</button>
+            <button type="button" class="db-filter-pill" data-filter="emarge">Présents Émargés (<span id="countEmarges">0</span>)</button>
+            <button type="button" class="db-filter-pill" data-filter="attente">En Attente (<span id="countAttente">0</span>)</button>
+            <button type="button" class="db-filter-pill" data-filter="votant">Votants (<span id="countVotants">0</span>)</button>
+          </div>
+        </div>
+
+        <!-- Table des Données -->
+        <div class="db-table-responsive">
+          <table class="db-main-table">
+            <thead>
+              <tr>
+                <th>Matricule</th>
+                <th>Délégué / Participant</th>
+                <th>Section / Établissement</th>
+                <th>Qualité Statutaire</th>
+                <th>Contact</th>
+                <th>Statut Présence</th>
+                <th>Heure d'Émargement</th>
+                <th style="text-align: right;">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="dbMainTableBody">
+              <!-- Rempli dynamiquement en Javascript -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="db-table-footer">
+          <span id="dbTableSummary">Affichage de 0 sur 0 enregistrements</span>
+          <span class="db-quorum-reminder">Quorum requis pour délibérer : 14 sections (2/3) selon Art. 38 des Statuts</span>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================ -->
+  <!-- MODAL : RÉIMPRESSION / AFFICHAGE DU PASS     -->
+  <!-- ============================================ -->
+  <div class="pass-modal-backdrop" id="dbPassModalBackdrop">
+    <div class="pass-modal-card">
+      <button type="button" class="pass-modal-close" id="btnCloseDbPassModal">✕</button>
+
+      <div class="official-pass-printable" id="dbPrintablePass">
+        <svg class="pass-watermark" viewBox="0 0 24 24" fill="#104F36">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+        </svg>
+
+        <div class="pass-header">
+          <p class="pass-rep">RÉPUBLIQUE DE CÔTE D'IVOIRE • FOI — UNION — DISCIPLINE</p>
+          <h3 class="pass-org">A.E.E.M.C.I. — SOUS-COMITÉ DE KOUMASSI</h3>
+          <p class="pass-suborg">Secrétariat Régional Abidjan-Sud (SERAS)</p>
+          <span class="pass-event-badge">PASS OFFICIEL D'ÉMARGEMENT • A.G.O. 2026</span>
+        </div>
+
+        <div class="pass-body">
+          <div class="pass-details">
+            <div class="pass-matricule-box">
+              <span class="pass-matricule-label">Matricule Officiel</span><br>
+              <span class="pass-matricule-value" id="dbModalPassMatricule">AGO-KMSSI-26-XXXX</span>
+            </div>
+
+            <div class="pass-field">
+              <div class="pass-field-label">Nom &amp; Prénoms du Délégué</div>
+              <div class="pass-field-value" id="dbModalPassNom">Nom du Participant</div>
+            </div>
+
+            <div class="pass-field">
+              <div class="pass-field-label">Qualité / Titre Statutaire</div>
+              <div class="pass-field-value" id="dbModalPassRole">Délégué Officiel de Section (Votant)</div>
+            </div>
+
+            <div class="pass-field">
+              <div class="pass-field-label">Section / Structure Représentée</div>
+              <div class="pass-field-value" id="dbModalPassSection">Section Koumassi</div>
+            </div>
+
+            <div class="pass-field">
+              <div class="pass-field-label">Date &amp; Lieu de l'Assemblée</div>
+              <div class="pass-field-value" style="font-size: 12px; color: #104F36;">
+                Samedi 28 Novembre 2026 à 08h00 GMT<br>
+                Cantine du Lycée Municipal de Koumassi (LMK)
+              </div>
+            </div>
+          </div>
+
+          <div class="pass-qr-wrap">
+            <div id="dbModalPassQrCode"></div>
+            <p class="pass-qr-hint">Scan Commission Accueil</p>
+          </div>
+        </div>
+
+        <div class="pass-footer-notice">
+          <span>Statut : <span class="pass-status-pill" id="dbModalPassStatusPill">En attente</span></span>
+          <span style="font-size: 9.5px; color: #777;">Présentez ce QR Code à l'accueil pour valider votre présence.</span>
+        </div>
+      </div>
+
+      <div class="pass-modal-actions">
+        <button type="button" class="btn-royal" id="btnDbPrintSinglePass" style="padding: 10px 20px; font-size: 13px;">
+          🖨️ Imprimer ce Pass en PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- MODAL : INSCRIPTION RAPIDE SUR PLACE         -->
+  <!-- ============================================ -->
+  <div class="pass-modal-backdrop" id="dbNewModalBackdrop">
+    <div class="pass-modal-card" style="max-width: 520px;">
+      <button type="button" class="pass-modal-close" id="btnCloseDbNewModal">✕</button>
+
+      <div class="db-new-modal-header">
+        <h3 class="db-card-title" style="color: #104F36;">➕ Inscrire un Délégué sur Place</h3>
+        <p class="db-card-subtitle">Ajouter un participant directement dans la base de données</p>
+      </div>
+
+      <form id="dbNewForm" style="padding: 20px;">
+        <div style="margin-bottom: 12px;">
+          <label style="font-size: 12px; font-weight: 700; color: #104F36; display: block; margin-bottom: 4px;">Nom &amp; Prénoms : *</label>
+          <input type="text" id="newNom" required style="width: 100%; padding: 10px; border: 1.5px solid #D4AF37; border-radius: 8px;">
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <label style="font-size: 12px; font-weight: 700; color: #104F36; display: block; margin-bottom: 4px;">Qualité Statutaire :</label>
+          <select id="newRole" style="width: 100%; padding: 10px; border: 1.5px solid #D4AF37; border-radius: 8px;">
+            <option value="Délégué Officiel de Section (Votant)">Délégué Officiel de Section (Votant)</option>
+            <option value="Secrétaire Général de Section (Votant)">Secrétaire Général de Section (Votant)</option>
+            <option value="Membre du Bureau Exécutif du Sous-Comité">Membre du Bureau Exécutif du Sous-Comité</option>
+            <option value="Ancien Président (Les 3AK)">Ancien Président (Les 3AK)</option>
+            <option value="Délégation Régionale (SERAS)">Délégation Régionale (SERAS)</option>
+            <option value="Invité d'Honneur / Observateur">Invité d'Honneur / Observateur</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <label style="font-size: 12px; font-weight: 700; color: #104F36; display: block; margin-bottom: 4px;">Section / Établissement :</label>
+          <input type="text" id="newSection" placeholder="Ex: Section Collège Moderne Koumassi" style="width: 100%; padding: 10px; border: 1.5px solid #D4AF37; border-radius: 8px;">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="font-size: 12px; font-weight: 700; color: #104F36; display: block; margin-bottom: 4px;">Contact Téléphonique :</label>
+          <input type="tel" id="newPhone" placeholder="+225 07..." style="width: 100%; padding: 10px; border: 1.5px solid #D4AF37; border-radius: 8px;">
+        </div>
+
+        <div style="margin-bottom: 18px;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #0E6234; cursor: pointer;">
+            <input type="checkbox" id="newAutoEmarge" checked style="width: 18px; height: 18px;">
+            <span>Valider immédiatement la présence (Émargement immédiat)</span>
+          </label>
+        </div>
+
+        <button type="submit" class="btn-royal" style="width: 100%; padding: 12px; font-size: 13px;">
+          Enregistrer dans la Base de Données
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="qrcode.min.js"></script>
+  <script src="html5-qrcode.min.js"></script>
+  <script src="base_donnees_ago.js"></script>
+  <script src="base_de_donnees_page.js"></script>
+</body>
+</html>

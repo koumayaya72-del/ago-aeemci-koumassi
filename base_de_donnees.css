@@ -1,0 +1,919 @@
+/**
+ * ==========================================================================
+ * FEUILLE DE STYLE : CONSOLE BASE DE DONNÉES & SCANNER D'ÉMARGEMENT
+ * Assemblée Générale Ordinaire 2026 — AEEMCI Sous-Comité de Koumassi
+ * ==========================================================================
+ */
+
+:root {
+  --db-bg: #F4F7F5;
+  --db-card-bg: #FFFFFF;
+  --db-emerald-dark: #051D14;
+  --db-emerald: #104F36;
+  --db-emerald-light: #1B7A53;
+  --db-gold: #D4AF37;
+  --db-gold-light: #F7F1DF;
+  --db-gold-border: #E6CE78;
+  --db-text-main: #1C2826;
+  --db-text-muted: #556B64;
+  --db-border: #E1E8E4;
+  --db-radius: 14px;
+  --db-shadow: 0 4px 20px rgba(5, 29, 20, 0.07);
+}
+
+body.db-body {
+  background: var(--db-bg);
+  color: var(--db-text-main);
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.db-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ==========================================================================
+   1. BARRE DE NAVIGATION SUPÉRIEURE
+   ========================================================================== */
+.db-navbar {
+  background: var(--db-emerald-dark);
+  border-bottom: 2px solid var(--db-gold);
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+.db-nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.db-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.db-logo {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--db-gold);
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.db-brand-badge {
+  font-size: 10.5px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  color: var(--db-gold);
+  text-transform: uppercase;
+}
+
+.db-brand-title {
+  font-family: 'Cinzel', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 2px 0;
+  letter-spacing: 0.5px;
+}
+
+.db-brand-sub {
+  font-size: 11.5px;
+  color: #A3C9B8;
+  margin: 0;
+}
+
+.db-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-db-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-db-outline:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #FFFFFF;
+}
+
+.btn-db-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #D4AF37, #AA820A);
+  border: 1px solid #FFE680;
+  color: #051D14;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.35);
+}
+
+.btn-db-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
+}
+
+.btn-db-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--db-emerald);
+  border: 1px solid var(--db-gold);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-db-primary:hover {
+  background: var(--db-emerald-light);
+}
+
+/* ==========================================================================
+   2. BANDEAU STATUTAIRE ÉVÉNEMENT & QUORUM
+   ========================================================================== */
+.db-event-bar {
+  background: #E8F0EC;
+  border-bottom: 1px solid #D1E0D7;
+  padding: 9px 0;
+  font-size: 12.5px;
+  color: var(--db-emerald-dark);
+}
+
+.db-event-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.db-badge-pill {
+  background: var(--db-emerald);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 10px;
+  letter-spacing: 0.8px;
+  margin-right: 8px;
+}
+
+.db-event-presence-rate strong {
+  color: #0E733D;
+  font-size: 14px;
+}
+
+/* ==========================================================================
+   3. DISPOSITION PRINCIPALE & CARTES KPI
+   ========================================================================== */
+.db-main-layout {
+  padding-top: 24px;
+  padding-bottom: 48px;
+}
+
+.db-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 992px) {
+  .db-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .db-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.db-kpi-card {
+  background: var(--db-card-bg);
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  padding: 18px;
+  box-shadow: var(--db-shadow);
+  transition: transform 0.2s ease;
+}
+
+.db-kpi-card:hover {
+  transform: translateY(-2px);
+}
+
+.db-kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.db-kpi-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--db-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.db-kpi-icon {
+  font-size: 20px;
+}
+
+.db-kpi-value {
+  font-family: 'Cinzel', serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--db-emerald-dark);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.db-kpi-sub {
+  font-size: 11.5px;
+  color: var(--db-text-muted);
+}
+
+.db-kpi-card.kpi-success {
+  background: #EBF8F0;
+  border-color: #2ECC71;
+}
+
+.db-kpi-card.kpi-success .db-kpi-value {
+  color: #0E733D;
+}
+
+.db-kpi-card.kpi-warning {
+  background: #FFF9ED;
+  border-color: #F39C12;
+}
+
+.db-kpi-card.kpi-warning .db-kpi-value {
+  color: #A06400;
+}
+
+.db-kpi-card.kpi-quorum {
+  background: #FAF6EB;
+  border-color: var(--db-gold);
+}
+
+.db-kpi-card.kpi-quorum .db-kpi-value {
+  color: #8C5305;
+}
+
+/* ==========================================================================
+   4. SECTION SCANNEUR EN DIRECT DANS LA BASE
+   ========================================================================== */
+.db-scanner-section {
+  background: var(--db-card-bg);
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  padding: 24px;
+  box-shadow: var(--db-shadow);
+  margin-bottom: 28px;
+}
+
+.db-scanner-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+@media (max-width: 900px) {
+  .db-scanner-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.db-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.db-card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--db-emerald-dark);
+  margin: 0 0 4px 0;
+}
+
+.db-card-subtitle {
+  font-size: 12px;
+  color: var(--db-text-muted);
+  margin: 0;
+}
+
+.db-sound-toggle-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.db-switch-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--db-emerald);
+  cursor: pointer;
+  background: var(--db-gold-light);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--db-gold-border);
+}
+
+/* Zone Caméra */
+.db-camera-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  max-height: 280px;
+  background: #051D14;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2px solid var(--db-gold);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+  margin-bottom: 14px;
+}
+
+.db-camera-viewport {
+  width: 100%;
+  height: 100%;
+}
+
+.db-camera-overlay-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 180px;
+  border: 2px dashed rgba(212, 175, 55, 0.7);
+  border-radius: 14px;
+  pointer-events: none;
+  box-shadow: 0 0 0 1000px rgba(5, 29, 20, 0.35);
+}
+
+.db-scanner-laser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #FF3333;
+  box-shadow: 0 0 8px #FF3333;
+  animation: scanLaser 2s infinite ease-in-out;
+}
+
+@keyframes scanLaser {
+  0% { top: 0; opacity: 0.8; }
+  50% { top: 100%; opacity: 1; }
+  100% { top: 0; opacity: 0.8; }
+}
+
+.db-camera-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.db-camera-hint {
+  font-size: 11px;
+  color: var(--db-text-muted);
+  text-align: center;
+}
+
+/* Barre de saisie manuelle */
+.db-manual-bar-wrap {
+  background: #F8FAF9;
+  border: 1px solid var(--db-border);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.db-input-label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--db-emerald);
+  margin-bottom: 6px;
+}
+
+.db-manual-bar {
+  display: flex;
+  gap: 8px;
+}
+
+.db-manual-bar input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1.5px solid var(--db-border);
+  border-radius: 8px;
+  font-size: 12.5px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.db-manual-bar input:focus {
+  border-color: var(--db-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Panneau droit : Résultat & Fiche */
+.db-status-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.db-status-box.initial {
+  background: #F4F7F5;
+  border: 1.5px dashed #C3D4CB;
+  color: var(--db-text-muted);
+}
+
+.db-status-box.success {
+  background: #E8F8EE;
+  border: 1.5px solid #2ECC71;
+  color: #0E6234;
+  animation: pulseSuccess 0.4s ease;
+}
+
+.db-status-box.warning {
+  background: #FFF7E6;
+  border: 1.5px solid #F39C12;
+  color: #8C5305;
+}
+
+.db-status-box.error {
+  background: #FDE8E8;
+  border: 1.5px solid #E74C3C;
+  color: #922B21;
+}
+
+@keyframes pulseSuccess {
+  0% { transform: scale(0.98); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.db-status-icon {
+  font-size: 32px;
+}
+
+.db-status-title {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.db-status-desc {
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Fiche délégué prévisualisé */
+.db-delegate-preview {
+  background: #FAF6EB;
+  border: 1.5px solid var(--db-gold);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.db-delegate-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.db-preview-matricule {
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--db-emerald);
+  background: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--db-gold);
+}
+
+.db-preview-time {
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+}
+
+.db-preview-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--db-emerald-dark);
+  margin: 0 0 8px 0;
+}
+
+.db-preview-meta {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--db-text-main);
+}
+
+/* Fil des derniers arrivés */
+.db-recent-list-wrap {
+  border-top: 1px solid var(--db-border);
+  padding-top: 14px;
+}
+
+.db-recent-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--db-emerald-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 10px 0;
+}
+
+.db-recent-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 170px;
+  overflow-y: auto;
+}
+
+.db-recent-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #F8FAF9;
+  margin-bottom: 6px;
+  font-size: 12px;
+  border-left: 3px solid #2ECC71;
+}
+
+.db-recent-item strong {
+  color: var(--db-emerald-dark);
+}
+
+.db-recent-time {
+  font-size: 10.5px;
+  color: #888;
+  font-family: monospace;
+}
+
+.db-recent-empty {
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+  padding: 12px 0;
+}
+
+/* ==========================================================================
+   5. REGISTRE GÉNÉRAL DE LA BASE DE DONNÉES (TABLE)
+   ========================================================================== */
+.db-table-section {
+  margin-top: 24px;
+}
+
+.db-table-card {
+  background: var(--db-card-bg);
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  padding: 24px;
+  box-shadow: var(--db-shadow);
+}
+
+.db-table-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.db-table-top-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-db-outline-small {
+  background: #FFFFFF;
+  border: 1px solid var(--db-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--db-emerald);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-db-outline-small:hover {
+  border-color: var(--db-gold);
+  background: var(--db-gold-light);
+}
+
+/* Barre de filtres */
+.db-filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.db-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #F8FAF9;
+  border: 1.5px solid var(--db-border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.db-search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 12.5px;
+  color: var(--db-text-main);
+}
+
+.db-filter-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.db-filter-pill {
+  background: #FFFFFF;
+  border: 1px solid var(--db-border);
+  color: var(--db-text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.db-filter-pill:hover {
+  border-color: var(--db-gold);
+  color: var(--db-emerald);
+}
+
+.db-filter-pill.active {
+  background: var(--db-emerald);
+  border-color: var(--db-emerald);
+  color: #FFFFFF;
+}
+
+/* Tableau */
+.db-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--db-border);
+}
+
+.db-main-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  text-align: left;
+}
+
+.db-main-table thead {
+  background: var(--db-emerald-dark);
+  color: #FFFFFF;
+}
+
+.db-main-table th {
+  padding: 12px 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--db-gold);
+}
+
+.db-main-table tbody tr {
+  border-bottom: 1px solid var(--db-border);
+  transition: background 0.15s ease;
+}
+
+.db-main-table tbody tr:hover {
+  background: #F8FAF9;
+}
+
+.db-main-table td {
+  padding: 12px 14px;
+  vertical-align: middle;
+}
+
+.db-mat-tag {
+  font-family: monospace;
+  font-weight: 800;
+  color: var(--db-emerald);
+  background: #E8F0EC;
+  padding: 3px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.db-badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.db-badge-status.emarge {
+  background: #E8F8EE;
+  color: #127A42;
+  border: 1px solid #A3E4D7;
+}
+
+.db-badge-status.attente {
+  background: #FFF7E6;
+  color: #A06400;
+  border: 1px solid #FAD7A0;
+}
+
+.db-table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.btn-action-emarge {
+  background: var(--db-emerald);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-action-emarge:hover {
+  background: var(--db-emerald-light);
+}
+
+.btn-action-pass {
+  background: #FFFFFF;
+  color: var(--db-emerald);
+  border: 1px solid var(--db-gold);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action-pass:hover {
+  background: var(--db-gold-light);
+}
+
+.db-table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  font-size: 11.5px;
+  color: var(--db-text-muted);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.db-quorum-reminder {
+  font-weight: 700;
+  color: var(--db-emerald);
+}
+
+/* Modals */
+.db-new-modal-header {
+  padding: 20px 20px 10px 20px;
+  border-bottom: 1px solid var(--db-border);
+}
+
+/* ==========================================================================
+   6. IMPRESSION
+   ========================================================================== */
+@media print {
+  .db-navbar,
+  .db-event-bar,
+  .db-kpi-grid,
+  .db-scanner-section,
+  .db-table-header-row,
+  .db-filter-bar,
+  .db-table-footer,
+  .pass-modal-close,
+  .pass-modal-actions,
+  .db-table-actions {
+    display: none !important;
+  }
+
+  body.db-body {
+    background: #FFFFFF !important;
+    padding: 0 !important;
+  }
+
+  .db-table-card {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .db-main-table {
+    font-size: 11px !important;
+  }
+
+  .db-main-table th {
+    background: #EEEEEE !important;
+    color: #000000 !important;
+    border-bottom: 2px solid #000000 !important;
+  }
+
+  body.print-badge-active #dbPassModalBackdrop,
+  body.print-badge-active #dbPassModalBackdrop * {
+    visibility: visible !important;
+  }
+
+  body.print-badge-active #dbPassModalBackdrop {
+    display: flex !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: #FFFFFF !important;
+  }
+
+  body.print-badge-active .pass-modal-card {
+    box-shadow: none !important;
+    border: 2px solid #D4AF37 !important;
+  }
+}
