@@ -9,9 +9,12 @@ const STORAGE_KEY_AGO = 'aeemci_koumassi_ago_registre_2026';
 const STORAGE_KEY_SUPABASE_URL = 'ago_supabase_url';
 const STORAGE_KEY_SUPABASE_KEY = 'ago_supabase_key';
 
-// Configuration Supabase (modifiables via la console ou par défaut)
-let SUPABASE_URL = localStorage.getItem(STORAGE_KEY_SUPABASE_URL) || '';
-let SUPABASE_ANON_KEY = localStorage.getItem(STORAGE_KEY_SUPABASE_KEY) || '';
+// Configuration Supabase officielle du projet "AGO Président Sow"
+const DEFAULT_SUPABASE_URL = 'https://bdlhmffedkqjcnsezwzc.supabase.co';
+const DEFAULT_SUPABASE_KEY = 'sb_publishable_w8uK91Q41lqBStC-LhbZEg_-_KNFRST';
+
+let SUPABASE_URL = localStorage.getItem(STORAGE_KEY_SUPABASE_URL) || DEFAULT_SUPABASE_URL;
+let SUPABASE_ANON_KEY = localStorage.getItem(STORAGE_KEY_SUPABASE_KEY) || DEFAULT_SUPABASE_KEY;
 
 let supabaseClient = null;
 
@@ -107,8 +110,8 @@ const SEED_DELEGUES = [
  * Initialisation du Client Supabase Cloud
  */
 function initSupabaseClient() {
-  SUPABASE_URL = localStorage.getItem(STORAGE_KEY_SUPABASE_URL) || SUPABASE_URL;
-  SUPABASE_ANON_KEY = localStorage.getItem(STORAGE_KEY_SUPABASE_KEY) || SUPABASE_ANON_KEY;
+  SUPABASE_URL = localStorage.getItem(STORAGE_KEY_SUPABASE_URL) || DEFAULT_SUPABASE_URL;
+  SUPABASE_ANON_KEY = localStorage.getItem(STORAGE_KEY_SUPABASE_KEY) || DEFAULT_SUPABASE_KEY;
 
   if (typeof supabase !== 'undefined' && SUPABASE_URL && SUPABASE_ANON_KEY) {
     try {
