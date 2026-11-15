@@ -319,8 +319,187 @@ function initScrollReveal() {
 }
 
 /* ==========================================================================
-   6. ENREGISTREMENT STATUTAIRE & GÉNÉRATION DU PASS QR CODE (PDF)
+   6. ENREGISTREMENT STATUTAIRE & PASS DÉLÉGUÉ (TÉLÉCHARGEMENT DIRECT & QR)
    ========================================================================== */
+let currentPassDelegue = null;
+
+function telechargerPassEnImage() {
+  const delegue = currentPassDelegue;
+  if (!delegue) {
+    showToast("Veuillez d'abord générer votre pass.");
+    return;
+  }
+
+  const qrCanvasElem = document.querySelector('#passQrCodeCanvas canvas');
+  const qrImgElem = document.querySelector('#passQrCodeCanvas img');
+
+  const canvas = document.createElement('canvas');
+  const w = 640;
+  const h = 880;
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+
+  // Fond Blanc pur
+  ctx.fillStyle = '#FFFFFF';
+  ctx.fillRect(0, 0, w, h);
+
+  // Cadre double prestige doré & vert impérial
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 4;
+  ctx.strokeRect(16, 16, w - 32, h - 32);
+
+  ctx.strokeStyle = '#051D14';
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(24, 24, w - 48, h - 48);
+
+  // Bandeau supérieur Vert Impérial
+  ctx.fillStyle = '#051D14';
+  ctx.fillRect(26, 26, w - 52, 142);
+
+  // Liseré doré
+  ctx.fillStyle = '#D4AF37';
+  ctx.fillRect(26, 168, w - 52, 3);
+
+  // Textes officiels
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#E6D7AB';
+  ctx.font = 'bold 11px sans-serif';
+  ctx.fillText("RÉPUBLIQUE DE CÔTE D'IVOIRE • FOI — UNION — DISCIPLINE", w / 2, 54);
+
+  ctx.fillStyle = '#FFFFFF';
+  ctx.font = 'bold 18px serif';
+  ctx.fillText("A.E.E.M.C.I. — SOUS-COMITÉ DE KOUMASSI", w / 2, 84);
+
+  ctx.fillStyle = '#D4AF37';
+  ctx.font = '12px sans-serif';
+  ctx.fillText("Secrétariat Régional Abidjan-Sud (SERAS)", w / 2, 108);
+
+  // Badge pilule d'événement
+  ctx.fillStyle = '#D4AF37';
+  ctx.beginPath();
+  if (ctx.roundRect) {
+    ctx.roundRect(w / 2 - 160, 122, 320, 28, 14);
+  } else {
+    ctx.rect(w / 2 - 160, 122, 320, 28);
+  }
+  ctx.fill();
+
+  ctx.fillStyle = '#051D14';
+  ctx.font = 'bold 11.5px serif';
+  ctx.fillText("PASS OFFICIEL D'ÉMARGEMENT • A.G.O. 2026", w / 2, 141);
+
+  // Boîte Matricule Officiel
+  ctx.fillStyle = '#E8F5EE';
+  ctx.strokeStyle = '#104F36';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  if (ctx.roundRect) {
+    ctx.roundRect(46, 195, 330, 72, 10);
+  } else {
+    ctx.rect(46, 195, 330, 72);
+  }
+  ctx.fill();
+  ctx.stroke();
+
+  ctx.textAlign = 'left';
+  ctx.fillStyle = '#104F36';
+  ctx.font = 'bold 11px sans-serif';
+  ctx.fillText("MATRICULE OFFICIEL STATUTAIRE", 62, 220);
+
+  ctx.fillStyle = '#051D14';
+  ctx.font = 'bold 22px monospace';
+  ctx.fillText(delegue.matricule || 'AGO-KMSSI-2026', 62, 252);
+
+  // Détails Délégué
+  let y = 300;
+  function addRow(label, value, bold) {
+    ctx.fillStyle = '#777777';
+    ctx.font = '11px sans-serif';
+    ctx.fillText(label.toUpperCase(), 46, y);
+    y += 20;
+
+    ctx.fillStyle = '#051D14';
+    ctx.font = bold ? 'bold 15px sans-serif' : '14px sans-serif';
+    let valStr = String(value || '-');
+    if (valStr.length > 34) valStr = valStr.substring(0, 32) + '...';
+    ctx.fillText(valStr, 46, y);
+    y += 30;
+  }
+
+  addRow("Nom & Prénoms du Délégué", delegue.nom, true);
+  addRow("Qualité / Titre Statutaire", delegue.role, true);
+  addRow("Section ou Institution Représentée", delegue.section, true);
+  addRow("Date & Heure de la Session", "Samedi 28 Novembre 2026 dès 08h00 GMT", false);
+  addRow("Lieu de l'Assemblée", "Lycée Municipal de Koumassi (LMK) — Cantine", false);
+
+  // Boîte QR Code
+  const qrBoxX = 410;
+  const qrBoxY = 195;
+  const qrBoxW = 184;
+  const qrBoxH = 224;
+
+  ctx.fillStyle = '#FBFDFB';
+  ctx.strokeStyle = '#D4AF37';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  if (ctx.roundRect) {
+    ctx.roundRect(qrBoxX, qrBoxY, qrBoxW, qrBoxH, 12);
+  } else {
+    ctx.rect(qrBoxX, qrBoxY, qrBoxW, qrBoxH);
+  }
+  ctx.fill();
+  ctx.stroke();
+
+  // Dessin du QR Code
+  if (qrCanvasElem) {
+    ctx.drawImage(qrCanvasElem, qrBoxX + 17, qrBoxY + 18, 150, 150);
+  } else if (qrImgElem) {
+    try {
+      ctx.drawImage(qrImgElem, qrBoxX + 17, qrBoxY + 18, 150, 150);
+    } catch (e) {
+      console.warn("Could not draw qr img directly", e);
+    }
+  }
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#104F36';
+  ctx.font = 'bold 10px sans-serif';
+  ctx.fillText("SCAN COMMISSION ACCUEIL", qrBoxX + qrBoxW / 2, qrBoxY + 192);
+
+  ctx.fillStyle = '#051D14';
+  ctx.font = 'bold 12px monospace';
+  ctx.fillText(delegue.matricule || 'AGO-KMSSI-2026', qrBoxX + qrBoxW / 2, qrBoxY + 210);
+
+  // Pied de badge
+  ctx.fillStyle = '#E1ECE6';
+  ctx.fillRect(46, 765, w - 92, 1.5);
+
+  ctx.textAlign = 'center';
+  ctx.fillStyle = '#051D14';
+  ctx.font = 'bold 12px sans-serif';
+  ctx.fillText("SOUS LA HAUTE PRÉSIDENCE EFFECTIVE DU FRÈRE SOW MOHAMED", w / 2, 796);
+
+  ctx.fillStyle = '#666666';
+  ctx.font = '11.5px sans-serif';
+  ctx.fillText("Présentez cette image à l'accueil pour valider votre émargement officiel.", w / 2, 822);
+
+  // Déclenchement du téléchargement direct
+  try {
+    const dataUrl = canvas.toDataURL('image/png');
+    const downloadLink = document.createElement('a');
+    downloadLink.download = `Pass-AGO-Koumassi-${delegue.matricule || '2026'}.png`;
+    downloadLink.href = dataUrl;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+    showToast("Votre Pass officiel a été téléchargé avec succès !");
+  } catch (err) {
+    console.error("Erreur téléchargement direct image:", err);
+    window.print();
+  }
+}
+
 function initRsvpForm() {
   const form = document.getElementById('rsvpForm');
   if (!form) return;
@@ -328,7 +507,13 @@ function initRsvpForm() {
   const passModal = document.getElementById('passModalBackdrop');
   const btnClosePassModal = document.getElementById('btnClosePassModal');
   const btnPrintPassPdf = document.getElementById('btnPrintPassPdf');
+  const btnDownloadPassImg = document.getElementById('btnDownloadPassImg');
   const btnPassNotifyWa = document.getElementById('btnPassNotifyWa');
+
+  // Téléchargement direct Pass en Image PNG
+  if (btnDownloadPassImg) {
+    btnDownloadPassImg.addEventListener('click', telechargerPassEnImage);
+  }
 
   // Fermeture du Modal Pass
   if (btnClosePassModal && passModal) {
@@ -416,6 +601,8 @@ function initRsvpForm() {
         };
       }
 
+      currentPassDelegue = delegue;
+
       // 2. Remplissage des champs visuels du Pass Officiel
       const passMatricule = document.getElementById('passMatricule');
       const passNom = document.getElementById('passNom');
@@ -431,11 +618,13 @@ function initRsvpForm() {
         passStatusPill.textContent = delegue.emarge ? "Présence Validée" : "En attente d'émargement";
       }
 
-      // 3. Rendu dynamique du QR Code (Payload autonome pour émargement instantané)
+      // 3. Rendu dynamique du QR Code (Matricule officiel compact & ultra-net)
       const qrCanvas = document.getElementById('passQrCodeCanvas');
       if (qrCanvas) {
         qrCanvas.innerHTML = '';
-        const qrPayload = `${delegue.matricule || 'AGO-KMSSI-2026'}|${delegue.nom || name}|${delegue.section || section || 'Koumassi'}|${delegue.role || role}`;
+        const qrPayload = (delegue.matricule || 'AGO-KMSSI-2026').trim();
+        let qrSuccess = false;
+
         if (typeof QRCode !== 'undefined') {
           try {
             new QRCode(qrCanvas, {
@@ -446,11 +635,19 @@ function initRsvpForm() {
               colorLight: '#FFFFFF',
               correctLevel: QRCode.CorrectLevel.M
             });
+            qrSuccess = true;
           } catch (qrErr) {
-            console.warn("QRCode render notice:", qrErr);
-            qrCanvas.innerHTML = `<div style="font-family:monospace;font-size:12px;padding:12px;background:#fff;color:#051D14;border:1px dashed #cca043;border-radius:8px;font-weight:700;">${delegue.matricule}</div>`;
+            console.warn("QRCode local render notice:", qrErr);
           }
         }
+
+        // Sécurité visuelle : si qrcode.js n'a pas rendu d'élément, afficher image QR de secours haute résolution
+        setTimeout(() => {
+          const hasChild = qrCanvas.querySelector('canvas, img');
+          if (!hasChild || !qrSuccess) {
+            qrCanvas.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=0&data=${encodeURIComponent(qrPayload)}" alt="QR Code ${qrPayload}" width="140" height="140" style="display:block; width:140px; height:140px; border-radius:6px; margin:0 auto;">`;
+          }
+        }, 50);
       }
 
       // 4. Lien de notification WhatsApp
