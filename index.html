@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cinzel+Decorative:wght@700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=20261115_v6">
+  <link rel="stylesheet" href="style.css?v=20261115_v7">
 </head>
 <body>
 
@@ -399,24 +399,25 @@
           </div>
         </div>
 
-        <!-- Filtres par Compartiment du Bureau -->
+        <!-- Filtres par Compartiment du Bureau Exécutif (Mandat 2025-2026) -->
         <div class="bureau-filter-container">
-          <button class="bureau-filter-btn active" data-filter="all">Tous les Membres</button>
-          <button class="bureau-filter-btn" data-filter="presidence">Présidence</button>
-          <button class="bureau-filter-btn" data-filter="secretariat">Secrétariat Général</button>
-          <button class="bureau-filter-btn" data-filter="dmo">Organisation &amp; Mobilisation</button>
-          <button class="bureau-filter-btn" data-filter="tresorerie">Trésorerie Générale</button>
-          <button class="bureau-filter-btn" data-filter="culturel">Délégation Culturelle</button>
-          <button class="bureau-filter-btn" data-filter="social">Délégation Sociale</button>
+          <button class="bureau-filter-btn active" data-filter="all">Tous les Membres (40)</button>
+          <button class="bureau-filter-btn" data-filter="presidence">Présidence (4)</button>
+          <button class="bureau-filter-btn" data-filter="secretariat">Secrétariat Général (9)</button>
+          <button class="bureau-filter-btn" data-filter="tresorerie">Trésorerie (3)</button>
+          <button class="bureau-filter-btn" data-filter="dmo">Organisation &amp; Mobilisation (11)</button>
+          <button class="bureau-filter-btn" data-filter="culturel">Délégation Culturelle (7)</button>
+          <button class="bureau-filter-btn" data-filter="social">Délégation Sociale (6)</button>
         </div>
 
         <!-- Grille des Membres du Bureau Exécutif -->
         <div class="bureau-grid" id="bureauGrid">
-          
-          <!-- 1. SOW Mohamed (Président) -->
+
+          <!-- 1. SOW Mohamed (Président du Sous-Comité) -->
           <div class="member-card" data-category="presidence">
             <div class="member-avatar-wrap">
-              <img src="images/membres/sow-mohamed.jpg?v=20261115_pres" alt="SOW Mohamed" onerror="this.src='president-sow-mohamed.jpeg?v=20261115_pres'">
+              <img src="images/membres/sow-mohamed.jpg?v=20261115_pres" alt="SOW Mohamed" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">SM</div>
             </div>
             <span class="member-dept-tag">Présidence</span>
             <h4 class="member-name">SOW Mohamed</h4>
@@ -424,22 +425,23 @@
             <a href="tel:+2250545305180" class="member-contact-link">📞 05 45 30 51 80</a>
           </div>
 
-          <!-- 2. SINE TRAORE (1er Vice-Président) -->
+          <!-- 2. ZEBA Askandar (1er Vice-Président) -->
           <div class="member-card" data-category="presidence">
             <div class="member-avatar-wrap">
-              <img src="images/membres/sine-traore.jpg" alt="SINE Traore" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
-              <div class="member-initials">ST</div>
+              <img src="images/membres/zeba-askandar.jpg" alt="ZEBA Askandar" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">ZA</div>
             </div>
             <span class="member-dept-tag">Présidence</span>
-            <h4 class="member-name">SINE Traore</h4>
+            <h4 class="member-name">ZEBA Askandar</h4>
             <p class="member-role">1er Vice-Président</p>
-            <a href="tel:+2250749416110" class="member-contact-link">📞 07 49 41 61 10</a>
+            <a href="tel:+2250777392582" class="member-contact-link">📞 07 77 39 25 82</a>
           </div>
 
           <!-- 3. SANGARE Ousmane (2e Vice-Président) -->
           <div class="member-card" data-category="presidence">
             <div class="member-avatar-wrap">
-              <img src="images/membres/sangare-ousmane.jpg" alt="SANGARE Ousmane">
+              <img src="images/membres/sangare-ousmane.jpg" alt="SANGARE Ousmane" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">SO</div>
             </div>
             <span class="member-dept-tag">Présidence</span>
             <h4 class="member-name">SANGARE Ousmane</h4>
@@ -447,99 +449,125 @@
             <a href="tel:+2250748678145" class="member-contact-link">📞 07 48 67 81 45</a>
           </div>
 
-          <!-- 4. KONATE Mariam / OUEDRAOGO Ami (Vice-Présidente / CFAEEMCI) -->
+          <!-- 4. KONATE Mariam (Vice-Présidente) -->
           <div class="member-card" data-category="presidence">
             <div class="member-avatar-wrap">
-              <img src="images/membres/konate-mariam.jpg" alt="KONATE Mariam">
+              <img src="images/membres/konate-mariam.jpg" alt="KONATE Mariam" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">KM</div>
             </div>
-            <span class="member-dept-tag">Présidence &amp; Sœurs</span>
+            <span class="member-dept-tag">Présidence</span>
             <h4 class="member-name">KONATE Mariam</h4>
-            <p class="member-role">Vice-Présidente (CFAEEMCI)</p>
+            <p class="member-role">Vice-Présidente</p>
             <a href="tel:+2250788468806" class="member-contact-link">📞 07 88 46 88 06</a>
           </div>
 
-          <!-- 5. TALL Seydou (Secrétaire Général) -->
+          <!-- 5. DIABATE Fodé (Secrétaire Général) -->
           <div class="member-card" data-category="secretariat">
             <div class="member-avatar-wrap">
-              <img src="images/membres/diabate-fode.jpg" alt="TALL Seydou" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
-              <div class="member-initials">TS</div>
+              <img src="images/membres/diabate-fode.jpg" alt="DIABATE Fodé" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">DF</div>
             </div>
-            <span class="member-dept-tag">Secrétariat Général</span>
-            <h4 class="member-name">TALL Seydou</h4>
-            <p class="member-role">Secrétaire Général</p>
-            <a href="tel:+2250103402071" class="member-contact-link">📞 01 03 40 20 71</a>
-          </div>
-
-          <!-- 6. DIABATE Fodé (SG Adjoint) -->
-          <div class="member-card" data-category="secretariat">
-            <div class="member-avatar-wrap">
-              <img src="images/membres/diabate-fode.jpg" alt="DIABATE Fodé">
-            </div>
-            <span class="member-dept-tag">Secrétariat Général</span>
+            <span class="member-dept-tag">Secrétariat</span>
             <h4 class="member-name">DIABATE Fodé</h4>
-            <p class="member-role">Secrétaire Général Adjoint</p>
+            <p class="member-role">Secrétaire Général</p>
             <a href="tel:+2250757477372" class="member-contact-link">📞 07 57 47 73 72</a>
           </div>
 
-          <!-- 7. KOUMA Yaya (SG Adjoint / Formateur) -->
+          <!-- 6. KOUMA Yaya (SG - Adjoint) -->
           <div class="member-card" data-category="secretariat">
             <div class="member-avatar-wrap">
-              <img src="images/membres/kouma-yaya.jpg" alt="KOUMA Yaya">
+              <img src="images/membres/kouma-yaya.jpg" alt="KOUMA Yaya" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">KY</div>
             </div>
-            <span class="member-dept-tag">Secrétariat Général</span>
+            <span class="member-dept-tag">Secrétariat</span>
             <h4 class="member-name">KOUMA Yaya</h4>
-            <p class="member-role">SG Adjoint (Formateur)</p>
-            <a href="tel:+2250757477372" class="member-contact-link">📞 Formateur Secrétariat</a>
+            <p class="member-role">SG - Adjoint</p>
+            <a href="tel:+2250585331519" class="member-contact-link">📞 05 85 33 15 19</a>
           </div>
 
-          <!-- 8. DABRE Nassira (SG Adjointe) -->
+          <!-- 7. DABRE Nassira (SG - Adjointe) -->
           <div class="member-card" data-category="secretariat">
             <div class="member-avatar-wrap">
-              <img src="images/membres/dabre-nassira.jpg" alt="DABRE Nassira">
+              <img src="images/membres/dabre-nassira.jpg" alt="DABRE Nassira" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">DN</div>
             </div>
-            <span class="member-dept-tag">Secrétariat Général</span>
+            <span class="member-dept-tag">Secrétariat</span>
             <h4 class="member-name">DABRE Nassira</h4>
-            <p class="member-role">Secrétaire Générale Adjointe</p>
+            <p class="member-role">SG - Adjointe</p>
             <a href="tel:+2250150245822" class="member-contact-link">📞 01 50 24 58 22</a>
           </div>
 
-          <!-- 9. ZEBA Askandar (Délégué DMO) -->
-          <div class="member-card" data-category="dmo">
+          <!-- 8. OUEDRAOGO Nafissa (Membre du Secrétariat) -->
+          <div class="member-card" data-category="secretariat">
             <div class="member-avatar-wrap">
-              <img src="images/membres/zeba-askandar.jpg" alt="ZEBA Askandar">
+              <img src="images/membres/ouedraogo-nafissa.jpg" alt="OUEDRAOGO Nafissa" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">ON</div>
             </div>
-            <span class="member-dept-tag">Organisation (DMO)</span>
-            <h4 class="member-name">ZEBA Askandar</h4>
-            <p class="member-role">Délégué DMO Responsable</p>
-            <a href="tel:+2250777392582" class="member-contact-link">📞 07 77 39 25 82</a>
+            <span class="member-dept-tag">Secrétariat</span>
+            <h4 class="member-name">OUEDRAOGO Nafissa</h4>
+            <p class="member-role">Membre du Secrétariat</p>
           </div>
 
-          <!-- 10. SIMPORE Mohamed (DMO Adjoint) -->
-          <div class="member-card" data-category="dmo">
+          <!-- 9. COULIBALY Kadidia (Membre du Secrétariat) -->
+          <div class="member-card" data-category="secretariat">
             <div class="member-avatar-wrap">
-              <img src="images/membres/simpore-mohamed.jpg" alt="SIMPORE Mohamed">
+              <img src="images/membres/coulibaly-kadidia.jpg" alt="COULIBALY Kadidia" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">CK</div>
             </div>
-            <span class="member-dept-tag">Organisation (DMO)</span>
-            <h4 class="member-name">SIMPORE Mohamed</h4>
-            <p class="member-role">DMO Adjoint</p>
-            <a href="tel:+2250789104335" class="member-contact-link">📞 07 89 10 43 35</a>
+            <span class="member-dept-tag">Secrétariat</span>
+            <h4 class="member-name">COULIBALY Kadidia</h4>
+            <p class="member-role">Membre du Secrétariat</p>
           </div>
 
-          <!-- 11. DIARRASSOUBA Mariam (DMO Adjointe) -->
-          <div class="member-card" data-category="dmo">
+          <!-- 10. KEÏTA Karidja (Membre du Secrétariat) -->
+          <div class="member-card" data-category="secretariat">
             <div class="member-avatar-wrap">
-              <img src="images/membres/diarrassouba-mariam.jpg" alt="DIARRASSOUBA Mariam">
+              <img src="images/membres/keita-karidja.jpg" alt="KEÏTA Karidja" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">KK</div>
             </div>
-            <span class="member-dept-tag">Organisation (DMO)</span>
-            <h4 class="member-name">DIARRASSOUBA Mariam</h4>
-            <p class="member-role">DMO Adjointe</p>
-            <a href="tel:+2250172426757" class="member-contact-link">📞 01 72 42 67 57</a>
+            <span class="member-dept-tag">Secrétariat</span>
+            <h4 class="member-name">KEÏTA Karidja</h4>
+            <p class="member-role">Membre du Secrétariat</p>
           </div>
 
-          <!-- 12. SOGNE Foussena / Ousseina (Trésorière Générale) -->
+          <!-- 11. KARAMOKO Noura (Membre du Secrétariat) -->
+          <div class="member-card" data-category="secretariat">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/karamoko-noura.jpg" alt="KARAMOKO Noura" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">KN</div>
+            </div>
+            <span class="member-dept-tag">Secrétariat</span>
+            <h4 class="member-name">KARAMOKO Noura</h4>
+            <p class="member-role">Membre du Secrétariat</p>
+          </div>
+
+          <!-- 12. KONE Aliman (Membre du Secrétariat) -->
+          <div class="member-card" data-category="secretariat">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/kone-aliman.jpg" alt="KONE Aliman" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">KA</div>
+            </div>
+            <span class="member-dept-tag">Secrétariat</span>
+            <h4 class="member-name">KONE Aliman</h4>
+            <p class="member-role">Membre du Secrétariat</p>
+          </div>
+
+          <!-- 13. KONE Oumou (Membre du Secrétariat) -->
+          <div class="member-card" data-category="secretariat">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/kone-oumou.jpg" alt="KONE Oumou" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">KO</div>
+            </div>
+            <span class="member-dept-tag">Secrétariat</span>
+            <h4 class="member-name">KONE Oumou</h4>
+            <p class="member-role">Membre du Secrétariat</p>
+          </div>
+
+          <!-- 14. SOGNE Foussena (Trésorière Générale) -->
           <div class="member-card" data-category="tresorerie">
             <div class="member-avatar-wrap">
-              <img src="images/membres/sogne-foussena.jpg" alt="SOGNE Foussena">
+              <img src="images/membres/sogne-foussena.jpg" alt="SOGNE Foussena" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">SF</div>
             </div>
             <span class="member-dept-tag">Trésorerie</span>
             <h4 class="member-name">SOGNE Foussena</h4>
@@ -547,21 +575,22 @@
             <a href="tel:+2250767682753" class="member-contact-link">📞 07 67 68 27 53</a>
           </div>
 
-          <!-- 13. GANA Fatim (Trésorière Adjointe) -->
+          <!-- 15. GANA Fatim (Trésorière Adjointe) -->
           <div class="member-card" data-category="tresorerie">
             <div class="member-avatar-wrap">
-              <img src="images/membres/gana-fatim.jpg" alt="GANA Fatim">
+              <img src="images/membres/gana-fatim.jpg" alt="GANA Fatim" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">GF</div>
             </div>
             <span class="member-dept-tag">Trésorerie</span>
             <h4 class="member-name">GANA Fatim</h4>
             <p class="member-role">Trésorière Adjointe</p>
-            <a href="tel:+2250767682753" class="member-contact-link">📞 Contact Trésorerie</a>
           </div>
 
-          <!-- 14. TRAORE Aïcha (Trésorerie / Membre) -->
+          <!-- 16. TRAORE Aïcha (Trésorière Adjointe) -->
           <div class="member-card" data-category="tresorerie">
             <div class="member-avatar-wrap">
-              <img src="images/membres/traore-aicha.jpg" alt="TRAORE Aïcha">
+              <img src="images/membres/traore-aicha.jpg" alt="TRAORE Aïcha" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">TA</div>
             </div>
             <span class="member-dept-tag">Trésorerie</span>
             <h4 class="member-name">TRAORE Aïcha</h4>
@@ -569,61 +598,273 @@
             <a href="tel:+2250748151879" class="member-contact-link">📞 07 48 15 18 79</a>
           </div>
 
-          <!-- 15. KOKORA Mohamed (Délégué Culturel) -->
+          <!-- 17. SIMPORE Mohamed (Délégué Organisation & Mobilisation (DOM)) -->
+          <div class="member-card" data-category="dmo">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/simpore-mohamed.jpg" alt="SIMPORE Mohamed" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">SM</div>
+            </div>
+            <span class="member-dept-tag">Organisation</span>
+            <h4 class="member-name">SIMPORE Mohamed</h4>
+            <p class="member-role">Délégué Organisation & Mobilisation (DOM)</p>
+            <a href="tel:+2250789104335" class="member-contact-link">📞 07 89 10 43 35</a>
+          </div>
+
+          <!-- 18. KEÏTA Abdoulaye (DOM - Adjoint) -->
+          <div class="member-card" data-category="dmo">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/keita-abdoulaye.jpg" alt="KEÏTA Abdoulaye" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">KA</div>
+            </div>
+            <span class="member-dept-tag">Organisation</span>
+            <h4 class="member-name">KEÏTA Abdoulaye</h4>
+            <p class="member-role">DOM - Adjoint</p>
+          </div>
+
+          <!-- 19. DIARRASSOUBA Mariam (Membre D.O.M.) -->
+          <div class="member-card" data-category="dmo">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/diarrassouba-mariam.jpg" alt="DIARRASSOUBA Mariam" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">DM</div>
+            </div>
+            <span class="member-dept-tag">Organisation</span>
+            <h4 class="member-name">DIARRASSOUBA Mariam</h4>
+            <p class="member-role">Membre D.O.M.</p>
+            <a href="tel:+2250172426757" class="member-contact-link">📞 01 72 42 67 57</a>
+          </div>
+
+          <!-- 20. OUEDRAOGO Oumou Koulsoum (Membre D.O.M.) -->
+          <div class="member-card" data-category="dmo">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/ouedraogo-oumou-koulsoum.jpg" alt="OUEDRAOGO Oumou Koulsoum" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">OO</div>
+            </div>
+            <span class="member-dept-tag">Organisation</span>
+            <h4 class="member-name">OUEDRAOGO Oumou Koulsoum</h4>
+            <p class="member-role">Membre D.O.M.</p>
+          </div>
+
+          <!-- 21. OUATTARA Madjalia (Membre D.O.M.) -->
+          <div class="member-card" data-category="dmo">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/ouattara-madjalia.jpg" alt="OUATTARA Madjalia" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">OM</div>
+            </div>
+            <span class="member-dept-tag">Organisation</span>
+            <h4 class="member-name">OUATTARA Madjalia</h4>
+            <p class="member-role">Membre D.O.M.</p>
+          </div>
+
+          <!-- 22. ZEBA Abdoul Samad (Membre D.O.M.) -->
+          <div class="member-card" data-category="dmo">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/zeba-abdoul-samad.jpg" alt="ZEBA Abdoul Samad" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">ZA</div>
+            </div>
+            <span class="member-dept-tag">Organisation</span>
+            <h4 class="member-name">ZEBA Abdoul Samad</h4>
+            <p class="member-role">Membre D.O.M.</p>
+          </div>
+
+          <!-- 23. TRAORE Mohamed Amine (Membre D.O.M.) -->
+          <div class="member-card" data-category="dmo">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/traore-mohamed-amine.jpg" alt="TRAORE Mohamed Amine" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">TM</div>
+            </div>
+            <span class="member-dept-tag">Organisation</span>
+            <h4 class="member-name">TRAORE Mohamed Amine</h4>
+            <p class="member-role">Membre D.O.M.</p>
+          </div>
+
+          <!-- 24. SIMADOU Djéneba (Membre D.O.M.) -->
+          <div class="member-card" data-category="dmo">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/simadou-djeneba.jpg" alt="SIMADOU Djéneba" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">SD</div>
+            </div>
+            <span class="member-dept-tag">Organisation</span>
+            <h4 class="member-name">SIMADOU Djéneba</h4>
+            <p class="member-role">Membre D.O.M.</p>
+          </div>
+
+          <!-- 25. DIARRASSOUBA Vakaba Mohamed (Membre D.O.M.) -->
+          <div class="member-card" data-category="dmo">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/diarrassouba-vakaba-mohamed.jpg" alt="DIARRASSOUBA Vakaba Mohamed" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">DV</div>
+            </div>
+            <span class="member-dept-tag">Organisation</span>
+            <h4 class="member-name">DIARRASSOUBA Vakaba Mohamed</h4>
+            <p class="member-role">Membre D.O.M.</p>
+          </div>
+
+          <!-- 26. DIARRASSOUBA Djéneba (Membre D.O.M.) -->
+          <div class="member-card" data-category="dmo">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/diarrassouba-djeneba.jpg" alt="DIARRASSOUBA Djéneba" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">DD</div>
+            </div>
+            <span class="member-dept-tag">Organisation</span>
+            <h4 class="member-name">DIARRASSOUBA Djéneba</h4>
+            <p class="member-role">Membre D.O.M.</p>
+          </div>
+
+          <!-- 27. BAMBA Youssouf Bilal (Membre D.O.M.) -->
+          <div class="member-card" data-category="dmo">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/bamba-youssouf-bilal.jpg" alt="BAMBA Youssouf Bilal" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">BY</div>
+            </div>
+            <span class="member-dept-tag">Organisation</span>
+            <h4 class="member-name">BAMBA Youssouf Bilal</h4>
+            <p class="member-role">Membre D.O.M.</p>
+          </div>
+
+          <!-- 28. KOKORA Mohamed (Délégué Culturel Responsable) -->
           <div class="member-card" data-category="culturel">
             <div class="member-avatar-wrap">
-              <img src="images/membres/kokora-mohamed.jpg" alt="KOKORA Mohamed">
+              <img src="images/membres/kokora-mohamed.jpg" alt="KOKORA Mohamed" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">KM</div>
             </div>
-            <span class="member-dept-tag">Culturel &amp; Cultuel</span>
+            <span class="member-dept-tag">Culturel</span>
             <h4 class="member-name">KOKORA Mohamed</h4>
             <p class="member-role">Délégué Culturel Responsable</p>
             <a href="tel:+2250140719281" class="member-contact-link">📞 01 40 71 92 81</a>
           </div>
 
-          <!-- 16. KONATE Illiass (Délégué Culturel) -->
+          <!-- 29. SAWADODO Muslim (DC - Adjoint) -->
           <div class="member-card" data-category="culturel">
             <div class="member-avatar-wrap">
-              <img src="images/membres/sawadodo-muslim.jpg" alt="KONATE Illiass" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
-              <div class="member-initials">KI</div>
+              <img src="images/membres/sawadodo-muslim.jpg" alt="SAWADODO Muslim" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">SM</div>
             </div>
-            <span class="member-dept-tag">Culturel &amp; Cultuel</span>
-            <h4 class="member-name">KONATE Illiass</h4>
-            <p class="member-role">Délégué Culturel</p>
-            <a href="tel:+2250788212922" class="member-contact-link">📞 07 88 21 29 22</a>
+            <span class="member-dept-tag">Culturel</span>
+            <h4 class="member-name">SAWADODO Muslim</h4>
+            <p class="member-role">DC - Adjoint</p>
           </div>
 
-          <!-- 17. ZEBA Samira (Délégation Culturelle Adjointe) -->
+          <!-- 30. ZEBA Samira (DC - Adjointe) -->
           <div class="member-card" data-category="culturel">
             <div class="member-avatar-wrap">
-              <img src="images/membres/zeba-samira.jpg" alt="ZEBA Samira">
+              <img src="images/membres/zeba-samira.jpg" alt="ZEBA Samira" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">ZS</div>
             </div>
-            <span class="member-dept-tag">Culturel &amp; Cultuel</span>
+            <span class="member-dept-tag">Culturel</span>
             <h4 class="member-name">ZEBA Samira</h4>
-            <p class="member-role">Déléguée Culturelle Adjointe</p>
+            <p class="member-role">DC - Adjointe</p>
             <a href="tel:+2250566744733" class="member-contact-link">📞 05 66 74 47 33</a>
           </div>
 
-          <!-- 18. KANGOUTE Salimata (Déléguée Sociale) -->
+          <!-- 31. OUATTARA Abdoul Aziz (Membre Délégation Culturelle) -->
+          <div class="member-card" data-category="culturel">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/ouattara-abdoul-aziz.jpg" alt="OUATTARA Abdoul Aziz" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">OA</div>
+            </div>
+            <span class="member-dept-tag">Culturel</span>
+            <h4 class="member-name">OUATTARA Abdoul Aziz</h4>
+            <p class="member-role">Membre Délégation Culturelle</p>
+          </div>
+
+          <!-- 32. SIDIBE Anass (Membre Délégation Culturelle) -->
+          <div class="member-card" data-category="culturel">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/sidibe-anass.jpg" alt="SIDIBE Anass" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">SA</div>
+            </div>
+            <span class="member-dept-tag">Culturel</span>
+            <h4 class="member-name">SIDIBE Anass</h4>
+            <p class="member-role">Membre Délégation Culturelle</p>
+          </div>
+
+          <!-- 33. ZAMPALIGRE Youssouf (Membre Délégation Culturelle) -->
+          <div class="member-card" data-category="culturel">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/zampaligre-youssouf.jpg" alt="ZAMPALIGRE Youssouf" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">ZY</div>
+            </div>
+            <span class="member-dept-tag">Culturel</span>
+            <h4 class="member-name">ZAMPALIGRE Youssouf</h4>
+            <p class="member-role">Membre Délégation Culturelle</p>
+          </div>
+
+          <!-- 34. BAKAYOKO Hawa (Membre Délégation Culturelle) -->
+          <div class="member-card" data-category="culturel">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/bakayoko-hawa.jpg" alt="BAKAYOKO Hawa" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">BH</div>
+            </div>
+            <span class="member-dept-tag">Culturel</span>
+            <h4 class="member-name">BAKAYOKO Hawa</h4>
+            <p class="member-role">Membre Délégation Culturelle</p>
+          </div>
+
+          <!-- 35. KANGOUTE Salimata (Déléguée Sociale) -->
           <div class="member-card" data-category="social">
             <div class="member-avatar-wrap">
-              <img src="images/membres/kangoute-salimata.jpg" alt="KANGOUTE Salimata">
+              <img src="images/membres/kangoute-salimata.jpg" alt="KANGOUTE Salimata" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">KS</div>
             </div>
-            <span class="member-dept-tag">Délégation Sociale</span>
+            <span class="member-dept-tag">Social</span>
             <h4 class="member-name">KANGOUTE Salimata</h4>
-            <p class="member-role">Déléguée Sociale Responsable</p>
+            <p class="member-role">Déléguée Sociale</p>
             <a href="tel:+2250576910787" class="member-contact-link">📞 05 76 91 07 87</a>
           </div>
 
-          <!-- 19. KOUAME Raoul (Délégué Social Adjoint) -->
+          <!-- 36. DIALLO Mariam (DS - Adjointe) -->
           <div class="member-card" data-category="social">
             <div class="member-avatar-wrap">
-              <img src="images/membres/kouame-raoul.jpg" alt="KOUAME Raoul" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
-              <div class="member-initials">KR</div>
+              <img src="images/membres/diallo-mariam.jpg" alt="DIALLO Mariam" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">DM</div>
             </div>
-            <span class="member-dept-tag">Délégation Sociale</span>
-            <h4 class="member-name">KOUAME Raoul</h4>
-            <p class="member-role">Délégué Social Adjoint</p>
-            <a href="tel:+2250585331519" class="member-contact-link">📞 05 85 33 15 19</a>
+            <span class="member-dept-tag">Social</span>
+            <h4 class="member-name">DIALLO Mariam</h4>
+            <p class="member-role">DS - Adjointe</p>
+          </div>
+
+          <!-- 37. BANSE Kissa Barakissa (Membre Délégation Sociale) -->
+          <div class="member-card" data-category="social">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/banse-kissa-barakissa.jpg" alt="BANSE Kissa Barakissa" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">BK</div>
+            </div>
+            <span class="member-dept-tag">Social</span>
+            <h4 class="member-name">BANSE Kissa Barakissa</h4>
+            <p class="member-role">Membre Délégation Sociale</p>
+          </div>
+
+          <!-- 38. TRAORE Abdoul Kadr (Membre Délégation Sociale) -->
+          <div class="member-card" data-category="social">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/traore-abdoul-kadr.jpg" alt="TRAORE Abdoul Kadr" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">TA</div>
+            </div>
+            <span class="member-dept-tag">Social</span>
+            <h4 class="member-name">TRAORE Abdoul Kadr</h4>
+            <p class="member-role">Membre Délégation Sociale</p>
+          </div>
+
+          <!-- 39. DIENE Rachida (Membre Délégation Sociale) -->
+          <div class="member-card" data-category="social">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/diene-rachida.jpg" alt="DIENE Rachida" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">DR</div>
+            </div>
+            <span class="member-dept-tag">Social</span>
+            <h4 class="member-name">DIENE Rachida</h4>
+            <p class="member-role">Membre Délégation Sociale</p>
+          </div>
+
+          <!-- 40. GOMBANE Abdoul Dramane (Membre Délégation Sociale) -->
+          <div class="member-card" data-category="social">
+            <div class="member-avatar-wrap">
+              <img src="images/membres/gombane-abdoul-dramane.jpg" alt="GOMBANE Abdoul Dramane" onerror="this.nextElementSibling.style.display='flex'; this.style.display='none';">
+              <div class="member-initials">GA</div>
+            </div>
+            <span class="member-dept-tag">Social</span>
+            <h4 class="member-name">GOMBANE Abdoul Dramane</h4>
+            <p class="member-role">Membre Délégation Sociale</p>
           </div>
 
         </div>
@@ -1087,7 +1328,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="qrcode.min.js"></script>
   <script src="html5-qrcode.min.js"></script>
-  <script src="base_donnees_ago.js?v=20261115_v6"></script>
-  <script src="script.js?v=20261115_v6"></script>
+  <script src="base_donnees_ago.js?v=20261115_v7"></script>
+  <script src="script.js?v=20261115_v7"></script>
 </body>
 </html>
