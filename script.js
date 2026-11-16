@@ -10,7 +10,7 @@
 
 const CONFIG = {
   // Date officielle de l'Assemblée Générale Ordinaire
-  targetDate: new Date('2026-11-28T08:00:00'),
+  targetDate: new Date('2026-11-28T14:00:00'),
   // Numéro WhatsApp officiel du Comité d'Organisation / Secrétariat
   whatsappPhone: '2250711985810',
   // Titre pour le partage
@@ -430,7 +430,7 @@ function telechargerPassEnImage() {
   addRow("Nom & Prénoms du Délégué", delegue.nom, true);
   addRow("Qualité / Titre Statutaire", delegue.role, true);
   addRow("Section ou Institution Représentée", delegue.section, true);
-  addRow("Date & Heure de la Session", "Samedi 28 Novembre 2026 dès 08h00 GMT", false);
+  addRow("Date & Heure de la Session", "Samedi 28 Novembre 2026 dès 14h00 GMT", false);
   addRow("Lieu de l'Assemblée", "Lycée Municipal de Koumassi (LMK) — Cantine", false);
 
   // Boîte QR Code
@@ -662,7 +662,7 @@ function initRsvpForm() {
         waText += `🏢 *Section :* ${delegue.section || 'Non précisée'}\n`;
         waText += `📱 *Contact :* ${phone || 'Non précisé'}\n`;
         waText += `📍 *Lieu :* Lycée Municipal de Koumassi (LMK) — Cantine\n`;
-        waText += `📅 *Date :* Samedi 28 Novembre 2026 à 08h00 GMT\n`;
+        waText += `📅 *Date :* Samedi 28 Novembre 2026 à 14h00 GMT\n`;
         if (messageNotes) {
           waText += `💬 *Note :* "${messageNotes}"\n`;
         }
@@ -995,7 +995,7 @@ function initShareFeatures() {
     shareBtn.addEventListener('click', () => {
       const shareText = `🏛️ *CONVOCATION OFFICIELLE — ASSEMBLÉE GÉNÉRALE ORDINAIRE (A.G.O.)*\n\n` +
         `L'AEEMCI Sous-Comité de Koumassi a l'honneur de vous convier à sa session statutaire sous la Présidence effective du *Frère SOW Mohamed*.\n\n` +
-        `📅 *Date :* Samedi 28 Novembre 2026 à 08h00 GMT\n` +
+        `📅 *Date :* Samedi 28 Novembre 2026 à 14h00 GMT\n` +
         `📍 *Lieu :* Lycée Municipal de Koumassi (LMK) — Cantine\n\n` +
         `Découvrez la galerie des anciens présidents, l'équipe du bureau actuel, l'ordre du jour et confirmez votre présence ici :\n` +
         `${window.location.href}`;
