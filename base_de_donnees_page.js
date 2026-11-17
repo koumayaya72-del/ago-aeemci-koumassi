@@ -490,14 +490,17 @@ function traiterValidation(rawCode) {
   // Extraction d'un éventuel paramètre matricule ou URL
   if (code.includes('matricule=')) {
     code = code.split('matricule=')[1].split('&')[0];
-  } else if (code.includes('/')) {
+  } else if (code.includes('/') && !code.includes('|')) {
     code = code.split('/').pop();
   }
 
+  // Validation via la fonction de base_donnees_ago.js
+  // Si le QR contient des pipes, le format est : MATRICULE|NOM|SECTION|ROLE
+  // validerEmargementParMatricule gère déjà ce format et crée l'entrée auto
   let res = validerEmargementParMatricule(code);
 
-  // Si matricule direct non trouvé, recherche par nom dans la base
-  if (res.introuvable && typeof getRegistreAGO === 'function') {
+  // Si matricule direct non trouvé et pas de pipe, recherche par nom
+  if (res.introuvable && !code.includes('|') && typeof getRegistreAGO === 'function') {
     const all = getRegistreAGO();
     const match = all.find(item => item.nom.toLowerCase().includes(code.toLowerCase()));
     if (match) {

@@ -622,7 +622,13 @@ function initRsvpForm() {
       const qrCanvas = document.getElementById('passQrCodeCanvas');
       if (qrCanvas) {
         qrCanvas.innerHTML = '';
-        const qrPayload = (delegue.matricule || 'AGO-KMSSI-2026').trim();
+        // Payload enrichi : MATRICULE|NOM|SECTION|ROLE pour fonctionner sans base cloud
+        const qrPayload = [
+          (delegue.matricule || 'AGO-KMSSI-2026').trim(),
+          (delegue.nom || '').trim(),
+          (delegue.section || '').trim(),
+          (delegue.role || '').trim()
+        ].join('|');
         let qrSuccess = false;
 
         if (typeof QRCode !== 'undefined') {

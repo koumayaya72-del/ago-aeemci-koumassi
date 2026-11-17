@@ -319,8 +319,27 @@ async function validerEmargementParMatricule(codeBrut) {
     index = 0;
   }
 
+    // Si le matricule suit le format officiel AGO-KMSSI-26-XXXX mais n'est pas dans le registre local,
+  // on l'accepte et l'enregistre automatiquement (mode autonome inter-appareils)
+  if (index === -1 && cleanMat.startsWith('AGO-KMSSI-26-')) {
+    const autoEntry = {
+      matricule: matricule,
+      nom: nomPayload || 'Délégué ' + matricule.slice(-4),
+      role: rolePayload || 'Délégué Officiel de Section (Votant)',
+      section: sectionPayload || 'Sous-Comité Koumassi',
+      telephone: '',
+      presence: 'Validé via Scan QR (Auto)',
+      message: '',
+      date_inscription: new Date().toLocaleDateString('fr-FR'),
+      emarge: false,
+      date_emargement: null
+    };
+    registre.unshift(autoEntry);
+    index = 0;
+  }
+
   if (index === -1) {
-    return { success: false, introuvable: true, message: 'Matricule non reconnu dans le registre de l’A.G.O.' };
+    return { success: false, introuvable: true, message: 'Code non reconnu. Format attendu : AGO-KMSSI-26-XXXX' };
   }
 
   const delegue = registre[index];
