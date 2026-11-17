@@ -1440,3 +1440,55 @@ body.db-locked .db-footer {
   pointer-events: none !important;
   user-select: none !important;
 }
+
+/* ── Validation Admin : état EN ATTENTE ── */
+.db-status-box.pending {
+  background: linear-gradient(135deg, #1a3a5c 0%, #0d2240 100%);
+  border-left: 4px solid #F39C12;
+  animation: db-pulse-pending 1.5s ease-in-out infinite;
+}
+
+.db-status-box.pending .db-status-title {
+  color: #F39C12;
+}
+
+@keyframes db-pulse-pending {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(243,156,18,0.3); }
+  50% { box-shadow: 0 0 0 10px rgba(243,156,18,0); }
+}
+
+.db-confirm-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.db-confirm-actions button {
+  width: 100%;
+  padding: 14px 10px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 15px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.db-confirm-actions button:active {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+#btnConfirmValider {
+  background: linear-gradient(135deg, #104F36, #1a7a52);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(16,79,54,0.4);
+}
+
+#btnConfirmRejeter {
+  background: linear-gradient(135deg, #922B21, #C0392B);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(192,57,43,0.3);
+}

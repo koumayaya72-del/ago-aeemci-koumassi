@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261115_v10">
-  <link rel="stylesheet" href="base_de_donnees.css?v=20261115_v10">
+  <link rel="stylesheet" href="style.css?v=20261115_v11">
+  <link rel="stylesheet" href="base_de_donnees.css?v=20261115_v11">
 </head>
 <body class="db-body">
 
@@ -213,7 +213,7 @@
             </div>
           </div>
 
-          <!-- Fiche du dernier délégué émargé -->
+          <!-- Fiche de confirmation admin après scan -->
           <div class="db-delegate-preview" id="dbDelegatePreview" style="display: none;">
             <div class="db-delegate-preview-header">
               <span class="db-preview-matricule" id="dbPreviewMatricule">AGO-KMSSI-26-XXXX</span>
@@ -224,6 +224,21 @@
               <div><strong>Qualité :</strong> <span id="dbPreviewRole">Délégué Officiel (Votant)</span></div>
               <div><strong>Section :</strong> <span id="dbPreviewSection">Section LMK</span></div>
               <div><strong>Contact :</strong> <span id="dbPreviewPhone">+225 07 ...</span></div>
+            </div>
+            <!-- Boutons de confirmation admin -->
+            <div class="db-confirm-actions" id="dbConfirmActions" style="display:none; margin-top:14px; gap:10px; display:none;">
+              <button type="button" id="btnConfirmValider" style="
+                flex:1; padding:12px 8px; background:#104F36; color:#fff; border:none;
+                border-radius:10px; font-weight:700; font-size:14px; cursor:pointer;
+                display:flex; align-items:center; justify-content:center; gap:6px;">
+                ✅ VALIDER LA PRÉSENCE
+              </button>
+              <button type="button" id="btnConfirmRejeter" style="
+                flex:1; padding:12px 8px; background:#C0392B; color:#fff; border:none;
+                border-radius:10px; font-weight:700; font-size:14px; cursor:pointer;
+                display:flex; align-items:center; justify-content:center; gap:6px;">
+                ❌ REJETER
+              </button>
             </div>
           </div>
 
@@ -495,7 +510,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="qrcode.min.js"></script>
   <script src="html5-qrcode.min.js"></script>
-  <script src="base_donnees_ago.js?v=20261115_v10"></script>
-  <script src="base_de_donnees_page.js?v=20261115_v10"></script>
+  <script src="base_donnees_ago.js?v=20261115_v11"></script>
+  <script src="base_de_donnees_page.js?v=20261115_v11"></script>
 </body>
 </html>

@@ -279,7 +279,59 @@ function trouverParMatricule(matricule) {
  * Valide l'émargement d'un participant (Local + Cloud Supabase)
  * Gère aussi le payload autonome : MATRICULE|NOM|SECTION|ROLE
  */
-async function validerEmargementParMatricule(codeBrut) {
+async /**
+ * Identifie un délégué depuis un code QR SANS l'émarger.
+ * Retourne les infos pour afficher la fiche de confirmation admin.
+ */
+function identifierDelegueParQR(codeBrut) {
+  if (!codeBrut) return { found: false, message: 'Code vide.' };
+
+  let raw = String(codeBrut).trim();
+  let matricule = raw;
+  let nomPayload = '';
+  let sectionPayload = '';
+  let rolePayload = '';
+
+  // Format enrichi : MATRICULE|NOM|SECTION|ROLE
+  if (raw.includes('|')) {
+    const parts = raw.split('|');
+    matricule = parts[0].trim();
+    nomPayload = parts[1] ? parts[1].trim() : '';
+    sectionPayload = parts[2] ? parts[2].trim() : '';
+    rolePayload = parts[3] ? parts[3].trim() : '';
+  }
+
+  const cleanMat = matricule.toUpperCase();
+  const registre = getRegistreAGO();
+  let delegue = registre.find(item => item.matricule.toUpperCase() === cleanMat);
+
+  // Pas dans le registre local → construire depuis le payload QR ou le format
+  if (!delegue) {
+    const peutCreer = nomPayload || cleanMat.startsWith('AGO-KMSSI-26-') || cleanMat.startsWith('AGO-KMSSI-2026');
+    if (!peutCreer) {
+      return { found: false, message: 'Code non reconnu. Format attendu : AGO-KMSSI-26-XXXX' };
+    }
+    // Construire une fiche temporaire (non encore sauvegardée)
+    delegue = {
+      matricule: matricule,
+      nom: nomPayload || ('Délégué ' + cleanMat.slice(-4)),
+      role: rolePayload || 'Délégué Officiel de Section (Votant)',
+      section: sectionPayload || 'Sous-Comité Koumassi',
+      telephone: '',
+      emarge: false,
+      date_emargement: null,
+      _nouveau: true  // flag : pas encore dans le registre
+    };
+  }
+
+  return {
+    found: true,
+    delegue: delegue,
+    dejaEmarge: delegue.emarge === true
+  };
+}
+
+function validerEmargementParMatricule(codeBrut) {
   if (!codeBrut) return { success: false, introuvable: true };
 
   let raw = String(codeBrut).trim();

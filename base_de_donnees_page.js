@@ -103,6 +103,12 @@ function initDbConsole() {
     btnToggleCamera.addEventListener('click', toggleCameraScanning);
   }
 
+  // Boutons de confirmation admin
+  const btnValider = document.getElementById('btnConfirmValider');
+  const btnRejeter = document.getElementById('btnConfirmRejeter');
+  if (btnValider) btnValider.addEventListener('click', confirmerEmargement);
+  if (btnRejeter) btnRejeter.addEventListener('click', rejeterEmargement);
+
   // Écouteurs de la Saisie Manuelle
   const btnManual = document.getElementById('btnDbManualCheckin');
   const inputManual = document.getElementById('dbManualInput');
@@ -483,92 +489,162 @@ function renderRecentList() {
 /* ==========================================================================
    5. LOGIQUE DU SCANNEUR & VALIDATION
    ========================================================================== */
+// Variable globale pour stocker le délégué en attente de confirmation
+let _delegueEnAttente = null;
+
 function traiterValidation(rawCode) {
   if (!rawCode) return;
   let code = String(rawCode).trim();
 
-  // Extraction d'un éventuel paramètre matricule ou URL
+  // Nettoyage du code (URL ou paramètre)
   if (code.includes('matricule=')) {
     code = code.split('matricule=')[1].split('&')[0];
   } else if (code.includes('/') && !code.includes('|')) {
     code = code.split('/').pop();
   }
 
-  // Validation via la fonction de base_donnees_ago.js
-  // Si le QR contient des pipes, le format est : MATRICULE|NOM|SECTION|ROLE
-  // validerEmargementParMatricule gère déjà ce format et crée l'entrée auto
-  let res = validerEmargementParMatricule(code);
-
-  // Si matricule direct non trouvé et pas de pipe, recherche par nom
-  if (res.introuvable && !code.includes('|') && typeof getRegistreAGO === 'function') {
-    const all = getRegistreAGO();
-    const match = all.find(item => item.nom.toLowerCase().includes(code.toLowerCase()));
-    if (match) {
-      res = validerEmargementParMatricule(match.matricule);
-    }
-  }
+  // ── ÉTAPE 1 : Identifier le délégué (sans émarger) ──
+  const identification = identifierDelegueParQR(code);
 
   const box = document.getElementById('dbStatusBox');
   const title = document.getElementById('dbStatusTitle');
   const desc = document.getElementById('dbStatusDesc');
   const icon = document.getElementById('dbStatusIcon');
   const preview = document.getElementById('dbDelegatePreview');
+  const confirmActions = document.getElementById('dbConfirmActions');
+
+  if (!identification.found) {
+    // Code non reconnu
+    playAudioFeedback('error');
+    if (box) {
+      box.className = 'db-status-box error';
+      box.style.display = 'flex';
+      if (icon) icon.textContent = '❌';
+      if (title) title.textContent = 'CODE NON RECONNU';
+      if (desc) desc.innerHTML = `Le code <strong>"${code.split('|')[0]}"</strong> est introuvable dans la base officielle.`;
+    }
+    if (preview) preview.style.display = 'none';
+    if (confirmActions) confirmActions.style.display = 'none';
+    _delegueEnAttente = null;
+    showDbToast('❌ Matricule inconnu !');
+    return;
+  }
+
+  if (identification.dejaEmarge) {
+    // Déjà émargé
+    playAudioFeedback('warning');
+    const d = identification.delegue;
+    if (box) {
+      box.className = 'db-status-box warning';
+      box.style.display = 'flex';
+      if (icon) icon.textContent = '⚠️';
+      if (title) title.textContent = 'DÉJÀ ÉMARGÉ';
+      if (desc) desc.innerHTML = `<strong>${d.nom}</strong> a déjà été émargé le <strong>${d.date_emargement}</strong>.`;
+    }
+    if (preview) {
+      preview.style.display = 'block';
+      document.getElementById('dbPreviewMatricule').textContent = d.matricule;
+      document.getElementById('dbPreviewNom').textContent = d.nom;
+      document.getElementById('dbPreviewRole').textContent = d.role || '-';
+      document.getElementById('dbPreviewSection').textContent = d.section || '-';
+      document.getElementById('dbPreviewPhone').textContent = d.telephone || '-';
+      document.getElementById('dbPreviewTime').textContent = d.date_emargement || '-';
+    }
+    if (confirmActions) confirmActions.style.display = 'none';
+    _delegueEnAttente = null;
+    showDbToast('⚠️ Déjà émargé !');
+    return;
+  }
+
+  // ── ÉTAPE 2 : Afficher la fiche + attendre confirmation admin ──
+  _delegueEnAttente = { code: code, delegue: identification.delegue };
+
+  const d = identification.delegue;
+  const now = new Date().toLocaleTimeString('fr-FR');
+
+  if (box) {
+    box.className = 'db-status-box pending';
+    box.style.display = 'flex';
+    if (icon) icon.textContent = '👤';
+    if (title) title.textContent = 'EN ATTENTE DE CONFIRMATION';
+    if (desc) desc.innerHTML = `Délégué identifié. <strong>L'administrateur doit valider ou rejeter la présence.</strong>`;
+  }
+
+  if (preview) {
+    preview.style.display = 'block';
+    document.getElementById('dbPreviewMatricule').textContent = d.matricule;
+    document.getElementById('dbPreviewNom').textContent = d.nom;
+    document.getElementById('dbPreviewRole').textContent = d.role || '-';
+    document.getElementById('dbPreviewSection').textContent = d.section || '-';
+    document.getElementById('dbPreviewPhone').textContent = d.telephone || '-';
+    document.getElementById('dbPreviewTime').textContent = now;
+  }
+
+  if (confirmActions) {
+    confirmActions.style.display = 'flex';
+    confirmActions.style.flexDirection = 'column';
+    confirmActions.style.gap = '10px';
+  }
+
+  showDbToast('👤 Délégué identifié — En attente de validation admin');
+}
+
+function confirmerEmargement() {
+  if (!_delegueEnAttente) return;
+
+  const res = validerEmargementParMatricule(_delegueEnAttente.code);
+
+  const box = document.getElementById('dbStatusBox');
+  const title = document.getElementById('dbStatusTitle');
+  const desc = document.getElementById('dbStatusDesc');
+  const icon = document.getElementById('dbStatusIcon');
+  const confirmActions = document.getElementById('dbConfirmActions');
 
   if (res.success) {
     playAudioFeedback('success');
     if (box) {
       box.className = 'db-status-box success';
       if (icon) icon.textContent = '✅';
-      if (title) title.textContent = `ÉMARGEMENT VALIDÉ AVEC SUCCÈS`;
-      if (desc) desc.innerHTML = `La présence de <strong>${res.delegue.nom}</strong> a été enregistrée dans la base et comptabilisée pour le Quorum.`;
+      if (title) title.textContent = 'ÉMARGEMENT VALIDÉ ✅';
+      if (desc) desc.innerHTML = `La présence de <strong>${res.delegue.nom}</strong> a été enregistrée et comptabilisée pour le Quorum.`;
     }
-
-    if (preview) {
-      preview.style.display = 'block';
-      document.getElementById('dbPreviewMatricule').textContent = res.delegue.matricule;
-      document.getElementById('dbPreviewNom').textContent = res.delegue.nom;
-      document.getElementById('dbPreviewRole').textContent = res.delegue.role;
-      document.getElementById('dbPreviewSection').textContent = res.delegue.section;
-      document.getElementById('dbPreviewPhone').textContent = res.delegue.telephone || 'Non renseigné';
-      document.getElementById('dbPreviewTime').textContent = res.delegue.date_emargement || '';
-    }
-
-    showDbToast(`✅ Présence validée : ${res.delegue.nom}`);
-  } else if (res.dejaEmarge) {
-    playAudioFeedback('warning');
-    if (box) {
-      box.className = 'db-status-box warning';
-      if (icon) icon.textContent = '⚠️';
-      if (title) title.textContent = `ATTENTION : DÉJÀ ÉMARGÉ`;
-      if (desc) desc.innerHTML = `<strong>${res.delegue.nom}</strong> a déjà émargé le <strong>${res.delegue.date_emargement}</strong>. Ce badge ne peut pas être scanné deux fois.`;
-    }
-
-    if (preview) {
-      preview.style.display = 'block';
-      document.getElementById('dbPreviewMatricule').textContent = res.delegue.matricule;
-      document.getElementById('dbPreviewNom').textContent = res.delegue.nom;
-      document.getElementById('dbPreviewRole').textContent = res.delegue.role;
-      document.getElementById('dbPreviewSection').textContent = res.delegue.section;
-      document.getElementById('dbPreviewPhone').textContent = res.delegue.telephone || 'Non renseigné';
-      document.getElementById('dbPreviewTime').textContent = res.delegue.date_emargement || '';
-    }
-
-    showDbToast(`⚠️ Délégué déjà présent : ${res.delegue.nom}`);
+    if (confirmActions) confirmActions.style.display = 'none';
+    _delegueEnAttente = null;
+    showDbToast(`✅ ${res.delegue.nom} — Présence confirmée !`);
+    refreshAllDbViews();
   } else {
-    playAudioFeedback('error');
     if (box) {
       box.className = 'db-status-box error';
       if (icon) icon.textContent = '❌';
-      if (title) title.textContent = `CODE NON RECONNU`;
-      if (desc) desc.innerHTML = `Le code ou nom <strong>"${rawCode}"</strong> est introuvable dans la base officielle. Vérifiez l'orthographe ou inscrivez le délégué.`;
+      if (title) title.textContent = res.dejaEmarge ? 'DÉJÀ ÉMARGÉ' : 'ERREUR';
+      if (desc) desc.textContent = res.message || 'Une erreur est survenue.';
     }
-    if (preview) preview.style.display = 'none';
-
-    showDbToast(`❌ Matricule inconnu !`);
+    if (confirmActions) confirmActions.style.display = 'none';
+    _delegueEnAttente = null;
   }
-
-  refreshAllDbViews();
 }
+
+function rejeterEmargement() {
+  _delegueEnAttente = null;
+  const box = document.getElementById('dbStatusBox');
+  const title = document.getElementById('dbStatusTitle');
+  const desc = document.getElementById('dbStatusDesc');
+  const icon = document.getElementById('dbStatusIcon');
+  const preview = document.getElementById('dbDelegatePreview');
+  const confirmActions = document.getElementById('dbConfirmActions');
+
+  if (box) {
+    box.className = 'db-status-box initial';
+    if (icon) icon.textContent = '🎯';
+    if (title) title.textContent = 'Scanneur en attente de lecture';
+    if (desc) desc.textContent = 'Pointez la caméra vers le Pass QR Code d\'un délégué ou saisissez son matricule.';
+  }
+  if (preview) preview.style.display = 'none';
+  if (confirmActions) confirmActions.style.display = 'none';
+
+  showDbToast('❌ Présence rejetée par l\'administrateur.');
+}
+
 
 function handleManualCheckin(val) {
   const trimmed = (val || '').trim();
