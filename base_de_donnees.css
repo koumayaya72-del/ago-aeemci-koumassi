@@ -298,6 +298,29 @@ body.db-body {
   color: #8C5305;
 }
 
+/* ==========================================================================
+   4. SECTION SCANNEUR EN DIRECT DANS LA BASE
+   ========================================================================== */
+.db-scanner-section {
+  background: var(--db-card-bg);
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  padding: 24px;
+  box-shadow: var(--db-shadow);
+  margin-bottom: 28px;
+}
+
+.db-scanner-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+@media (max-width: 900px) {
+  .db-scanner-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 /* ═══════════════════════════════════════════════════════════════
    CONSOLE D'ÉMARGEMENT — DESIGN MOBILE-FIRST PROFESSIONNEL
@@ -844,4 +867,1123 @@ body.db-body {
   .db-manual-block   { grid-area: manual; align-self: start; }
   .db-result-zone    { grid-area: result; }
   .db-recents-block  { grid-area: recents; }
+}
+
+.db-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+
+.db-card-title {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--db-emerald-dark);
+  margin: 0 0 4px 0;
+}
+
+.db-card-subtitle {
+  font-size: 12px;
+  color: var(--db-text-muted);
+  margin: 0;
+}
+
+.db-sound-toggle-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.db-switch-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--db-emerald);
+  cursor: pointer;
+  background: var(--db-gold-light);
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--db-gold-border);
+}
+
+/* Zone Caméra */
+.db-camera-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4/3;
+  min-height: 240px;
+  background: #051D14;
+  border-radius: 12px;
+  overflow: visible;
+  border: 2px solid var(--db-gold);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.6);
+  margin-bottom: 14px;
+}
+
+.db-camera-viewport {
+  width: 100%;
+  height: 100%;
+}
+
+/* Flux vidéo Html5Qrcode : forcer l'affichage correct */
+#dbCameraReader {
+  width: 100% !important;
+  min-height: 240px;
+  display: block;
+}
+
+#dbCameraReader video {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 240px !important;
+  object-fit: cover !important;
+  display: block !important;
+  border-radius: 10px;
+}
+
+#dbCameraReader canvas {
+  display: none !important;
+}
+
+.db-camera-overlay-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 180px;
+  height: 180px;
+  border: 2px dashed rgba(212, 175, 55, 0.7);
+  border-radius: 14px;
+  pointer-events: none;
+  box-shadow: 0 0 0 1000px rgba(5, 29, 20, 0.35);
+}
+
+.db-scanner-laser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #FF3333;
+  box-shadow: 0 0 8px #FF3333;
+  animation: scanLaser 2s infinite ease-in-out;
+}
+
+@keyframes scanLaser {
+  0% { top: 0; opacity: 0.8; }
+  50% { top: 100%; opacity: 1; }
+  100% { top: 0; opacity: 0.8; }
+}
+
+.db-camera-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.db-camera-hint {
+  font-size: 11px;
+  color: var(--db-text-muted);
+  text-align: center;
+}
+
+/* Barre de saisie manuelle */
+.db-manual-bar-wrap {
+  background: #F8FAF9;
+  border: 1px solid var(--db-border);
+  border-radius: 10px;
+  padding: 14px;
+}
+
+.db-input-label {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--db-emerald);
+  margin-bottom: 6px;
+}
+
+.db-manual-bar {
+  display: flex;
+  gap: 8px;
+}
+
+.db-manual-bar input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1.5px solid var(--db-border);
+  border-radius: 8px;
+  font-size: 12.5px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.db-manual-bar input:focus {
+  border-color: var(--db-gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+/* Panneau droit : Résultat & Fiche */
+.db-status-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.db-status-box.initial {
+  background: #F4F7F5;
+  border: 1.5px dashed #C3D4CB;
+  color: var(--db-text-muted);
+}
+
+.db-status-box.success {
+  background: #E8F8EE;
+  border: 1.5px solid #2ECC71;
+  color: #0E6234;
+  animation: pulseSuccess 0.4s ease;
+}
+
+.db-status-box.warning {
+  background: #FFF7E6;
+  border: 1.5px solid #F39C12;
+  color: #8C5305;
+}
+
+.db-status-box.error {
+  background: #FDE8E8;
+  border: 1.5px solid #E74C3C;
+  color: #922B21;
+}
+
+@keyframes pulseSuccess {
+  0% { transform: scale(0.98); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.db-status-icon {
+  font-size: 32px;
+}
+
+.db-status-title {
+  font-family: 'Cinzel', serif;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+}
+
+.db-status-desc {
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Fiche délégué prévisualisé */
+.db-delegate-preview {
+  background: #FAF6EB;
+  border: 1.5px solid var(--db-gold);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.db-delegate-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.db-preview-matricule {
+  font-family: monospace;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--db-emerald);
+  background: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--db-gold);
+}
+
+.db-preview-time {
+  font-size: 11px;
+  font-weight: 600;
+  color: #888;
+}
+
+.db-preview-name {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--db-emerald-dark);
+  margin: 0 0 8px 0;
+}
+
+.db-preview-meta {
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--db-text-main);
+}
+
+/* Fil des derniers arrivés */
+.db-recent-list-wrap {
+  border-top: 1px solid var(--db-border);
+  padding-top: 14px;
+}
+
+.db-recent-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--db-emerald-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 10px 0;
+}
+
+.db-recent-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 170px;
+  overflow-y: auto;
+}
+
+.db-recent-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: #F8FAF9;
+  margin-bottom: 6px;
+  font-size: 12px;
+  border-left: 3px solid #2ECC71;
+}
+
+.db-recent-item strong {
+  color: var(--db-emerald-dark);
+}
+
+.db-recent-time {
+  font-size: 10.5px;
+  color: #888;
+  font-family: monospace;
+}
+
+.db-recent-empty {
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+  padding: 12px 0;
+}
+
+/* ==========================================================================
+   5. REGISTRE GÉNÉRAL DE LA BASE DE DONNÉES (TABLE)
+   ========================================================================== */
+.db-table-section {
+  margin-top: 24px;
+}
+
+.db-table-card {
+  background: var(--db-card-bg);
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  padding: 24px;
+  box-shadow: var(--db-shadow);
+}
+
+.db-table-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.db-table-top-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-db-outline-small {
+  background: #FFFFFF;
+  border: 1px solid var(--db-border);
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--db-emerald);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-db-outline-small:hover {
+  border-color: var(--db-gold);
+  background: var(--db-gold-light);
+}
+
+/* Barre de filtres */
+.db-filter-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.db-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #F8FAF9;
+  border: 1.5px solid var(--db-border);
+  border-radius: 8px;
+  padding: 8px 14px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.db-search-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  font-size: 12.5px;
+  color: var(--db-text-main);
+}
+
+.db-filter-pills {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.db-filter-pill {
+  background: #FFFFFF;
+  border: 1px solid var(--db-border);
+  color: var(--db-text-muted);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.db-filter-pill:hover {
+  border-color: var(--db-gold);
+  color: var(--db-emerald);
+}
+
+.db-filter-pill.active {
+  background: var(--db-emerald);
+  border-color: var(--db-emerald);
+  color: #FFFFFF;
+}
+
+/* Tableau */
+.db-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--db-border);
+}
+
+.db-main-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+  text-align: left;
+}
+
+.db-main-table thead {
+  background: var(--db-emerald-dark);
+  color: #FFFFFF;
+}
+
+.db-main-table th {
+  padding: 12px 14px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  border-bottom: 2px solid var(--db-gold);
+}
+
+.db-main-table tbody tr {
+  border-bottom: 1px solid var(--db-border);
+  transition: background 0.15s ease;
+}
+
+.db-main-table tbody tr:hover {
+  background: #F8FAF9;
+}
+
+.db-main-table td {
+  padding: 12px 14px;
+  vertical-align: middle;
+}
+
+.db-mat-tag {
+  font-family: monospace;
+  font-weight: 800;
+  color: var(--db-emerald);
+  background: #E8F0EC;
+  padding: 3px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.db-badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.db-badge-status.emarge {
+  background: #E8F8EE;
+  color: #127A42;
+  border: 1px solid #A3E4D7;
+}
+
+.db-badge-status.attente {
+  background: #FFF7E6;
+  color: #A06400;
+  border: 1px solid #FAD7A0;
+}
+
+.db-table-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.btn-action-emarge {
+  background: var(--db-emerald);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-action-emarge:hover {
+  background: var(--db-emerald-light);
+}
+
+.btn-action-pass {
+  background: #FFFFFF;
+  color: var(--db-emerald);
+  border: 1px solid var(--db-gold);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-action-pass:hover {
+  background: var(--db-gold-light);
+}
+
+.db-table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  font-size: 11.5px;
+  color: var(--db-text-muted);
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.db-quorum-reminder {
+  font-weight: 700;
+  color: var(--db-emerald);
+}
+
+/* Modals */
+.db-new-modal-header {
+  padding: 20px 20px 10px 20px;
+  border-bottom: 1px solid var(--db-border);
+}
+
+/* ==========================================================================
+   5.5 OPTIMISATIONS HAUTE FIDÉLITÉ POUR SMARTPHONES (MOBILE PRO)
+   ========================================================================== */
+.db-mobile-bottom-nav {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  body.db-body {
+    padding-bottom: 74px; /* Espace réservé pour la barre de navigation basse */
+  }
+
+  .db-container {
+    padding: 0 14px;
+  }
+
+  /* Barre d'action basse permanente mobile */
+  .db-mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background: rgba(5, 29, 20, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 2px solid var(--db-gold);
+    z-index: 9999;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.35);
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 10px;
+  }
+
+  .m-nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #A3C9B8;
+    font-size: 11px;
+    font-weight: 600;
+    gap: 2px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    padding: 6px 0;
+  }
+
+  .m-nav-item.active,
+  .m-nav-item:hover {
+    color: var(--db-gold);
+  }
+
+  .m-nav-icon {
+    font-size: 18px;
+  }
+
+  .m-nav-btn {
+    color: #FFFFFF;
+    background: var(--db-emerald);
+    border-radius: 10px;
+    margin: 4px 6px;
+    border: 1px solid var(--db-gold);
+  }
+
+  /* Barre supérieure mobile */
+  .db-navbar {
+    padding: 10px 0;
+  }
+
+  .db-nav-content {
+    gap: 10px;
+  }
+
+  .db-brand {
+    gap: 10px;
+    width: 100%;
+  }
+
+  .db-logo {
+    width: 44px;
+    height: 44px;
+  }
+
+  .db-brand-title {
+    font-size: 15px;
+    line-height: 1.2;
+  }
+
+  .db-brand-sub {
+    font-size: 10px;
+  }
+
+  .db-nav-actions {
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 4px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .db-nav-actions::-webkit-scrollbar {
+    display: none;
+  }
+
+  .btn-db-outline,
+  .btn-db-gold,
+  .btn-db-primary {
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+
+  /* Bandeau lieu & Quorum */
+  .db-event-bar {
+    font-size: 11px;
+    padding: 8px 0;
+  }
+
+  .db-event-grid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  /* Grille KPI 2x2 harmonieuse */
+  .db-kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .db-kpi-card {
+    padding: 12px 14px;
+  }
+
+  .db-kpi-label {
+    font-size: 10px;
+  }
+
+  .db-kpi-value {
+    font-size: 24px;
+  }
+
+  .db-kpi-sub {
+    font-size: 10px;
+  }
+
+  /* Zone Caméra & Scanneur */
+  .db-scanner-section {
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .db-card-title {
+    font-size: 16px;
+  }
+
+  .db-camera-container {
+    max-height: 230px;
+  }
+
+  .db-manual-bar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .db-manual-bar input {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .btn-manual-valider {
+    width: 100%;
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  /* Filtres & Recherche */
+  .db-filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .db-search-box {
+    min-width: 100%;
+  }
+
+  .db-filter-pills {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .db-filter-pills::-webkit-scrollbar {
+    display: none;
+  }
+
+  .db-filter-pill {
+    white-space: nowrap;
+    padding: 5px 12px;
+    font-size: 11px;
+  }
+
+  /* Transformation du Tableau en Fiches Exécutives sur Smartphone */
+  .db-table-card {
+    padding: 14px;
+  }
+
+  .db-table-responsive {
+    border: none;
+    overflow: visible;
+  }
+
+  .db-main-table,
+  .db-main-table tbody,
+  .db-main-table tr,
+  .db-main-table td {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .db-main-table thead {
+    display: none;
+  }
+
+  .db-main-table tbody tr {
+    background: #FFFFFF;
+    border: 1.5px solid var(--db-border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 2px 10px rgba(5, 29, 20, 0.05);
+  }
+
+  .db-main-table td {
+    padding: 2px 0;
+  }
+
+  /* Ligne 1 : Matricule + Badge Statut */
+  .db-main-table td:nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+
+  /* Ligne 2 : Nom du Délégué */
+  .db-main-table td:nth-child(2) strong {
+    font-size: 14.5px !important;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  /* Ligne 3 : Section */
+  .db-main-table td:nth-child(3) {
+    font-size: 11.5px;
+    color: #104F36;
+    font-weight: 600;
+  }
+
+  /* Ligne 4 : Qualité / Titre */
+  .db-main-table td:nth-child(4) {
+    font-size: 11px;
+    color: #666;
+  }
+
+  /* Ligne 5 : Contact */
+  .db-main-table td:nth-child(5) {
+    font-size: 11px;
+    color: #888;
+  }
+
+  /* Ligne 6 : Statut */
+  .db-main-table td:nth-child(6) {
+    margin: 4px 0;
+  }
+
+  /* Ligne 7 : Heure */
+  .db-main-table td:nth-child(7) {
+    font-size: 10.5px;
+    color: #999;
+  }
+
+  /* Ligne 8 : Boutons d'Action */
+  .db-main-table td:nth-child(8) {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--db-border);
+  }
+
+  .db-table-actions {
+    display: flex;
+    gap: 6px;
+    width: 100%;
+  }
+
+  .btn-action-emarge {
+    flex: 1.5;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .btn-action-pass {
+    flex: 1;
+    padding: 10px;
+    font-size: 12px;
+    border-radius: 8px;
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   6. IMPRESSION
+   ========================================================================== */
+@media print {
+  .db-navbar,
+  .db-event-bar,
+  .db-kpi-grid,
+  .db-scanner-section,
+  .db-table-header-row,
+  .db-filter-bar,
+  .db-table-footer,
+  .pass-modal-close,
+  .pass-modal-actions,
+  .db-table-actions {
+    display: none !important;
+  }
+
+  body.db-body {
+    background: #FFFFFF !important;
+    padding: 0 !important;
+  }
+
+  .db-table-card {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  .db-main-table {
+    font-size: 11px !important;
+  }
+
+  .db-main-table th {
+    background: #EEEEEE !important;
+    color: #000000 !important;
+    border-bottom: 2px solid #000000 !important;
+  }
+
+  body.print-badge-active #dbPassModalBackdrop,
+  body.print-badge-active #dbPassModalBackdrop * {
+    visibility: visible !important;
+  }
+
+  body.print-badge-active #dbPassModalBackdrop {
+    display: flex !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    background: #FFFFFF !important;
+  }
+
+  body.print-badge-active .pass-modal-card {
+    box-shadow: none !important;
+    border: 2px solid #D4AF37 !important;
+  }
+}
+
+/* ==========================================================================
+   AUTHENTICATION OVERLAY & PRIVATE DATABASE LOCK (COMMISSION ACCUEIL)
+   ========================================================================== */
+.db-auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: rgba(5, 29, 20, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.db-auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: #09261B;
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(212, 175, 55, 0.2);
+  padding: 36px 30px;
+  text-align: center;
+  color: #fff;
+  animation: authCardPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes authCardPopIn {
+  from { opacity: 0; transform: scale(0.92) translateY(15px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.db-auth-emblem {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  border: 2px solid #D4AF37;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.db-auth-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.db-auth-badge {
+  display: inline-block;
+  padding: 5px 14px;
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  border-radius: 20px;
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #F1C40F;
+  margin-bottom: 12px;
+}
+
+.db-auth-title {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin: 0 0 10px;
+  letter-spacing: 0.5px;
+}
+
+.db-auth-subtitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.75);
+  margin: 0 0 24px;
+}
+
+.db-auth-form {
+  text-align: left;
+}
+
+.db-auth-group label {
+  display: block;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #D4AF37;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+.db-auth-input-box {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
+  border-radius: 12px;
+  padding: 0 14px;
+  transition: all 0.25s ease;
+}
+
+.db-auth-input-box:focus-within {
+  border-color: #F1C40F;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+}
+
+.db-auth-input-icon {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.db-auth-input-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 13px 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+}
+
+.db-auth-input-box input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+  letter-spacing: 0;
+  font-size: 12.5px;
+}
+
+.db-auth-error {
+  margin-top: 10px;
+  padding: 10px 14px;
+  background: rgba(231, 76, 60, 0.15);
+  border: 1px solid rgba(231, 76, 60, 0.5);
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  color: #FF8F8F;
+  text-align: center;
+}
+
+.db-auth-back-link {
+  display: inline-block;
+  width: 100%;
+  margin-top: 18px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.db-auth-back-link:hover {
+  color: #F1C40F;
+  text-decoration: underline;
+}
+
+/* Verrouillage strict de la page */
+body.db-locked .db-navbar,
+body.db-locked .db-event-bar,
+body.db-locked .db-main-layout,
+body.db-locked .db-footer {
+  filter: blur(12px) !important;
+  pointer-events: none !important;
+  user-select: none !important;
 }
