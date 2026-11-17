@@ -87,6 +87,16 @@ document.addEventListener('DOMContentLoaded', () => {
 function initDbConsole() {
   refreshAllDbViews();
 
+  // Synchronisation Supabase au démarrage (non bloquant)
+  if (typeof synchroniserDepuisSupabase === 'function') {
+    synchroniserDepuisSupabase().then(() => {
+      refreshAllDbViews();
+      console.log('[DB] Synchronisation Supabase initiale réussie.');
+    }).catch(e => {
+      console.warn('[DB] Synchronisation Supabase échouée (hors ligne?), cache local utilisé.', e);
+    });
+  }
+
   // Écouteurs de la Caméra
   const btnToggleCamera = document.getElementById('btnToggleDbCamera');
   if (btnToggleCamera) {
@@ -643,7 +653,19 @@ function startDbCamera() {
       btn.innerHTML = `<span>Activer la Caméra d'Émargement</span>`;
       btn.style.background = '';
     }
-    showDbToast("Caméra inaccessible. Vous pouvez valider directement via la saisie manuelle.");
+    // Affichage d'un message d'aide dans la zone de statut
+    const statusBox = document.getElementById('dbStatusBox');
+    const statusTitle = document.getElementById('dbStatusTitle');
+    const statusDesc = document.getElementById('dbStatusDesc');
+    const statusIcon = document.getElementById('dbStatusIcon');
+    if (statusBox) {
+      statusBox.className = 'db-status-box warning';
+      if (statusIcon) statusIcon.textContent = '📷';
+      if (statusTitle) statusTitle.textContent = 'Caméra inaccessible';
+      if (statusDesc) statusDesc.textContent = 'Veuillez autoriser l\'accès à la caméra dans les paramètres de votre navigateur, ou utilisez la saisie manuelle ci-dessous.';
+      statusBox.style.display = 'flex';
+    }
+    showDbToast("📷 Caméra inaccessible — utilisez la saisie manuelle.");
   });
 }
 
