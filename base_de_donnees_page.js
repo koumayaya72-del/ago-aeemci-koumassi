@@ -492,158 +492,108 @@ function renderRecentList() {
 // Variable globale pour stocker le délégué en attente de confirmation
 let _delegueEnAttente = null;
 
+// Afficher un état précis de la zone résultat
+function showDbState(stateName) {
+  const states = ['Idle','Pending','Success','Warning','Error'];
+  states.forEach(s => {
+    const el = document.getElementById('dbState' + s);
+    if (el) el.style.display = (s === stateName) ? 'flex' : 'none';
+  });
+}
+
+
 function traiterValidation(rawCode) {
   if (!rawCode) return;
   let code = String(rawCode).trim();
 
-  // Nettoyage du code (URL ou paramètre)
   if (code.includes('matricule=')) {
     code = code.split('matricule=')[1].split('&')[0];
   } else if (code.includes('/') && !code.includes('|')) {
     code = code.split('/').pop();
   }
 
-  // ── ÉTAPE 1 : Identifier le délégué (sans émarger) ──
   const identification = identifierDelegueParQR(code);
 
-  const box = document.getElementById('dbStatusBox');
-  const title = document.getElementById('dbStatusTitle');
-  const desc = document.getElementById('dbStatusDesc');
-  const icon = document.getElementById('dbStatusIcon');
-  const preview = document.getElementById('dbDelegatePreview');
-  const confirmActions = document.getElementById('dbConfirmActions');
-
   if (!identification.found) {
-    // Code non reconnu
     playAudioFeedback('error');
-    if (box) {
-      box.className = 'db-status-box error';
-      box.style.display = 'flex';
-      if (icon) icon.textContent = '❌';
-      if (title) title.textContent = 'CODE NON RECONNU';
-      if (desc) desc.innerHTML = `Le code <strong>"${code.split('|')[0]}"</strong> est introuvable dans la base officielle.`;
-    }
-    if (preview) preview.style.display = 'none';
-    if (confirmActions) confirmActions.style.display = 'none';
+    showDbState('Error');
+    const el = document.getElementById('dbErrorDetail');
+    if (el) el.textContent = identification.message || 'QR code non reconnu. Format : AGO-KMSSI-26-XXXX';
     _delegueEnAttente = null;
-    showDbToast('❌ Matricule inconnu !');
+    showDbToast('❌ Code non reconnu');
     return;
   }
-
-  if (identification.dejaEmarge) {
-    // Déjà émargé
-    playAudioFeedback('warning');
-    const d = identification.delegue;
-    if (box) {
-      box.className = 'db-status-box warning';
-      box.style.display = 'flex';
-      if (icon) icon.textContent = '⚠️';
-      if (title) title.textContent = 'DÉJÀ ÉMARGÉ';
-      if (desc) desc.innerHTML = `<strong>${d.nom}</strong> a déjà été émargé le <strong>${d.date_emargement}</strong>.`;
-    }
-    if (preview) {
-      preview.style.display = 'block';
-      document.getElementById('dbPreviewMatricule').textContent = d.matricule;
-      document.getElementById('dbPreviewNom').textContent = d.nom;
-      document.getElementById('dbPreviewRole').textContent = d.role || '-';
-      document.getElementById('dbPreviewSection').textContent = d.section || '-';
-      document.getElementById('dbPreviewPhone').textContent = d.telephone || '-';
-      document.getElementById('dbPreviewTime').textContent = d.date_emargement || '-';
-    }
-    if (confirmActions) confirmActions.style.display = 'none';
-    _delegueEnAttente = null;
-    showDbToast('⚠️ Déjà émargé !');
-    return;
-  }
-
-  // ── ÉTAPE 2 : Afficher la fiche + attendre confirmation admin ──
-  _delegueEnAttente = { code: code, delegue: identification.delegue };
 
   const d = identification.delegue;
+
+  if (identification.dejaEmarge) {
+    playAudioFeedback('warning');
+    showDbState('Warning');
+    const el = document.getElementById('dbWarningDetail');
+    if (el) el.textContent = d.nom + ' — Déjà émargé le ' + (d.date_emargement || '—');
+    _delegueEnAttente = null;
+    showDbToast('⚠️ ' + d.nom + ' — Déjà émargé !');
+    return;
+  }
+
+  // Afficher la fiche + attendre confirmation
+  _delegueEnAttente = { code: code, delegue: d };
   const now = new Date().toLocaleTimeString('fr-FR');
 
-  if (box) {
-    box.className = 'db-status-box pending';
-    box.style.display = 'flex';
-    if (icon) icon.textContent = '👤';
-    if (title) title.textContent = 'EN ATTENTE DE CONFIRMATION';
-    if (desc) desc.innerHTML = `Délégué identifié. <strong>L'administrateur doit valider ou rejeter la présence.</strong>`;
-  }
+  const fields = {
+    dbPreviewMatricule: d.matricule,
+    dbPreviewNom:       d.nom,
+    dbPreviewRole:      d.role || '—',
+    dbPreviewSection:   d.section || '—',
+    dbPreviewPhone:     d.telephone || '—',
+    dbPreviewTime:      now
+  };
+  Object.entries(fields).forEach(([id, val]) => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = val;
+  });
 
-  if (preview) {
-    preview.style.display = 'block';
-    document.getElementById('dbPreviewMatricule').textContent = d.matricule;
-    document.getElementById('dbPreviewNom').textContent = d.nom;
-    document.getElementById('dbPreviewRole').textContent = d.role || '-';
-    document.getElementById('dbPreviewSection').textContent = d.section || '-';
-    document.getElementById('dbPreviewPhone').textContent = d.telephone || '-';
-    document.getElementById('dbPreviewTime').textContent = now;
-  }
-
-  if (confirmActions) {
-    confirmActions.style.display = 'flex';
-    confirmActions.style.flexDirection = 'column';
-    confirmActions.style.gap = '10px';
-  }
-
-  showDbToast('👤 Délégué identifié — En attente de validation admin');
+  showDbState('Pending');
+  showDbToast('👤 ' + d.nom + ' — En attente de validation admin');
 }
+
 
 function confirmerEmargement() {
   if (!_delegueEnAttente) return;
 
   const res = validerEmargementParMatricule(_delegueEnAttente.code);
 
-  const box = document.getElementById('dbStatusBox');
-  const title = document.getElementById('dbStatusTitle');
-  const desc = document.getElementById('dbStatusDesc');
-  const icon = document.getElementById('dbStatusIcon');
-  const confirmActions = document.getElementById('dbConfirmActions');
-
   if (res.success) {
     playAudioFeedback('success');
-    if (box) {
-      box.className = 'db-status-box success';
-      if (icon) icon.textContent = '✅';
-      if (title) title.textContent = 'ÉMARGEMENT VALIDÉ ✅';
-      if (desc) desc.innerHTML = `La présence de <strong>${res.delegue.nom}</strong> a été enregistrée et comptabilisée pour le Quorum.`;
-    }
-    if (confirmActions) confirmActions.style.display = 'none';
+    showDbState('Success');
+    const nameEl = document.getElementById('dbSuccessName');
+    const detailEl = document.getElementById('dbSuccessDetail');
+    const timeEl = document.getElementById('dbSuccessTime');
+    if (nameEl) nameEl.textContent = res.delegue.nom.toUpperCase();
+    if (detailEl) detailEl.textContent = res.delegue.section || 'Présence enregistrée';
+    if (timeEl) timeEl.textContent = 'Émargé à ' + res.delegue.date_emargement;
     _delegueEnAttente = null;
-    showDbToast(`✅ ${res.delegue.nom} — Présence confirmée !`);
+    showDbToast('✅ ' + res.delegue.nom + ' — Présence confirmée !');
     refreshAllDbViews();
   } else {
-    if (box) {
-      box.className = 'db-status-box error';
-      if (icon) icon.textContent = '❌';
-      if (title) title.textContent = res.dejaEmarge ? 'DÉJÀ ÉMARGÉ' : 'ERREUR';
-      if (desc) desc.textContent = res.message || 'Une erreur est survenue.';
+    if (res.dejaEmarge) {
+      showDbState('Warning');
+      const el = document.getElementById('dbWarningDetail');
+      if (el) el.textContent = (res.delegue ? res.delegue.nom : '') + ' — Déjà émargé.';
+    } else {
+      showDbState('Error');
     }
-    if (confirmActions) confirmActions.style.display = 'none';
     _delegueEnAttente = null;
   }
 }
+
 
 function rejeterEmargement() {
   _delegueEnAttente = null;
-  const box = document.getElementById('dbStatusBox');
-  const title = document.getElementById('dbStatusTitle');
-  const desc = document.getElementById('dbStatusDesc');
-  const icon = document.getElementById('dbStatusIcon');
-  const preview = document.getElementById('dbDelegatePreview');
-  const confirmActions = document.getElementById('dbConfirmActions');
-
-  if (box) {
-    box.className = 'db-status-box initial';
-    if (icon) icon.textContent = '🎯';
-    if (title) title.textContent = 'Scanneur en attente de lecture';
-    if (desc) desc.textContent = 'Pointez la caméra vers le Pass QR Code d\'un délégué ou saisissez son matricule.';
-  }
-  if (preview) preview.style.display = 'none';
-  if (confirmActions) confirmActions.style.display = 'none';
-
+  showDbState('Idle');
   showDbToast('❌ Présence rejetée par l\'administrateur.');
 }
+
 
 
 function handleManualCheckin(val) {
@@ -720,8 +670,8 @@ function startDbCamera() {
     isCameraActive = true;
     if (btn) {
       btn.disabled = false;
-      btn.innerHTML = `<span>Arrêter la Caméra d'Émargement</span>`;
-      btn.style.background = '#C0392B';
+      if(btn){btn.innerHTML='<span class="db-btn-cam-icon">⏹</span><span id="btnToggleDbCameraLabel">Arrêter la Caméra</span>';btn.className='db-btn-cam-toggle stopping';btn.disabled=false;}
+      const ph=document.getElementById('dbCamPlaceholder');if(ph)ph.classList.add('hidden');
     }
     showDbToast("Caméra d'émargement active !");
   }).catch(err => {
@@ -729,10 +679,11 @@ function startDbCamera() {
     isCameraActive = false;
     if (btn) {
       btn.disabled = false;
-      btn.innerHTML = `<span>Activer la Caméra d'Émargement</span>`;
-      btn.style.background = '';
+      if(btn){btn.innerHTML='<span class="db-btn-cam-icon">📷</span><span id="btnToggleDbCameraLabel">Activer la Caméra</span>';btn.className='db-btn-cam-toggle';btn.disabled=false;}
+      const ph2=document.getElementById('dbCamPlaceholder');if(ph2)ph2.classList.remove('hidden');
     }
     // Affichage d'un message d'aide dans la zone de statut
+    showDbState('Idle');
     const statusBox = document.getElementById('dbStatusBox');
     const statusTitle = document.getElementById('dbStatusTitle');
     const statusDesc = document.getElementById('dbStatusDesc');

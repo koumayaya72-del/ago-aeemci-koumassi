@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261115_v11">
-  <link rel="stylesheet" href="base_de_donnees.css?v=20261115_v11">
+  <link rel="stylesheet" href="style.css?v=20261115_v12">
+  <link rel="stylesheet" href="base_de_donnees.css?v=20261115_v12">
 </head>
 <body class="db-body">
 
@@ -151,108 +151,125 @@
     <!-- 2. SECTION CENTRALE : LE SCANNEUR INTÉGRÉ    -->
     <!-- ============================================ -->
     <section class="db-scanner-section" id="sectionScanner">
-      <div class="db-scanner-grid">
-        
-        <!-- Panneau Gauche : Lecteur Caméra & Saisie Manuelle -->
-        <div class="db-scanner-panel">
-          <div class="db-card-header">
-            <div>
-              <h2 class="db-card-title">📷 Scanneur QR Code d'Émargement</h2>
-              <p class="db-card-subtitle">Scannez le badge du délégué pour valider sa présence en direct dans la base</p>
-            </div>
-            <div class="db-sound-toggle-wrap">
-              <label class="db-switch-label" title="Activer / Désactiver les bips sonores de validation">
-                <input type="checkbox" id="dbAudioCheck" checked>
-                <span>Bip Sonore</span>
-              </label>
-            </div>
-          </div>
+      <div class="db-scanner-wrap">
 
-          <!-- Zone du viseur de la caméra -->
-          <div class="db-camera-container">
-            <div id="dbCameraReader" class="db-camera-viewport"></div>
-            <div class="db-camera-overlay-frame" id="dbCameraOverlay">
-              <div class="db-scanner-laser"></div>
-            </div>
+        <!-- EN-TÊTE DE LA CONSOLE D'ACCUEIL -->
+        <div class="db-scanner-header">
+          <div class="db-scanner-header-icon">📷</div>
+          <div>
+            <h2 class="db-scanner-header-title">Console d'Émargement</h2>
+            <p class="db-scanner-header-sub">Commission d'Accueil · A.G.O. 2026 · AEEMCI Koumassi</p>
           </div>
-
-          <!-- Bouton Contrôle Caméra -->
-          <div class="db-camera-actions">
-            <button type="button" id="btnToggleDbCamera" class="btn-royal" style="padding: 10px 22px;">
-              <span>Activer la Caméra d'Émargement</span>
-            </button>
-            <span class="db-camera-hint">Fonctionne avec webcam PC, smartphone ou lecteur code-barres USB</span>
-          </div>
-
-          <!-- Émargement / Recherche Manuelle Rapide -->
-          <div class="db-manual-bar-wrap">
-            <label for="dbManualInput" class="db-input-label">Ou saisie directe du Matricule ou Nom :</label>
-            <div class="db-manual-bar">
-              <input type="text" id="dbManualInput" placeholder="Ex: AGO-KMSSI-26-A101 ou KONE Ibrahim..." autocomplete="off">
-              <button type="button" id="btnDbManualCheckin" class="btn-manual-valider">
-                Valider Présence
-              </button>
-            </div>
-          </div>
-
+          <label class="db-sound-toggle" title="Bip sonore">
+            <input type="checkbox" id="dbAudioCheck" checked>
+            <span class="db-sound-icon">🔔</span>
+          </label>
         </div>
 
-        <!-- Panneau Droit : Carte de Résultat Instantané & Derniers Arrivés -->
-        <div class="db-result-panel">
-          
-          <h2 class="db-card-title" style="margin-bottom: 12px;">Résultat du Scan Instantané</h2>
-
-          <!-- Carte de statut dynamique -->
-          <div class="db-status-box initial" id="dbStatusBox">
-            <div class="db-status-icon" id="dbStatusIcon">🎯</div>
-            <div class="db-status-details">
-              <h3 class="db-status-title" id="dbStatusTitle">Scanneur en attente de lecture</h3>
-              <p class="db-status-desc" id="dbStatusDesc">
-                Pointez la caméra vers le Pass QR Code d'un délégué ou saisissez son matricule ci-contre pour valider son émargement.
-              </p>
+        <!-- ZONE CAMÉRA -->
+        <div class="db-cam-block">
+          <div class="db-cam-frame" id="dbCamFrame">
+            <div class="db-cam-inner">
+              <div id="dbCameraReader"></div>
+              <!-- Cadre viseur animé -->
+              <div class="db-viewfinder">
+                <span class="db-vf-corner db-vf-tl"></span>
+                <span class="db-vf-corner db-vf-tr"></span>
+                <span class="db-vf-corner db-vf-bl"></span>
+                <span class="db-vf-corner db-vf-br"></span>
+                <div class="db-vf-laser"></div>
+              </div>
+            </div>
+            <div class="db-cam-placeholder" id="dbCamPlaceholder">
+              <div class="db-cam-ph-icon">📷</div>
+              <p class="db-cam-ph-text">Appuyez sur <strong>Activer la Caméra</strong><br>pour démarrer le scan</p>
             </div>
           </div>
 
-          <!-- Fiche de confirmation admin après scan -->
-          <div class="db-delegate-preview" id="dbDelegatePreview" style="display: none;">
-            <div class="db-delegate-preview-header">
-              <span class="db-preview-matricule" id="dbPreviewMatricule">AGO-KMSSI-26-XXXX</span>
-              <span class="db-preview-time" id="dbPreviewTime">14:32:05</span>
+          <button type="button" id="btnToggleDbCamera" class="db-btn-cam-toggle">
+            <span class="db-btn-cam-icon">📷</span>
+            <span id="btnToggleDbCameraLabel">Activer la Caméra</span>
+          </button>
+        </div>
+
+        <!-- SAISIE MANUELLE (repli) -->
+        <div class="db-manual-block">
+          <p class="db-manual-label">🔡 Ou saisir le matricule / nom :</p>
+          <div class="db-manual-row">
+            <input type="text" id="dbManualInput"
+              placeholder="AGO-KMSSI-26-XXXX ou Nom…"
+              autocomplete="off" autocorrect="off" spellcheck="false">
+            <button type="button" id="btnDbManualCheckin" class="db-btn-manual">↵</button>
+          </div>
+        </div>
+
+        <!-- ══════════════════════════════════════════════ -->
+        <!-- ZONE RÉSULTAT : état initial                  -->
+        <!-- ══════════════════════════════════════════════ -->
+        <div class="db-result-zone" id="dbResultZone">
+
+          <!-- État : attente -->
+          <div class="db-state db-state-idle" id="dbStateIdle">
+            <div class="db-state-icon">🎯</div>
+            <div class="db-state-msg">En attente de scan…</div>
+            <div class="db-state-sub">Pointez la caméra sur le QR Code du pass du délégué</div>
+          </div>
+
+          <!-- État : délégué identifié → en attente de confirmation admin -->
+          <div class="db-state db-state-pending" id="dbStatePending" style="display:none;">
+            <div class="db-pending-badge">⏳ EN ATTENTE DE VALIDATION</div>
+            <div class="db-delegate-card" id="dbDelegateCard">
+              <div class="db-dc-matricule" id="dbPreviewMatricule">AGO-KMSSI-26-XXXX</div>
+              <div class="db-dc-name" id="dbPreviewNom">Nom du Délégué</div>
+              <div class="db-dc-row"><span class="db-dc-label">Qualité</span><span class="db-dc-val" id="dbPreviewRole">—</span></div>
+              <div class="db-dc-row"><span class="db-dc-label">Section</span><span class="db-dc-val" id="dbPreviewSection">—</span></div>
+              <div class="db-dc-row"><span class="db-dc-label">Contact</span><span class="db-dc-val" id="dbPreviewPhone">—</span></div>
+              <div class="db-dc-row"><span class="db-dc-label">Heure scan</span><span class="db-dc-val" id="dbPreviewTime">—</span></div>
             </div>
-            <h4 class="db-preview-name" id="dbPreviewNom">Nom du Délégué</h4>
-            <div class="db-preview-meta">
-              <div><strong>Qualité :</strong> <span id="dbPreviewRole">Délégué Officiel (Votant)</span></div>
-              <div><strong>Section :</strong> <span id="dbPreviewSection">Section LMK</span></div>
-              <div><strong>Contact :</strong> <span id="dbPreviewPhone">+225 07 ...</span></div>
-            </div>
-            <!-- Boutons de confirmation admin -->
-            <div class="db-confirm-actions" id="dbConfirmActions" style="display:none; margin-top:14px; gap:10px; display:none;">
-              <button type="button" id="btnConfirmValider" style="
-                flex:1; padding:12px 8px; background:#104F36; color:#fff; border:none;
-                border-radius:10px; font-weight:700; font-size:14px; cursor:pointer;
-                display:flex; align-items:center; justify-content:center; gap:6px;">
+            <!-- GRANDS BOUTONS ADMIN -->
+            <div class="db-confirm-btns" id="dbConfirmActions">
+              <button type="button" id="btnConfirmValider" class="db-btn-valider">
                 ✅ VALIDER LA PRÉSENCE
               </button>
-              <button type="button" id="btnConfirmRejeter" style="
-                flex:1; padding:12px 8px; background:#C0392B; color:#fff; border:none;
-                border-radius:10px; font-weight:700; font-size:14px; cursor:pointer;
-                display:flex; align-items:center; justify-content:center; gap:6px;">
+              <button type="button" id="btnConfirmRejeter" class="db-btn-rejeter">
                 ❌ REJETER
               </button>
             </div>
           </div>
 
-          <!-- Derniers émargements enregistrés -->
-          <div class="db-recent-list-wrap">
-            <h3 class="db-recent-title">⏱️ Derniers Émargements Validés</h3>
-            <ul class="db-recent-list" id="dbRecentList">
-              <li class="db-recent-empty">Aucun émargement pour l'instant.</li>
-            </ul>
+          <!-- État : succès -->
+          <div class="db-state db-state-success" id="dbStateSuccess" style="display:none;">
+            <div class="db-state-icon db-anim-bounce">✅</div>
+            <div class="db-state-msg" id="dbSuccessName">PRÉSENCE VALIDÉE</div>
+            <div class="db-state-sub" id="dbSuccessDetail">Émargement enregistré avec succès</div>
+            <div class="db-state-time" id="dbSuccessTime"></div>
           </div>
 
+          <!-- État : déjà émargé -->
+          <div class="db-state db-state-warning" id="dbStateWarning" style="display:none;">
+            <div class="db-state-icon">⚠️</div>
+            <div class="db-state-msg">DÉJÀ ÉMARGÉ</div>
+            <div class="db-state-sub" id="dbWarningDetail">Ce délégué est déjà enregistré</div>
+          </div>
+
+          <!-- État : erreur -->
+          <div class="db-state db-state-error" id="dbStateError" style="display:none;">
+            <div class="db-state-icon">❌</div>
+            <div class="db-state-msg">CODE NON RECONNU</div>
+            <div class="db-state-sub" id="dbErrorDetail">Vérifiez le QR code ou saisissez le matricule</div>
+          </div>
+
+        </div><!-- /db-result-zone -->
+
+        <!-- DERNIERS ÉMARGEMENTS -->
+        <div class="db-recents-block">
+          <h3 class="db-recents-title">⏱ Derniers émargements</h3>
+          <ul class="db-recent-list" id="dbRecentList">
+            <li class="db-recent-empty">Aucun émargement pour l'instant.</li>
+          </ul>
         </div>
 
-      </div>
+      </div><!-- /db-scanner-wrap -->
     </section>
 
     <!-- ============================================ -->
@@ -510,7 +527,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="qrcode.min.js"></script>
   <script src="html5-qrcode.min.js"></script>
-  <script src="base_donnees_ago.js?v=20261115_v11"></script>
-  <script src="base_de_donnees_page.js?v=20261115_v11"></script>
+  <script src="base_donnees_ago.js?v=20261115_v12"></script>
+  <script src="base_de_donnees_page.js?v=20261115_v12"></script>
 </body>
 </html>
