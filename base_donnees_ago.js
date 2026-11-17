@@ -282,60 +282,46 @@ function trouverParMatricule(matricule) {
 async function validerEmargementParMatricule(codeBrut) {
   if (!codeBrut) return { success: false, introuvable: true };
 
-  let matricule = String(codeBrut).trim();
+  let raw = String(codeBrut).trim();
+  let matricule = raw;
   let nomPayload = '';
   let sectionPayload = '';
   let rolePayload = '';
 
-  // Décodage du format autonome transporté par le QR Code
-  if (matricule.includes('|')) {
-    const parts = matricule.split('|');
+  // Format enrichi : MATRICULE|NOM|SECTION|ROLE
+  if (raw.includes('|')) {
+    const parts = raw.split('|');
     matricule = parts[0].trim();
     nomPayload = parts[1] ? parts[1].trim() : '';
     sectionPayload = parts[2] ? parts[2].trim() : '';
     rolePayload = parts[3] ? parts[3].trim() : '';
   }
 
-  const registre = getRegistreAGO();
   const cleanMat = matricule.toUpperCase();
+  let registre = getRegistreAGO();
   let index = registre.findIndex(item => item.matricule.toUpperCase() === cleanMat);
 
-  // Si non trouvé par matricule mais présent avec payload dans le QR code
-  // on l'insère automatiquement (Secours hors ligne)
-  if (index === -1 && nomPayload) {
-    const autoDelegue = {
-      matricule: matricule,
-      nom: nomPayload,
-      role: rolePayload || 'Délégué Officiel de Section (Votant)',
-      section: sectionPayload || 'Sous-Comité Koumassi',
-      telephone: '',
-      presence: 'Présent via Scan QR Autonome',
-      message: '',
-      date_inscription: new Date().toLocaleDateString('fr-FR'),
-      emarge: false,
-      date_emargement: null
-    };
-    registre.unshift(autoDelegue);
-    index = 0;
-  }
-
-    // Si le matricule suit le format officiel AGO-KMSSI-26-XXXX mais n'est pas dans le registre local,
-  // on l'accepte et l'enregistre automatiquement (mode autonome inter-appareils)
-  if (index === -1 && cleanMat.startsWith('AGO-KMSSI-26-')) {
-    const autoEntry = {
-      matricule: matricule,
-      nom: nomPayload || 'Délégué ' + matricule.slice(-4),
-      role: rolePayload || 'Délégué Officiel de Section (Votant)',
-      section: sectionPayload || 'Sous-Comité Koumassi',
-      telephone: '',
-      presence: 'Validé via Scan QR (Auto)',
-      message: '',
-      date_inscription: new Date().toLocaleDateString('fr-FR'),
-      emarge: false,
-      date_emargement: null
-    };
-    registre.unshift(autoEntry);
-    index = 0;
+  // Pas trouvé dans le registre local → auto-inscription si format valide
+  if (index === -1) {
+    // Accepter si : payload avec nom OU matricule au format officiel AGO-KMSSI-26-
+    const peutAutoInscrire = nomPayload || cleanMat.startsWith('AGO-KMSSI-26-') || cleanMat.startsWith('AGO-KMSSI-2026');
+    if (peutAutoInscrire) {
+      const autoEntry = {
+        matricule: matricule,
+        nom: nomPayload || ('Délégué ' + cleanMat.slice(-4)),
+        role: rolePayload || 'Délégué Officiel de Section (Votant)',
+        section: sectionPayload || 'Sous-Comité Koumassi',
+        telephone: '',
+        presence: 'Enregistré via Scan QR',
+        message: '',
+        date_inscription: new Date().toLocaleDateString('fr-FR'),
+        emarge: false,
+        date_emargement: null
+      };
+      registre.unshift(autoEntry);
+      saveRegistreAGO(registre); // ← IMPORTANT : persister en localStorage
+      index = 0;
+    }
   }
 
   if (index === -1) {
@@ -353,6 +339,7 @@ async function validerEmargementParMatricule(codeBrut) {
     };
   }
 
+  // Émarger le délégué
   const maintenant = new Date();
   const heureStr = maintenant.toLocaleDateString('fr-FR', {
     day: '2-digit', month: '2-digit', year: 'numeric',
@@ -364,28 +351,24 @@ async function validerEmargementParMatricule(codeBrut) {
   registre[index] = delegue;
   saveRegistreAGO(registre);
 
-  // Synchronisation Cloud Supabase
+  // Synchronisation Cloud Supabase en arrière-plan (non bloquant, sans await)
   if (supabaseClient) {
-    try {
-      await supabaseClient
-        .from('ago_inscriptions')
-        .update({ emarge: true, date_emargement: heureStr })
-        .eq('matricule', delegue.matricule);
-    } catch (err) {
-      console.warn("Échec mise à jour Supabase, validé localement:", err);
-    }
+    supabaseClient
+      .from('ago_inscriptions')
+      .update({ emarge: true, date_emargement: heureStr })
+      .eq('matricule', delegue.matricule)
+      .then(() => console.log('[DB] Supabase sync emargement OK'))
+      .catch(err => console.warn('[DB] Supabase sync failed (OK localement):', err));
   }
 
   return {
     success: true,
     delegue: delegue,
-    message: `Présence validée avec succès pour ${delegue.nom} (${delegue.section}) !`
+    message: `Présence validée pour ${delegue.nom} (${delegue.section}) !`
   };
 }
 
-/**
- * Calcul du Quorum statutaire (Art. 38)
- */
+
 function calculerStatistiquesAGO() {
   const registre = getRegistreAGO();
   const total = registre.length;
