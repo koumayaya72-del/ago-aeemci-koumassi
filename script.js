@@ -500,6 +500,258 @@ function telechargerPassEnImage() {
   }
 }
 
+
+function telechargerPassEnPDF() {
+  const delegue = currentPassDelegue;
+  if (!delegue) {
+    showToast("Veuillez d'abord générer votre pass.");
+    return;
+  }
+
+  // 1. Tenter la génération directe d'un vrai fichier PDF (1 page exacte) avec jsPDF
+  try {
+    if (window.jspdf && window.jspdf.jsPDF) {
+      showToast("⏳ Génération du Pass officiel PDF (1 page)...");
+      
+      const qrCanvasElem = document.querySelector('#passQrCodeCanvas canvas');
+      const qrImgElem = document.querySelector('#passQrCodeCanvas img');
+
+      const canvas = document.createElement('canvas');
+      const w = 700;
+      const h = 980;
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+
+      // Fond Blanc pur
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, w, h);
+
+      // Cadre double prestige doré & vert impérial
+      ctx.strokeStyle = '#D4AF37';
+      ctx.lineWidth = 4;
+      ctx.strokeRect(18, 18, w - 36, h - 36);
+
+      ctx.strokeStyle = '#051D14';
+      ctx.lineWidth = 1.5;
+      ctx.strokeRect(26, 26, w - 52, h - 52);
+
+      // Bandeau supérieur Vert Impérial
+      ctx.fillStyle = '#051D14';
+      ctx.fillRect(28, 28, w - 56, 146);
+
+      // Liseré doré
+      ctx.fillStyle = '#D4AF37';
+      ctx.fillRect(28, 174, w - 56, 3);
+
+      // Textes officiels
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#E6D7AB';
+      ctx.font = 'bold 11.5px sans-serif';
+      ctx.fillText("RÉPUBLIQUE DE CÔTE D'IVOIRE • FOI — UNION — DISCIPLINE", w / 2, 58);
+
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 19px serif';
+      ctx.fillText("A.E.E.M.C.I. — SOUS-COMITÉ DE KOUMASSI", w / 2, 88);
+
+      ctx.fillStyle = '#D4AF37';
+      ctx.font = '12px sans-serif';
+      ctx.fillText("Secrétariat Régional Abidjan-Sud (SERAS)", w / 2, 112);
+
+      // Badge pilule d'événement
+      ctx.fillStyle = '#D4AF37';
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(w / 2 - 165, 126, 330, 28, 14);
+      else ctx.rect(w / 2 - 165, 126, 330, 28);
+      ctx.fill();
+
+      ctx.fillStyle = '#051D14';
+      ctx.font = 'bold 11.5px serif';
+      ctx.fillText("PASS OFFICIEL D'ÉMARGEMENT • A.G.O. 2026", w / 2, 145);
+
+      // Boîte Matricule Officiel
+      ctx.fillStyle = '#E8F5EE';
+      ctx.strokeStyle = '#104F36';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(50, 205, 360, 76, 10);
+      else ctx.rect(50, 205, 360, 76);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#104F36';
+      ctx.font = 'bold 11px sans-serif';
+      ctx.fillText("MATRICULE OFFICIEL STATUTAIRE", 66, 230);
+
+      ctx.fillStyle = '#051D14';
+      ctx.font = 'bold 22px monospace';
+      ctx.fillText(delegue.matricule || 'AGO-KMSSI-2026', 66, 262);
+
+      // Détails Délégué
+      let y = 315;
+      function addRow(label, value, bold) {
+        ctx.fillStyle = '#777777';
+        ctx.font = '11px sans-serif';
+        ctx.fillText(label.toUpperCase(), 50, y);
+        y += 20;
+
+        ctx.fillStyle = '#051D14';
+        ctx.font = bold ? 'bold 16px sans-serif' : '14px sans-serif';
+        let valStr = String(value || '-');
+        if (valStr.length > 36) valStr = valStr.substring(0, 34) + '...';
+        ctx.fillText(valStr, 50, y);
+        y += 32;
+      }
+
+      addRow("Nom & Prénoms du Délégué", delegue.nom, true);
+      addRow("Qualité / Titre Statutaire", delegue.role, true);
+      addRow("Section ou Institution Représentée", delegue.section, true);
+      addRow("Date & Heure de la Session", "Samedi 28 Novembre 2026 dès 14h00 GMT", false);
+      addRow("Lieu de l'Assemblée", "Lycée Municipal de Koumassi (LMK) — Cantine", false);
+
+      // Boîte QR Code
+      const qrBoxX = 445;
+      const qrBoxY = 205;
+      const qrBoxW = 200;
+      const qrBoxH = 240;
+
+      ctx.fillStyle = '#FBFDFB';
+      ctx.strokeStyle = '#D4AF37';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(qrBoxX, qrBoxY, qrBoxW, qrBoxH, 12);
+      else ctx.rect(qrBoxX, qrBoxY, qrBoxW, qrBoxH);
+      ctx.fill();
+      ctx.stroke();
+
+      if (qrCanvasElem) {
+        ctx.drawImage(qrCanvasElem, qrBoxX + 20, qrBoxY + 20, 160, 160);
+      } else if (qrImgElem) {
+        try { ctx.drawImage(qrImgElem, qrBoxX + 20, qrBoxY + 20, 160, 160); } catch(e){}
+      }
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#104F36';
+      ctx.font = 'bold 10px sans-serif';
+      ctx.fillText("SCAN COMMISSION ACCUEIL", qrBoxX + qrBoxW / 2, qrBoxY + 202);
+
+      ctx.fillStyle = '#051D14';
+      ctx.font = 'bold 12px monospace';
+      ctx.fillText(delegue.matricule || 'AGO-KMSSI-2026', qrBoxX + qrBoxW / 2, qrBoxY + 222);
+
+      // Pied de badge
+      ctx.fillStyle = '#E1ECE6';
+      ctx.fillRect(50, 835, w - 100, 1.5);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#051D14';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.fillText("SOUS LA HAUTE PRÉSIDENCE EFFECTIVE DU FRÈRE SOW MOHAMED", w / 2, 868);
+
+      ctx.fillStyle = '#666666';
+      ctx.font = '11px sans-serif';
+      ctx.fillText("Présentez ce pass officiel à l'accueil pour valider votre émargement.", w / 2, 894);
+
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.98);
+
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      // Dimensions sur page A4 (210 x 297 mm) — 1 PAGE STRICTE
+      const targetW = 180;
+      const targetH = (h / w) * targetW;
+      const targetX = (210 - targetW) / 2;
+      const targetY = (297 - targetH) / 2;
+
+      pdf.addImage(dataUrl, 'JPEG', targetX, targetY, targetW, targetH);
+      pdf.save(`Pass_Officiel_AGO_2026_${delegue.matricule || 'DELEGUE'}.pdf`);
+      showToast("✅ Pass PDF officiel téléchargé (1 page) !");
+      return;
+    }
+  } catch (e) {
+    console.warn("jsPDF fallback:", e);
+  }
+
+  // 2. Fallback: impression ultra-isolée via iframe (1 page garantie)
+  imprimerPassIsole();
+}
+
+function imprimerPassIsole() {
+  const printable = document.getElementById('printablePassSection') || document.querySelector('.official-pass-printable');
+  if (!printable) {
+    document.body.classList.add('print-badge-active');
+    window.print();
+    setTimeout(() => document.body.classList.remove('print-badge-active'), 1500);
+    return;
+  }
+
+  let printFrame = document.getElementById('passPrintIframe');
+  if (!printFrame) {
+    printFrame = document.createElement('iframe');
+    printFrame.id = 'passPrintIframe';
+    printFrame.style.position = 'fixed';
+    printFrame.style.right = '0';
+    printFrame.style.bottom = '0';
+    printFrame.style.width = '0';
+    printFrame.style.height = '0';
+    printFrame.style.border = 'none';
+    document.body.appendChild(printFrame);
+  }
+
+  const doc = printFrame.contentWindow.document;
+  doc.open();
+  doc.write(`
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+      <meta charset="UTF-8">
+      <title>Pass Officiel AGO 2026</title>
+      <link rel="stylesheet" href="style.css?v=20261119_v15">
+      <style>
+        @page { size: A5 portrait; margin: 8mm; }
+        html, body {
+          margin: 0 !important;
+          padding: 0 !important;
+          background: #FFFFFF !important;
+          font-family: 'Montserrat', sans-serif !important;
+          height: auto !important;
+        }
+        .pass-modal-card {
+          border: 2px solid #D4AF37 !important;
+          box-shadow: none !important;
+          max-width: 100% !important;
+          margin: 0 auto !important;
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+        }
+        .official-pass-printable {
+          padding: 20px 16px !important;
+        }
+        .pass-modal-close, .pass-modal-actions {
+          display: none !important;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="pass-modal-card">
+        ${printable.outerHTML}
+      </div>
+    </body>
+    </html>
+  `);
+  doc.close();
+
+  setTimeout(() => {
+    printFrame.contentWindow.focus();
+    printFrame.contentWindow.print();
+  }, 400);
+}
+
 function initRsvpForm() {
   const form = document.getElementById('rsvpForm');
   if (!form) return;
@@ -527,19 +779,9 @@ function initRsvpForm() {
     });
   }
 
-  // Impression / Téléchargement PDF du Pass — 1 SEULE PAGE
+  // Téléchargement PDF du Pass — 1 SEULE PAGE DIRECTE
   if (btnPrintPassPdf) {
-    btnPrintPassPdf.addEventListener('click', () => {
-      // Fermer toute autre chose, isoler le badge
-      document.body.classList.add('print-badge-active');
-      // Laisser le temps au navigateur de rendre le QR code
-      setTimeout(() => {
-        window.print();
-        setTimeout(() => {
-          document.body.classList.remove('print-badge-active');
-        }, 1500);
-      }, 300);
-    });
+    btnPrintPassPdf.addEventListener('click', telechargerPassEnPDF);
   }
 
   // Soumission du formulaire d'inscription

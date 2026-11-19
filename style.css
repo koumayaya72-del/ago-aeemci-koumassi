@@ -2389,40 +2389,7 @@ button, input, select, textarea {
 /* ==========================================================================
    18. STYLES D'IMPRESSION DÉDIÉS AU PASS / BADGE OFFICIEL (PDF)
    ========================================================================== */
-@media print {
-  /* Si la classe print-only-badge est sur body, on n'imprime QUE le badge */
-  body.print-badge-active * {
-    visibility: hidden;
-  }
-
-  body.print-badge-active #passModalBackdrop,
-  body.print-badge-active #passModalBackdrop * {
-    visibility: visible;
-  }
-
-  body.print-badge-active #passModalBackdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    background: #FFFFFF !important;
-    padding: 0 !important;
-  }
-
-  body.print-badge-active .pass-modal-card {
-    border: 2px solid #D4AF37 !important;
-    box-shadow: none !important;
-    max-width: 100% !important;
-    margin: 0 auto;
-    page-break-inside: avoid;
-  }
-
-  body.print-badge-active .pass-modal-close,
-  body.print-badge-active .pass-modal-actions {
-    display: none !important;
-  }
-}
+/* Print badge handled in master print block */
 
 /* ==========================================================================
    19. OPTIMISATIONS HAUTE FIDÉLITÉ POUR SMARTPHONES (MOBILE PRO)
@@ -3071,86 +3038,98 @@ button, input, select, textarea {
     font-size: 10px;
   }
 }
-
-
 /* ══════════════════════════════════════════════════════════════════
-   IMPRESSION BADGE / BILLET — 1 PAGE UNIQUEMENT (PDF)
+   IMPRESSION BADGE / BILLET — 1 PAGE STRICTE (PDF)
    ══════════════════════════════════════════════════════════════════ */
 @media print {
-  /* Réinitialiser la page en A5 portrait */
   @page {
-    size: A5 portrait;
+    size: A4 portrait;
     margin: 10mm;
   }
 
-  /* Par défaut : tout visible (impression de la page normale) */
-  body, body * {
-    visibility: visible;
-  }
-
-  /* Quand on imprime le badge (class ajoutée en JS) :
-     masquer TOUT sauf le badge */
-  body.print-badge-active * {
-    visibility: hidden !important;
-  }
-
-  /* Rendre visible uniquement le badge et ses enfants */
-  body.print-badge-active #passModalBackdrop,
-  body.print-badge-active #passModalBackdrop *,
-  body.print-badge-active #dbPassModalBackdrop,
-  body.print-badge-active #dbPassModalBackdrop * {
-    visibility: visible !important;
-  }
-
-  /* Positionner le modal badge en haut de la page, sans fond */
-  body.print-badge-active #passModalBackdrop,
-  body.print-badge-active #dbPassModalBackdrop {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    background: #FFFFFF !important;
-    display: flex !important;
-    align-items: flex-start !important;
-    justify-content: center !important;
-    padding: 0 !important;
+  /* TOUT LE SITE EST STRICTEMENT MASQUÉ SAUF LE MODAL DU PASS */
+  body.print-badge-active > *:not(#passModalBackdrop):not(#dbPassModalBackdrop) {
+    display: none !important;
+    height: 0 !important;
     overflow: hidden !important;
   }
 
-  /* Le badge : 1 seule page, centré */
-  body.print-badge-active .pass-modal-card {
+  body.print-badge-active header,
+  body.print-badge-active main,
+  body.print-badge-active footer,
+  body.print-badge-active nav,
+  body.print-badge-active section,
+  body.print-badge-active .intro-screen,
+  body.print-badge-active .sticky-portal-nav,
+  body.print-badge-active .royal-hero,
+  body.print-badge-active .invitation-main {
+    display: none !important;
+    height: 0 !important;
+  }
+
+  body.print-badge-active {
+    background: #FFFFFF !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  body.print-badge-active #passModalBackdrop,
+  body.print-badge-active #dbPassModalBackdrop {
+    display: flex !important;
+    position: static !important;
     width: 100% !important;
-    max-width: 148mm !important; /* A5 width */
+    height: auto !important;
+    min-height: auto !important;
+    background: #FFFFFF !important;
+    padding: 0 !important;
     margin: 0 auto !important;
-    border: 2px solid #D4AF37 !important;
+    align-items: center !important;
+    justify-content: center !important;
     box-shadow: none !important;
-    border-radius: 0 !important;
+    border: none !important;
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  body.print-badge-active .pass-modal-card {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: 560px !important;
+    margin: 0 auto !important;
+    border: 2.5px solid #D4AF37 !important;
+    border-radius: 14px !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    background: #FFFFFF !important;
+    page-break-before: avoid !important;
+    page-break-after: avoid !important;
     page-break-inside: avoid !important;
     break-inside: avoid !important;
     overflow: hidden !important;
   }
 
-  /* Forcer le contenu imprimable à ne jamais dépasser 1 page */
   body.print-badge-active .official-pass-printable {
-    max-height: 100vh !important;
-    overflow: hidden !important;
-    padding: 16px !important;
+    padding: 22px 18px !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
   }
 
-  /* Masquer les boutons et l'overlay du modal */
   body.print-badge-active .pass-modal-close,
   body.print-badge-active .pass-modal-actions,
-  body.print-badge-active .btn-close-pass,
   body.print-badge-active [id$="ClosePassModal"],
   body.print-badge-active [id$="CloseDbPassModal"] {
     display: none !important;
     visibility: hidden !important;
   }
 
-  /* QR code : forcer l'affichage (canvas/svg) */
   body.print-badge-active canvas,
-  body.print-badge-active svg {
+  body.print-badge-active svg,
+  body.print-badge-active img {
     visibility: visible !important;
     display: block !important;
   }

@@ -801,6 +801,78 @@ function afficherPassModal(matricule) {
   if (modal) modal.classList.add('active');
 }
 
+function imprimerDbPassIsole() {
+  const printable = document.getElementById('dbPrintablePass');
+  if (!printable) {
+    document.body.classList.add('print-badge-active');
+    window.print();
+    setTimeout(() => document.body.classList.remove('print-badge-active'), 1500);
+    return;
+  }
+
+  let printFrame = document.getElementById('dbPassPrintIframe');
+  if (!printFrame) {
+    printFrame = document.createElement('iframe');
+    printFrame.id = 'dbPassPrintIframe';
+    printFrame.style.position = 'fixed';
+    printFrame.style.right = '0';
+    printFrame.style.bottom = '0';
+    printFrame.style.width = '0';
+    printFrame.style.height = '0';
+    printFrame.style.border = 'none';
+    document.body.appendChild(printFrame);
+  }
+
+  const doc = printFrame.contentWindow.document;
+  doc.open();
+  doc.write(`
+    <!DOCTYPE html>
+    <html lang="fr">
+    <head>
+      <meta charset="UTF-8">
+      <title>Pass Officiel Délégué AGO 2026</title>
+      <link rel="stylesheet" href="style.css?v=20261119_v15">
+      <link rel="stylesheet" href="base_de_donnees.css?v=20261119_v15">
+      <style>
+        @page { size: A5 portrait; margin: 8mm; }
+        html, body {
+          margin: 0 !important;
+          padding: 0 !important;
+          background: #FFFFFF !important;
+          font-family: 'Montserrat', sans-serif !important;
+          height: auto !important;
+        }
+        .pass-modal-card {
+          border: 2.5px solid #D4AF37 !important;
+          box-shadow: none !important;
+          max-width: 100% !important;
+          margin: 0 auto !important;
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+        }
+        .official-pass-printable {
+          padding: 20px 16px !important;
+        }
+        .pass-modal-close, .pass-modal-actions {
+          display: none !important;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="pass-modal-card">
+        ${printable.outerHTML}
+      </div>
+    </body>
+    </html>
+  `);
+  doc.close();
+
+  setTimeout(() => {
+    printFrame.contentWindow.focus();
+    printFrame.contentWindow.print();
+  }, 400);
+}
+
 function initModalListeners() {
   const modalPass = document.getElementById('dbPassModalBackdrop');
   const btnClosePass = document.getElementById('btnCloseDbPassModal');
@@ -814,16 +886,7 @@ function initModalListeners() {
   }
 
   if (btnPrintPass) {
-    btnPrintPass.addEventListener('click', () => {
-      // Délai court pour laisser le QR code se rendre complètement
-      document.body.classList.add('print-badge-active');
-      setTimeout(() => {
-        window.print();
-        setTimeout(() => {
-          document.body.classList.remove('print-badge-active');
-        }, 1500);
-      }, 300);
-    });
+    btnPrintPass.addEventListener('click', imprimerDbPassIsole);
   }
 
   // Modal Nouveau
