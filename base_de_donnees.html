@@ -7,8 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261115_v12">
-  <link rel="stylesheet" href="base_de_donnees.css?v=20261115_v12">
+  <link rel="stylesheet" href="style.css?v=20261119_v14">
+  <link rel="stylesheet" href="base_de_donnees.css?v=20261119_v14">
 </head>
 <body class="db-body">
 
@@ -66,23 +66,23 @@
       </div>
 
       <div class="db-nav-actions">
-        <a href="index.html" class="btn-db-outline">
+        <a href="index.html" class="btn-db-outline nav-btn-portal" title="Portail Public">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
           <span>Portail Public</span>
         </a>
-        <button type="button" id="btnDbLockConsole" class="btn-db-outline" style="border-color: rgba(212,175,55,0.4); color: var(--color-gold);">
-          🔒 Verrouiller
+        <button type="button" id="btnDbLockConsole" class="btn-db-outline nav-btn-lock" style="border-color: rgba(212,175,55,0.4); color: var(--color-gold);" title="Verrouiller la console">
+          🔒 <span class="nav-btn-text">Verrouiller</span>
         </button>
-        <button type="button" id="btnDbOpenSupabaseModal" class="btn-db-outline" style="border-color: #2ECC71; color: #2ECC71;">
-          ⚡ Cloud Supabase
+        <button type="button" id="btnDbOpenSupabaseModal" class="btn-db-outline nav-btn-cloud" style="border-color: #2ECC71; color: #2ECC71;" title="Cloud Supabase">
+          ⚡ <span class="nav-btn-text">Cloud Supabase</span>
         </button>
-        <button type="button" id="btnDbExportCSV" class="btn-db-gold">
+        <button type="button" id="btnDbExportCSV" class="btn-db-gold nav-btn-export" title="Exporter en Excel (CSV)">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-          <span>Exporter en Excel (CSV)</span>
+          <span class="nav-btn-text">Exporter Excel</span>
         </button>
-        <button type="button" id="btnDbOpenNewModal" class="btn-db-primary">
+        <button type="button" id="btnDbOpenNewModal" class="btn-db-primary nav-btn-new" title="Inscrire un Délégué">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-          <span>Inscrire un Délégué</span>
+          <span>+ Inscrire</span>
         </button>
       </div>
     </div>
@@ -146,6 +146,16 @@
         <div class="db-kpi-sub" id="dbKpiQuorumStatus">Requis : 14 sections (2/3)</div>
       </div>
     </section>
+
+    <!-- SÉLECTEUR D'ONGLETS MOBILE (APP STYLE) -->
+    <div class="db-mobile-segmented-tabs" id="dbMobileSegmentedTabs">
+      <button type="button" class="db-segment-btn active" id="segBtnScanner" data-target="sectionScanner">
+        📷 Scanneur QR
+      </button>
+      <button type="button" class="db-segment-btn" id="segBtnRegistre" data-target="sectionRegistre">
+        📑 Registre (<span id="tabCountTotal">23</span>)
+      </button>
+    </div>
 
     <!-- ============================================ -->
     <!-- 2. SECTION CENTRALE : LE SCANNEUR INTÉGRÉ    -->
@@ -527,7 +537,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="qrcode.min.js"></script>
   <script src="html5-qrcode.min.js"></script>
-  <script src="base_donnees_ago.js?v=20261115_v12"></script>
-  <script src="base_de_donnees_page.js?v=20261115_v12"></script>
+  <script src="base_donnees_ago.js?v=20261119_v14"></script>
+  <script src="base_de_donnees_page.js?v=20261119_v14"></script>
 </body>
 </html>

@@ -1987,3 +1987,304 @@ body.db-locked .db-footer {
   pointer-events: none !important;
   user-select: none !important;
 }
+
+/* ── Mobile‑first adjustments ── */
+@media (max-width: 480px) {
+  /* Réduire les marges du conteneur principal */
+  .db-container {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  /* Navbar plus compacte */
+  .db-navbar {
+    padding: 10px 0;
+  }
+  .db-brand-title {
+    font-size: 16px;
+  }
+  .db-brand-sub {
+    font-size: 10px;
+  }
+  /* KPI : une colonne seule */
+  .db-kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  /* Scanner : empilement vertical */
+  .db-scanner-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .db-scanner-section {
+    padding: 12px;
+  }
+  /* Table : défilement horizontal */
+  .db-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .db-table th,
+  .db-table td {
+    padding: 6px;
+    font-size: 12px;
+  }
+  /* Boutons d’action (Valider / Rejeter) : cibles tactiles plus grandes */
+  .db-btn-valider,
+  .db-btn-rejeter {
+    font-size: 14px;
+    padding: 12px 16px;
+    height: auto;
+    line-height: 1.2;
+    min-height: 48px;
+  }
+}
+
+/* ── Améliorations supplémentaires pour mobile ── */
+@media (max-width: 480px) {
+  /* Table : ajustement des colonnes pour éviter le débordement */
+  .db-table-section .db-table {
+    display: block;
+    width: 100%;
+  }
+  .db-table-section .db-table thead,
+  .db-table-section .db-table tbody,
+  .db-table-section .db-table th,
+  .db-table-section .db-table td,
+  .db-table-section .db-table tr {
+    display: block;
+    width: 100%;
+  }
+  .db-table-section .db-table th {
+    text-align: left;
+    padding-left: 0;
+    background: var(--db-emerald-dark);
+    color: #fff;
+  }
+  .db-table-section .db-table td {
+    text-align: left;
+    border-top: 1px solid var(--db-border);
+    padding-left: 0;
+  }
+  .db-table-section .db-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    display: inline-block;
+    width: 30%;
+    color: var(--db-text-muted);
+  }
+  .db-table-section .db-table td[data-label] {
+    padding-left: 8px;
+  }
+  /* Réduire la taille du logo et des icônes */
+  .db-logo { width: 40px; height: 40px; }
+  .db-scanner-header-icon { font-size: 22px; }
+  .db-btn-cam-toggle { font-size: 13px; padding: 10px 14px; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   IMPRESSION BADGE CONSOLE — 1 PAGE UNIQUEMENT (PDF)
+   ══════════════════════════════════════════════════════════════════ */
+@media print {
+  @page {
+    size: A5 portrait;
+    margin: 10mm;
+  }
+
+  body.print-badge-active * { visibility: hidden !important; }
+
+  body.print-badge-active #dbPassModalBackdrop,
+  body.print-badge-active #dbPassModalBackdrop * {
+    visibility: visible !important;
+  }
+
+  body.print-badge-active #dbPassModalBackdrop {
+    position: fixed !important;
+    top: 0 !important; left: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    background: #fff !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  body.print-badge-active .pass-modal-card {
+    width: 100% !important;
+    max-width: 148mm !important;
+    margin: 0 auto !important;
+    border: 2px solid #D4AF37 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    overflow: hidden !important;
+  }
+
+  body.print-badge-active .official-pass-printable {
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    padding: 16px !important;
+  }
+
+  body.print-badge-active .pass-modal-close,
+  body.print-badge-active .pass-modal-actions,
+  body.print-badge-active #btnCloseDbPassModal {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  body.print-badge-active canvas,
+  body.print-badge-active svg { visibility: visible !important; display: block !important; }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   CSS PROFESSIONNEL — MOBILE-FIRST GLOBAL (INDEX + DB)
+   ══════════════════════════════════════════════════════════════════ */
+
+/* ── Navbar mobile : boutons compacts ── */
+@media (max-width: 768px) {
+  /* Masquer les textes des boutons nav sauf l'essentiel */
+  .nav-btn-portal .nav-btn-text,
+  .nav-btn-lock .nav-btn-text,
+  .nav-btn-cloud .nav-btn-text,
+  .nav-btn-export .nav-btn-text {
+    display: none;
+  }
+  /* Onglets segmentés (Scanneur / Registre) */
+  .db-mobile-segmented-tabs {
+    display: flex;
+    gap: 0;
+    background: var(--db-emerald-dark);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .db-segment-btn {
+    flex: 1;
+    padding: 10px 8px;
+    font-size: 12px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.65);
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    white-space: nowrap;
+    letter-spacing: 0.3px;
+  }
+  .db-segment-btn.active {
+    background: var(--db-gold);
+    color: var(--db-emerald-dark);
+  }
+
+  /* ── Cartes KPI : grille 2×2 harmonieuse ── */
+  .db-kpi-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+  .db-kpi-value { font-size: 26px !important; }
+  .db-kpi-label { font-size: 10px !important; }
+
+  /* ── Tableau → Fiches exécutives ── */
+  .db-user-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .db-user-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--db-emerald), var(--db-emerald-light));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .db-user-info { flex: 1; min-width: 0; }
+  .db-user-name {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--db-emerald-dark);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .db-user-sub {
+    font-size: 11px;
+    color: var(--db-text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .db-section-pill {
+    font-size: 11px;
+    color: var(--db-emerald);
+    font-weight: 600;
+  }
+  .db-role-pill {
+    font-size: 11px;
+    color: #555;
+  }
+  .db-tel-link {
+    font-size: 11px;
+    color: var(--db-emerald);
+    text-decoration: none;
+  }
+  .db-time-tag {
+    font-family: monospace;
+    font-size: 11px;
+    color: #888;
+  }
+  .row-emarge { border-left: 3px solid #2ECC71 !important; }
+  .row-attente { border-left: 3px solid #F39C12 !important; }
+
+  /* ── Boutons Valider/Rejeter : ultra-visibles ── */
+  .db-confirm-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+  .db-btn-valider {
+    width: 100% !important;
+    background: linear-gradient(135deg, #0E733D, #2ECC71) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 14px !important;
+    padding: 16px !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 18px rgba(46, 204, 113, 0.4) !important;
+    min-height: 56px !important;
+    cursor: pointer;
+  }
+  .db-btn-rejeter {
+    width: 100% !important;
+    background: linear-gradient(135deg, #C0392B, #E74C3C) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 14px !important;
+    padding: 16px !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 18px rgba(231, 76, 60, 0.4) !important;
+    min-height: 56px !important;
+    cursor: pointer;
+  }
+}
+
+/* ── Masquer les onglets segmentés sur desktop ── */
+@media (min-width: 769px) {
+  .db-mobile-segmented-tabs { display: none; }
+}

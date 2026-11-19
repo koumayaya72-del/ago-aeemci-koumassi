@@ -1,0 +1,847 @@
+/**
+ * ==========================================================================
+ * FEUILLE DE STYLE : CONSOLE BASE DE DONNÉES & SCANNER D'ÉMARGEMENT
+ * Assemblée Générale Ordinaire 2026 — AEEMCI Sous-Comité de Koumassi
+ * ==========================================================================
+ */
+
+:root {
+  --db-bg: #F4F7F5;
+  --db-card-bg: #FFFFFF;
+  --db-emerald-dark: #051D14;
+  --db-emerald: #104F36;
+  --db-emerald-light: #1B7A53;
+  --db-gold: #D4AF37;
+  --db-gold-light: #F7F1DF;
+  --db-gold-border: #E6CE78;
+  --db-text-main: #1C2826;
+  --db-text-muted: #556B64;
+  --db-border: #E1E8E4;
+  --db-radius: 14px;
+  --db-shadow: 0 4px 20px rgba(5, 29, 20, 0.07);
+}
+
+body.db-body {
+  background: var(--db-bg);
+  color: var(--db-text-main);
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.db-container {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ==========================================================================
+   1. BARRE DE NAVIGATION SUPÉRIEURE
+   ========================================================================== */
+.db-navbar {
+  background: var(--db-emerald-dark);
+  border-bottom: 2px solid var(--db-gold);
+  padding: 14px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+}
+
+.db-nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.db-brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.db-logo {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--db-gold);
+  background: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.db-brand-badge {
+  font-size: 10.5px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  color: var(--db-gold);
+  text-transform: uppercase;
+}
+
+.db-brand-title {
+  font-family: 'Cinzel', serif;
+  font-size: 19px;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 2px 0;
+  letter-spacing: 0.5px;
+}
+
+.db-brand-sub {
+  font-size: 11.5px;
+  color: #A3C9B8;
+  margin: 0;
+}
+
+.db-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-db-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-db-outline:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: #FFFFFF;
+}
+
+.btn-db-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #D4AF37, #AA820A);
+  border: 1px solid #FFE680;
+  color: #051D14;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(212, 175, 55, 0.35);
+}
+
+.btn-db-gold:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.5);
+}
+
+.btn-db-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--db-emerald);
+  border: 1px solid var(--db-gold);
+  color: #FFFFFF;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-db-primary:hover {
+  background: var(--db-emerald-light);
+}
+
+/* ==========================================================================
+   2. BANDEAU STATUTAIRE ÉVÉNEMENT & QUORUM
+   ========================================================================== */
+.db-event-bar {
+  background: #E8F0EC;
+  border-bottom: 1px solid #D1E0D7;
+  padding: 9px 0;
+  font-size: 12.5px;
+  color: var(--db-emerald-dark);
+}
+
+.db-event-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.db-badge-pill {
+  background: var(--db-emerald);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 10px;
+  letter-spacing: 0.8px;
+  margin-right: 8px;
+}
+
+.db-event-presence-rate strong {
+  color: #0E733D;
+  font-size: 14px;
+}
+
+/* ==========================================================================
+   3. DISPOSITION PRINCIPALE & CARTES KPI
+   ========================================================================== */
+.db-main-layout {
+  padding-top: 24px;
+  padding-bottom: 48px;
+}
+
+.db-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+@media (max-width: 992px) {
+  .db-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .db-kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.db-kpi-card {
+  background: var(--db-card-bg);
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  padding: 18px;
+  box-shadow: var(--db-shadow);
+  transition: transform 0.2s ease;
+}
+
+.db-kpi-card:hover {
+  transform: translateY(-2px);
+}
+
+.db-kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.db-kpi-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--db-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.db-kpi-icon {
+  font-size: 20px;
+}
+
+.db-kpi-value {
+  font-family: 'Cinzel', serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--db-emerald-dark);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.db-kpi-sub {
+  font-size: 11.5px;
+  color: var(--db-text-muted);
+}
+
+.db-kpi-card.kpi-success {
+  background: #EBF8F0;
+  border-color: #2ECC71;
+}
+
+.db-kpi-card.kpi-success .db-kpi-value {
+  color: #0E733D;
+}
+
+.db-kpi-card.kpi-warning {
+  background: #FFF9ED;
+  border-color: #F39C12;
+}
+
+.db-kpi-card.kpi-warning .db-kpi-value {
+  color: #A06400;
+}
+
+.db-kpi-card.kpi-quorum {
+  background: #FAF6EB;
+  border-color: var(--db-gold);
+}
+
+.db-kpi-card.kpi-quorum .db-kpi-value {
+  color: #8C5305;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   CONSOLE D'ÉMARGEMENT — DESIGN MOBILE-FIRST PROFESSIONNEL
+   Commission d'Accueil · A.G.O. AEEMCI Koumassi 2026
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Wrapper global ── */
+.db-scanner-section {
+  padding: 0 0 32px;
+}
+
+.db-scanner-wrap {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ── En-tête console ── */
+.db-scanner-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--db-emerald-dark);
+  border-radius: 16px;
+  padding: 16px 18px;
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(5,29,20,0.25);
+}
+
+.db-scanner-header-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.db-scanner-header-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--db-gold);
+  margin: 0 0 2px;
+  letter-spacing: 0.3px;
+}
+
+.db-scanner-header-sub {
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+  letter-spacing: 0.2px;
+}
+
+.db-sound-toggle {
+  margin-left: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.db-sound-toggle input {
+  display: none;
+}
+
+.db-sound-icon {
+  font-size: 22px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.db-sound-toggle input:checked ~ .db-sound-icon {
+  opacity: 1;
+}
+
+/* ── Bloc caméra ── */
+.db-cam-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.db-cam-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #051D14;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid var(--db-gold);
+  box-shadow: 0 6px 24px rgba(5,29,20,0.3);
+}
+
+.db-cam-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* Html5Qrcode video */
+#dbCameraReader {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0; left: 0;
+}
+
+#dbCameraReader video {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  border-radius: 16px;
+}
+
+#dbCameraReader canvas {
+  display: none !important;
+}
+
+/* Placeholder caméra inactive */
+.db-cam-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: radial-gradient(ellipse at center, #0d2f1e 0%, #051D14 100%);
+  z-index: 2;
+  transition: opacity 0.3s;
+}
+
+.db-cam-placeholder.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.db-cam-ph-icon {
+  font-size: 48px;
+  opacity: 0.5;
+}
+
+.db-cam-ph-text {
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0 20px;
+}
+
+/* Cadre viseur */
+.db-viewfinder {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 55%;
+  aspect-ratio: 1;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.db-vf-corner {
+  position: absolute;
+  width: 24px; height: 24px;
+  border-color: var(--db-gold);
+  border-style: solid;
+}
+
+.db-vf-tl { top: 0; left: 0; border-width: 3px 0 0 3px; border-radius: 4px 0 0 0; }
+.db-vf-tr { top: 0; right: 0; border-width: 3px 3px 0 0; border-radius: 0 4px 0 0; }
+.db-vf-bl { bottom: 0; left: 0; border-width: 0 0 3px 3px; border-radius: 0 0 0 4px; }
+.db-vf-br { bottom: 0; right: 0; border-width: 0 3px 3px 0; border-radius: 0 0 4px 0; }
+
+.db-vf-laser {
+  position: absolute;
+  left: 0; right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--db-gold), transparent);
+  animation: db-laser-scan 2s ease-in-out infinite;
+  border-radius: 2px;
+  box-shadow: 0 0 8px var(--db-gold);
+}
+
+@keyframes db-laser-scan {
+  0%   { top: 0;   opacity: 1; }
+  48%  { top: 100%; opacity: 1; }
+  50%  { top: 100%; opacity: 0; }
+  52%  { top: 0;   opacity: 0; }
+  100% { top: 0;   opacity: 1; }
+}
+
+/* Bouton activation caméra */
+.db-btn-cam-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, var(--db-emerald) 0%, var(--db-emerald-light) 100%);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 800;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 16px rgba(16,79,54,0.4);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.db-btn-cam-toggle:active {
+  transform: scale(0.98);
+  box-shadow: 0 2px 8px rgba(16,79,54,0.3);
+}
+
+.db-btn-cam-toggle.stopping {
+  background: linear-gradient(135deg, #922B21, #C0392B);
+  box-shadow: 0 4px 16px rgba(192,57,43,0.35);
+}
+
+.db-btn-cam-icon { font-size: 20px; }
+
+/* ── Saisie manuelle ── */
+.db-manual-block {
+  background: var(--db-card-bg);
+  border-radius: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--db-border);
+}
+
+.db-manual-label {
+  font-size: 12px;
+  color: var(--db-text-muted);
+  margin: 0 0 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.db-manual-row {
+  display: flex;
+  gap: 8px;
+}
+
+.db-manual-row input {
+  flex: 1;
+  padding: 12px 14px;
+  border: 1.5px solid var(--db-border);
+  border-radius: 10px;
+  font-size: 14px;
+  background: var(--db-bg);
+  color: var(--db-text-main);
+  font-family: 'Montserrat', monospace;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.db-manual-row input:focus {
+  border-color: var(--db-emerald);
+}
+
+.db-btn-manual {
+  padding: 12px 20px;
+  background: var(--db-emerald-dark);
+  color: var(--db-gold);
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 800;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.1s;
+}
+
+.db-btn-manual:active { transform: scale(0.95); }
+
+/* ── Zone résultat ── */
+.db-result-zone {
+  min-height: 200px;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* ── États ── */
+.db-state {
+  padding: 28px 20px;
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  animation: db-fadein 0.3s ease;
+}
+
+@keyframes db-fadein {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.db-state-icon {
+  font-size: 52px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.db-state-msg {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.db-state-sub {
+  font-size: 13px;
+  opacity: 0.8;
+  line-height: 1.5;
+  max-width: 320px;
+}
+
+.db-state-time {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 4px;
+}
+
+/* Idle */
+.db-state-idle {
+  background: var(--db-card-bg);
+  border: 2px dashed var(--db-border);
+  color: var(--db-text-muted);
+}
+
+/* Pending → EN ATTENTE DE VALIDATION */
+.db-state-pending {
+  background: linear-gradient(160deg, #0d2240 0%, #051D14 100%);
+  color: #fff;
+  border: 2px solid var(--db-gold);
+  gap: 12px;
+  padding-bottom: 20px;
+  box-shadow: 0 8px 32px rgba(5,29,20,0.3);
+}
+
+.db-pending-badge {
+  background: var(--db-gold);
+  color: var(--db-emerald-dark);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: 20px;
+  letter-spacing: 0.8px;
+  animation: db-badge-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes db-badge-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(212,175,55,0.5); }
+  50%      { box-shadow: 0 0 0 8px rgba(212,175,55,0); }
+}
+
+/* Carte délégué */
+.db-delegate-card {
+  width: 100%;
+  background: rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 16px;
+  border: 1px solid rgba(212,175,55,0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.db-dc-matricule {
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: var(--db-gold);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.db-dc-name {
+  font-size: 24px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: 0.3px;
+}
+
+.db-dc-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 13px;
+}
+
+.db-dc-label {
+  color: rgba(255,255,255,0.5);
+  font-weight: 600;
+  min-width: 68px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  font-size: 11px;
+  padding-top: 2px;
+}
+
+.db-dc-val {
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* BOUTONS ADMIN — Très grands pour le tactile */
+.db-confirm-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  margin-top: 4px;
+}
+
+.db-btn-valider,
+.db-btn-rejeter {
+  width: 100%;
+  padding: 20px 16px;
+  border: none;
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 900;
+  cursor: pointer;
+  letter-spacing: 0.8px;
+  transition: transform 0.1s, box-shadow 0.15s;
+  text-transform: uppercase;
+}
+
+.db-btn-valider {
+  background: linear-gradient(135deg, #0E7A44 0%, #15A85C 100%);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(14,122,68,0.5);
+}
+
+.db-btn-rejeter {
+  background: linear-gradient(135deg, #8B1C1C 0%, #C0392B 100%);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(192,57,43,0.4);
+}
+
+.db-btn-valider:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(14,122,68,0.3); }
+.db-btn-rejeter:active { transform: scale(0.97); box-shadow: 0 2px 8px rgba(192,57,43,0.25); }
+
+/* Succès */
+.db-state-success {
+  background: linear-gradient(160deg, #0E7A44 0%, #0d5c34 100%);
+  color: #fff;
+  box-shadow: 0 8px 28px rgba(14,122,68,0.4);
+}
+
+@keyframes db-anim-bounce {
+  0%,100% { transform: scale(1); }
+  30%     { transform: scale(1.25); }
+  60%     { transform: scale(0.95); }
+}
+
+.db-anim-bounce { animation: db-anim-bounce 0.6s ease; }
+
+/* Warning */
+.db-state-warning {
+  background: linear-gradient(160deg, #7D5A00 0%, #5a4000 100%);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(125,90,0,0.4);
+}
+
+/* Erreur */
+.db-state-error {
+  background: linear-gradient(160deg, #8B1C1C 0%, #5c1111 100%);
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(139,28,28,0.4);
+}
+
+/* ── Derniers émargements ── */
+.db-recents-block {
+  background: var(--db-card-bg);
+  border-radius: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--db-border);
+}
+
+.db-recents-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--db-text-muted);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.db-recent-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.db-recent-empty {
+  color: var(--db-text-muted);
+  font-size: 13px;
+  text-align: center;
+  padding: 12px 0;
+}
+
+.db-recent-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--db-bg);
+  border-radius: 10px;
+  font-size: 13px;
+  border-left: 3px solid var(--db-emerald);
+}
+
+.db-recent-name { font-weight: 700; flex: 1; color: var(--db-text-main); }
+.db-recent-time { color: var(--db-text-muted); font-size: 11px; white-space: nowrap; }
+.db-recent-mat  { color: var(--db-text-muted); font-size: 11px; font-family: monospace; }
+
+/* ── Tablette / Desktop ── */
+@media (min-width: 700px) {
+  .db-scanner-wrap {
+    max-width: 760px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "header  header"
+      "cam     result"
+      "manual  result"
+      "recents recents";
+    gap: 16px;
+  }
+  .db-scanner-header { grid-area: header; }
+  .db-cam-block      { grid-area: cam; }
+  .db-manual-block   { grid-area: manual; align-self: start; }
+  .db-result-zone    { grid-area: result; }
+  .db-recents-block  { grid-area: recents; }
+}

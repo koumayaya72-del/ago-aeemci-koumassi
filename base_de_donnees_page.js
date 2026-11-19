@@ -175,7 +175,32 @@ function initDbConsole() {
     });
   }
 
-  // Navigation Mobile Basse
+  // Navigation Mobile Basse & Onglets Segmentés
+  function switchMobileTab(targetId) {
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    document.querySelectorAll('.db-segment-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-target') === targetId);
+    });
+    document.querySelectorAll('.m-nav-item').forEach(item => {
+      const href = item.getAttribute('href') || '';
+      if (href === '#' + targetId) {
+        item.classList.add('active');
+      } else if (href.startsWith('#')) {
+        item.classList.remove('active');
+      }
+    });
+  }
+
+  document.querySelectorAll('.db-segment-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target');
+      if (target) switchMobileTab(target);
+    });
+  });
+
   const mNavNew = document.getElementById('mNavNew');
   const modalNew = document.getElementById('dbNewModalBackdrop');
   if (mNavNew && modalNew) {
@@ -186,9 +211,12 @@ function initDbConsole() {
 
   const mNavItems = document.querySelectorAll('.m-nav-item');
   mNavItems.forEach(item => {
-    item.addEventListener('click', () => {
-      mNavItems.forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
+    item.addEventListener('click', (e) => {
+      const href = item.getAttribute('href') || '';
+      if (href.startsWith('#')) {
+        e.preventDefault();
+        switchMobileTab(href.replace('#', ''));
+      }
     });
   });
 
@@ -336,6 +364,7 @@ function updateKpis() {
   const elCountEmarges = document.getElementById('countEmarges');
   const elCountAttente = document.getElementById('countAttente');
   const elCountVotants = document.getElementById('countVotants');
+  const tabCountTotal = document.getElementById('tabCountTotal');
 
   const votants = registre.filter(d => (d.role || '').toLowerCase().includes('votant')).length;
 
@@ -343,6 +372,7 @@ function updateKpis() {
   if (elCountEmarges) elCountEmarges.textContent = totalEmarges;
   if (elCountAttente) elCountAttente.textContent = totalAttente;
   if (elCountVotants) elCountVotants.textContent = votants;
+  if (tabCountTotal) tabCountTotal.textContent = totalInscrits;
 }
 
 /* ==========================================================================
@@ -397,29 +427,48 @@ function renderMainTable() {
   tbody.innerHTML = filtered.map(d => {
     const isEmarge = d.emarge;
     const badgeClass = isEmarge ? 'emarge' : 'attente';
-    const badgeText = isEmarge ? '✅ Présent Émargé' : '⏳ En attente';
+    const badgeText = isEmarge ? '✅ Présent' : '⏳ En attente';
     const heureEmarge = d.date_emargement || '-';
+    const initial = (d.nom || 'D').trim().charAt(0).toUpperCase();
 
     const btnEmargement = !isEmarge
-      ? `<button type="button" class="btn-action-emarge" data-mat="${d.matricule}">Valider Présence</button>`
-      : `<button type="button" class="btn-action-pass" style="color:#C0392B; border-color:#E74C3C;" data-cancel-mat="${d.matricule}">Annuler</button>`;
+      ? `<button type="button" class="btn-action-emarge" data-mat="${d.matricule}">
+           <span>✅ Valider Présence</span>
+         </button>`
+      : `<button type="button" class="btn-action-pass btn-cancel-state" data-cancel-mat="${d.matricule}" title="Annuler cet émargement">
+           <span>✕ Annuler</span>
+         </button>`;
 
     return `
-      <tr>
-        <td>
+      <tr class="db-delegate-row ${isEmarge ? 'row-emarge' : 'row-attente'}" data-matricule="${d.matricule}">
+        <td class="col-mat" data-label="Matricule">
           <span class="db-mat-tag">${d.matricule}</span>
         </td>
-        <td>
-          <strong style="color: var(--db-emerald-dark); font-size: 13px;">${d.nom}</strong>
+        <td class="col-nom" data-label="Délégué">
+          <div class="db-user-wrap">
+            <div class="db-user-avatar" aria-hidden="true">${initial}</div>
+            <div class="db-user-info">
+              <strong class="db-user-name">${d.nom}</strong>
+              <div class="db-user-sub">${d.section || 'Section non précisée'}</div>
+            </div>
+          </div>
         </td>
-        <td>${d.section || '-'}</td>
-        <td style="font-size: 11.5px; color: #444;">${d.role || '-'}</td>
-        <td style="font-size: 11px; color: #666;">${d.telephone || '-'}</td>
-        <td>
+        <td class="col-section" data-label="Section">
+          <span class="db-section-pill">📍 ${d.section || '-'}</span>
+        </td>
+        <td class="col-role" data-label="Qualité">
+          <span class="db-role-pill">${d.role || '-'}</span>
+        </td>
+        <td class="col-tel" data-label="Contact">
+          ${d.telephone ? `<a href="tel:${d.telephone}" class="db-tel-link">📞 ${d.telephone}</a>` : '<span style="color:#999;">-</span>'}
+        </td>
+        <td class="col-status" data-label="Statut">
           <span class="db-badge-status ${badgeClass}">${badgeText}</span>
         </td>
-        <td style="font-family: monospace; font-size: 11.5px; color: #555;">${heureEmarge}</td>
-        <td>
+        <td class="col-time" data-label="Heure">
+          <span class="db-time-tag">${heureEmarge !== '-' ? '🕒 ' + heureEmarge : '-'}</span>
+        </td>
+        <td class="col-actions" data-label="Actions">
           <div class="db-table-actions">
             ${btnEmargement}
             <button type="button" class="btn-action-pass" data-view-pass="${d.matricule}" title="Afficher et réimprimer le badge">
@@ -766,11 +815,14 @@ function initModalListeners() {
 
   if (btnPrintPass) {
     btnPrintPass.addEventListener('click', () => {
+      // Délai court pour laisser le QR code se rendre complètement
       document.body.classList.add('print-badge-active');
-      window.print();
       setTimeout(() => {
-        document.body.classList.remove('print-badge-active');
-      }, 1200);
+        window.print();
+        setTimeout(() => {
+          document.body.classList.remove('print-badge-active');
+        }, 1500);
+      }, 300);
     });
   }
 

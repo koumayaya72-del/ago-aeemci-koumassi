@@ -527,14 +527,18 @@ function initRsvpForm() {
     });
   }
 
-  // Impression / Téléchargement PDF du Pass
+  // Impression / Téléchargement PDF du Pass — 1 SEULE PAGE
   if (btnPrintPassPdf) {
     btnPrintPassPdf.addEventListener('click', () => {
+      // Fermer toute autre chose, isoler le badge
       document.body.classList.add('print-badge-active');
-      window.print();
+      // Laisser le temps au navigateur de rendre le QR code
       setTimeout(() => {
-        document.body.classList.remove('print-badge-active');
-      }, 1200);
+        window.print();
+        setTimeout(() => {
+          document.body.classList.remove('print-badge-active');
+        }, 1500);
+      }, 300);
     });
   }
 

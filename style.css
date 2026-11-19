@@ -3072,3 +3072,86 @@ button, input, select, textarea {
   }
 }
 
+
+/* ══════════════════════════════════════════════════════════════════
+   IMPRESSION BADGE / BILLET — 1 PAGE UNIQUEMENT (PDF)
+   ══════════════════════════════════════════════════════════════════ */
+@media print {
+  /* Réinitialiser la page en A5 portrait */
+  @page {
+    size: A5 portrait;
+    margin: 10mm;
+  }
+
+  /* Par défaut : tout visible (impression de la page normale) */
+  body, body * {
+    visibility: visible;
+  }
+
+  /* Quand on imprime le badge (class ajoutée en JS) :
+     masquer TOUT sauf le badge */
+  body.print-badge-active * {
+    visibility: hidden !important;
+  }
+
+  /* Rendre visible uniquement le badge et ses enfants */
+  body.print-badge-active #passModalBackdrop,
+  body.print-badge-active #passModalBackdrop *,
+  body.print-badge-active #dbPassModalBackdrop,
+  body.print-badge-active #dbPassModalBackdrop * {
+    visibility: visible !important;
+  }
+
+  /* Positionner le modal badge en haut de la page, sans fond */
+  body.print-badge-active #passModalBackdrop,
+  body.print-badge-active #dbPassModalBackdrop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background: #FFFFFF !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Le badge : 1 seule page, centré */
+  body.print-badge-active .pass-modal-card {
+    width: 100% !important;
+    max-width: 148mm !important; /* A5 width */
+    margin: 0 auto !important;
+    border: 2px solid #D4AF37 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    overflow: hidden !important;
+  }
+
+  /* Forcer le contenu imprimable à ne jamais dépasser 1 page */
+  body.print-badge-active .official-pass-printable {
+    max-height: 100vh !important;
+    overflow: hidden !important;
+    padding: 16px !important;
+  }
+
+  /* Masquer les boutons et l'overlay du modal */
+  body.print-badge-active .pass-modal-close,
+  body.print-badge-active .pass-modal-actions,
+  body.print-badge-active .btn-close-pass,
+  body.print-badge-active [id$="ClosePassModal"],
+  body.print-badge-active [id$="CloseDbPassModal"] {
+    display: none !important;
+    visibility: hidden !important;
+  }
+
+  /* QR code : forcer l'affichage (canvas/svg) */
+  body.print-badge-active canvas,
+  body.print-badge-active svg {
+    visibility: visible !important;
+    display: block !important;
+  }
+}
