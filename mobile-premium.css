@@ -1037,43 +1037,304 @@
 .rsvp-card:hover { transform: translateY(-4px) !important; }
 
 /* ==========================================================================
-   18. RESPONSIVE MOBILE
+   18. RESPONSIVE MOBILE ULTRA-PREMIUM (OPTIMISÉ SMARTPHONE)
    ========================================================================== */
-@media (max-width: 600px) {
-  .royal-hero { padding: 48px 0 40px; }
+@media (max-width: 680px) {
+  /* Espacement général du Hero sur mobile */
+  .royal-hero {
+    padding: 36px 14px 32px !important;
+  }
 
-  .hero-institution-header { gap: 14px; }
-  .hero-logo-emblem { width: 68px; height: 68px; }
-  .hero-org-title { font-size: 18px; }
+  /* En-tête institutionnel */
+  .hero-institution-header {
+    flex-direction: column !important;
+    gap: 12px !important;
+    padding: 16px 14px !important;
+    margin: 0 auto 18px !important;
+    max-width: 100% !important;
+    border-radius: 16px !important;
+  }
 
-  .hero-main-title { font-size: clamp(24px, 7.5vw, 36px) !important; }
+  .hero-logo-emblem {
+    width: 76px !important;
+    height: 76px !important;
+    padding: 6px !important;
+    border-radius: 14px !important;
+  }
 
+  .hero-inst-labels {
+    border-left: none !important;
+    padding-left: 0 !important;
+    text-align: center !important;
+    border-top: 1px solid rgba(212, 175, 55, 0.3) !important;
+    padding-top: 10px !important;
+    width: 100% !important;
+  }
+
+  .hero-national-motto {
+    font-size: 8px !important;
+    letter-spacing: 1.8px !important;
+  }
+
+  .hero-org-title {
+    font-size: 20px !important;
+    letter-spacing: 3px !important;
+  }
+
+  .hero-org-desc {
+    font-size: 10.5px !important;
+    line-height: 1.4 !important;
+  }
+
+  .hero-org-jurisdiction {
+    font-size: 10px !important;
+  }
+
+  /* Titre principal adapté mobile */
+  .hero-main-title {
+    font-size: clamp(22px, 6.2vw, 30px) !important;
+    letter-spacing: 1.2px !important;
+    line-height: 1.2 !important;
+    margin-bottom: 14px !important;
+  }
+
+  .hero-title-edition {
+    font-size: 0.65em !important;
+    letter-spacing: 1.8px !important;
+    margin-top: 6px !important;
+  }
+
+  /* Sceau de Haute Présidence */
+  .hero-presidency-seal {
+    margin: 0 auto 18px !important;
+    width: 100% !important;
+    max-width: 360px !important;
+  }
+
+  .presidency-seal-inner {
+    padding: 10px 16px !important;
+    gap: 10px !important;
+    width: 100% !important;
+    justify-content: center !important;
+    border-radius: 30px !important;
+  }
+
+  .presidency-name {
+    font-size: 15px !important;
+    letter-spacing: 1px !important;
+  }
+
+  .presidency-mention, .presidency-sub {
+    font-size: 9px !important;
+  }
+
+  /* ═════════════════════════════════════════════════════════════
+     LES 3 PILIERS SUR MOBILE : DISPOSITION AÉRÉE & PRESTIGIEUSE
+     (Fini l'écrasement en 3 colonnes de 100px illisibles !)
+     ═════════════════════════════════════════════════════════════ */
   .hero-pillars-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+    max-width: 380px !important;
+    margin: 0 auto 24px !important;
+    width: 100% !important;
+  }
+
+  .hero-pillar-card {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    text-align: left !important;
+    gap: 16px !important;
+    padding: 16px 18px !important;
+    border-radius: 16px !important;
+  }
+
+  .hero-pillar-card .pillar-icon {
+    font-size: 32px !important;
+    margin-bottom: 0 !important;
+    flex-shrink: 0 !important;
+    width: 48px !important;
+    height: 48px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: rgba(212, 175, 55, 0.12) !important;
+    border: 1px solid rgba(212, 175, 55, 0.4) !important;
+    border-radius: 12px !important;
+  }
+
+  .hero-pillar-card .pillar-label {
+    font-size: 8px !important;
+    letter-spacing: 1.5px !important;
+    margin-bottom: 3px !important;
+  }
+
+  .hero-pillar-card .pillar-value {
+    font-size: 14.5px !important;
+    font-weight: 800 !important;
+    line-height: 1.25 !important;
+    margin-bottom: 2px !important;
+  }
+
+  .hero-pillar-card .pillar-note {
+    font-size: 10px !important;
+  }
+
+  .hero-pillar-card.highlight {
+    position: relative !important;
+  }
+
+  .hero-pillar-card.highlight .pillar-badge {
+    position: absolute !important;
+    top: -10px !important;
+    right: 14px !important;
+    left: auto !important;
+    transform: none !important;
+    font-size: 7px !important;
+    padding: 2px 10px !important;
+  }
+
+  /* Compte à rebours mobile */
+  .countdown-prestige-card {
+    padding: 16px 12px 18px !important;
+    margin: 0 auto 22px !important;
+    border-radius: 16px !important;
+    max-width: 380px !important;
+  }
+
+  .countdown-header-tag {
+    margin-bottom: 12px !important;
+  }
+
+  .countdown-header-tag span:last-child {
+    font-size: 8.5px !important;
+    letter-spacing: 1.5px !important;
+  }
+
+  .countdown-grid {
+    gap: 4px !important;
+  }
+
+  .count-box {
+    min-width: 54px !important;
+    padding: 8px 6px !important;
+    border-radius: 10px !important;
+  }
+
+  .count-number {
+    font-size: 22px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .count-unit {
+    font-size: 7.5px !important;
+    letter-spacing: 1px !important;
+  }
+
+  .count-divider {
+    font-size: 18px !important;
+  }
+
+  /* Boutons d'actions d'en-tête */
+  .hero-executive-actions {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    max-width: 340px !important;
+    margin: 16px auto 0 !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  .btn-hero-prestige,
+  .btn-hero-outline-gold {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 48px !important;
+    font-size: 12px !important;
+    padding: 12px 18px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Anciens Présidents en mobile */
+  .anciens-presidents-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    max-width: 340px !important;
+    margin: 0 auto !important;
+  }
+
+  .ancien-president-card {
+    margin-top: 16px !important;
+    padding: 24px 16px 18px !important;
+  }
+
+  .ancien-avatar-frame {
+    width: 90px !important;
+    height: 90px !important;
+    margin: 0 auto 12px !important;
+  }
+
+  .ancien-nom {
+    font-size: 15px !important;
+  }
+
+  .ancien-impact {
+    font-size: 11.5px !important;
+    line-height: 1.45 !important;
+  }
+
+  /* Bureau exécutif en mobile */
+  .bureau-filter-container {
+    padding: 6px 10px !important;
+    gap: 6px !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+
+  .bureau-filter-btn {
+    white-space: nowrap !important;
+    font-size: 11px !important;
+    padding: 6px 14px !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* Formulaire RSVP mobile */
+  .rsvp-card {
+    padding: 22px 14px !important;
+    border-radius: 18px !important;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 16px !important; /* Empêche le zoom automatique sur iPhone Safari */
+    min-height: 46px !important;
+  }
+
+  .btn-royal-submit {
+    min-height: 50px !important;
+    font-size: 13.5px !important;
+  }
+
+  /* Modal de Pass mobile */
+  .pass-modal-card {
+    width: 94vw !important;
+    max-width: 390px !important;
+    padding: 18px 12px !important;
+    max-height: 92vh !important;
+    overflow-y: auto !important;
+  }
+
+  .pass-actions-grid {
+    flex-direction: column !important;
     gap: 8px !important;
   }
 
-  .hero-pillar-card { padding: 14px 8px 12px; }
-  .pillar-value { font-size: 11.5px; }
-
-  .count-box { min-width: 58px !important; padding: 10px 12px !important; }
-  .count-number { font-size: 26px !important; }
-
-  .hero-executive-actions { gap: 10px; }
-  .btn-hero-prestige { padding: 12px 22px !important; font-size: 12px !important; }
-  .btn-hero-outline-gold { padding: 11px 18px !important; font-size: 12px !important; }
-
-  .presidency-seal-inner { padding: 10px 18px; gap: 10px; }
-  .presidency-name { font-size: 15px; }
-}
-
-@media (max-width: 400px) {
-  .hero-pillars-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 6px !important; }
-  .pillar-label { font-size: 7.5px; letter-spacing: 1px; }
-  .pillar-value { font-size: 10.5px; }
-  .count-box { min-width: 50px !important; }
-  .count-number { font-size: 22px !important; }
-
-  .hero-executive-actions { flex-direction: column; align-items: center; }
-  .btn-hero-prestige, .btn-hero-outline-gold { width: 100%; justify-content: center; }
+  .pass-actions-grid button,
+  .pass-actions-grid a {
+    width: 100% !important;
+    justify-content: center !important;
+  }
 }

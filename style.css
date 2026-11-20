@@ -1855,28 +1855,24 @@ button, input, select, textarea {
   opacity: 1;
 }
 
-/* Impression papier officielle */
+/* Impression papier officielle — Sécurisée à 1 seule page */
 @media print {
-  .intro-screen,
-  .sticky-portal-nav,
-  .btn-royal-submit,
-  .btn-royal,
-  .btn-share,
-  .countdown-container,
-  .bureau-filter-container,
-  .btn-copy {
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+
+  /* Si ce n'est pas le pass officiel qui est imprimé, masquer tout le site */
+  header, main, footer, section, .royal-hero, .section-dark,
+  .intro-screen, .sticky-portal-nav, .btn-royal-submit, .btn-royal,
+  .btn-share, .countdown-container, .bureau-filter-container, .btn-copy {
     display: none !important;
   }
 
-  body, .invitation-main {
+  body {
     background: #FFFFFF !important;
     color: #000000 !important;
   }
-
-  .royal-hero, .section-dark {
-    background: #FFFFFF !important;
-    color: #000000 !important;
-    border: none !important;
   }
 
   .hero-main-title, .section-title, .president-name {
