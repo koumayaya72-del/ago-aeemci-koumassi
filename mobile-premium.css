@@ -1,0 +1,885 @@
+/* ==========================================================================
+   MOBILE-PREMIUM.CSS v3 — Prestige Royal Suprême
+   Portail Officiel A.G.O. 2026 — AEEMCI Sous-Comité de Koumassi
+   ========================================================================== */
+
+/* ==========================================================================
+   1. ANIMATIONS KEYFRAMES
+   ========================================================================== */
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212,175,55,0); }
+  50% { box-shadow: 0 0 25px 8px rgba(212,175,55,0.3); }
+}
+@keyframes shimmerSlide {
+  0% { background-position: -600px 0; }
+  100% { background-position: 600px 0; }
+}
+@keyframes floatUpDown {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+@keyframes borderGlowAnim {
+  0%, 100% { border-color: rgba(212,175,55,0.35); box-shadow: 0 0 0 rgba(212,175,55,0); }
+  50% { border-color: rgba(212,175,55,0.85); box-shadow: 0 0 20px rgba(212,175,55,0.2); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.1; transform: scale(0.8); }
+  50% { opacity: 0.9; transform: scale(1.2); }
+}
+@keyframes rotateSeal {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes pulseGold {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+@keyframes countFlip {
+  0% { transform: rotateX(0deg); }
+  50% { transform: rotateX(-90deg); }
+  100% { transform: rotateX(0deg); }
+}
+@keyframes slideInCard {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ==========================================================================
+   2. ÉTOILES CSS DANS LE HÉRO
+   ========================================================================== */
+.royal-hero {
+  position: relative;
+  background: radial-gradient(ellipse 100% 80% at 50% 0%, #0D3B28 0%, #071A0F 50%, #030C07 100%) !important;
+  border-bottom: 2px solid rgba(212,175,55,0.5);
+  overflow: hidden;
+  padding: 65px 0 55px;
+}
+
+/* Particules étoiles simulées par pseudo-éléments + box-shadow multiples */
+.royal-hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    radial-gradient(1px 1px at 15% 12%, rgba(212,175,55,0.9) 0%, transparent 100%),
+    radial-gradient(1px 1px at 82% 8%, rgba(212,175,55,0.7) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 44% 20%, rgba(255,255,255,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 25%, rgba(212,175,55,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 25% 35%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 90% 15%, rgba(212,175,55,0.8) 0%, transparent 100%),
+    radial-gradient(1px 1px at 55% 5%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 8% 50%, rgba(212,175,55,0.5) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 36% 48%, rgba(212,175,55,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 75% 42%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 62% 55%, rgba(212,175,55,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 18% 65%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 93% 55%, rgba(212,175,55,0.4) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+  animation: starTwinkle 4s ease-in-out infinite alternate;
+}
+
+.royal-hero::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image:
+    radial-gradient(1px 1px at 30% 70%, rgba(212,175,55,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 48% 80%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 85% 70%, rgba(212,175,55,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 85%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(2px 2px at 10% 85%, rgba(212,175,55,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 95% 90%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 40% 92%, rgba(212,175,55,0.3) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 0;
+  animation: starTwinkle 5.5s ease-in-out infinite alternate-reverse;
+}
+
+.hero-backdrop-glow {
+  position: absolute !important;
+  top: 0 !important; left: 0 !important;
+  width: 100% !important; height: 100% !important;
+  transform: none !important;
+  background: radial-gradient(ellipse 60% 40% at 50% 20%, rgba(212,175,55,0.14) 0%, rgba(16,79,54,0.08) 50%, transparent 80%) !important;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   3. EN-TÊTE INSTITUTIONNEL
+   ========================================================================== */
+.hero-institution-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  animation: fadeUp 0.7s ease both;
+}
+
+.hero-logo-emblem {
+  width: 80px;
+  height: 80px;
+  border-radius: 14px;
+  background: #FFFFFF;
+  padding: 6px;
+  border: 2px solid var(--color-gold);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 25px rgba(212,175,55,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: goldPulse 3.5s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.hero-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  filter: drop-shadow(0 0 6px rgba(212,175,55,0.3));
+}
+
+.hero-inst-labels {
+  text-align: left;
+}
+
+.hero-national-motto {
+  display: block;
+  font-size: 9.5px;
+  letter-spacing: 2px;
+  color: rgba(212,175,55,0.85);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.hero-org-title {
+  font-family: var(--font-title);
+  font-size: 22px;
+  font-weight: 900;
+  color: #FFFFFF;
+  letter-spacing: 3px;
+  line-height: 1;
+  margin-bottom: 4px;
+  text-shadow: 0 0 20px rgba(212,175,55,0.3);
+}
+
+.hero-org-desc {
+  font-size: 11.5px;
+  color: #B5D4C4;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+.hero-org-jurisdiction {
+  font-size: 11px;
+  color: rgba(212,175,55,0.8);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   4. SÉPARATEUR CÉRÉMONIAL
+   ========================================================================== */
+.hero-ceremonial-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 18px 0 16px;
+  animation: fadeUp 0.8s ease 0.1s both;
+}
+
+.divider-line {
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.7), transparent);
+}
+
+.divider-crest {
+  font-size: 16px;
+  color: var(--color-gold);
+  letter-spacing: 6px;
+  animation: pulseGold 2.5s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   5. BADGE CONVOCATION
+   ========================================================================== */
+.hero-status-pill {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(212,175,55,0.08);
+  border: 1.5px solid rgba(212,175,55,0.5);
+  border-radius: 50px;
+  padding: 6px 20px;
+  margin-bottom: 18px;
+  animation: borderGlowAnim 2.5s ease-in-out infinite, fadeUp 0.8s ease 0.15s both;
+}
+
+.hero-status-pill span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--color-gold-bright);
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   6. TITRE PRINCIPAL — EFFET SHIMMER
+   ========================================================================== */
+.hero-main-title {
+  font-family: var(--font-title) !important;
+  font-size: clamp(28px, 5.5vw, 48px) !important;
+  font-weight: 900 !important;
+  color: #FFFFFF !important;
+  letter-spacing: 2px !important;
+  line-height: 1.1 !important;
+  margin-bottom: 16px !important;
+  text-shadow: 0 2px 30px rgba(0,0,0,0.8), 0 0 50px rgba(212,175,55,0.1) !important;
+  animation: fadeUp 0.9s ease 0.2s both;
+  position: relative;
+}
+
+.hero-title-edition {
+  display: block;
+  font-size: 0.75em !important;
+  color: var(--color-gold) !important;
+  letter-spacing: 2.5px !important;
+  margin-top: 8px !important;
+  /* Effet shimmer doré sur le sous-titre */
+  background: linear-gradient(90deg, #D4AF37 0%, #F7D878 30%, #FFE89A 50%, #F7D878 70%, #D4AF37 100%);
+  background-size: 400px 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmerSlide 3s linear infinite;
+}
+
+/* ==========================================================================
+   7. SCEAU DE PRÉSIDENCE
+   ========================================================================== */
+.hero-presidency-seal {
+  animation: fadeUp 1s ease 0.3s both;
+  margin: 0 auto 20px;
+}
+
+.presidency-seal-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, rgba(212,175,55,0.15) 0%, rgba(16,79,54,0.4) 50%, rgba(212,175,55,0.15) 100%);
+  border: 1.5px solid rgba(212,175,55,0.55);
+  border-radius: 50px;
+  padding: 12px 28px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+  animation: borderGlowAnim 3s ease-in-out infinite;
+}
+
+.presidency-icon {
+  font-size: 20px;
+  animation: floatUpDown 4s ease-in-out infinite;
+}
+
+.presidency-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.presidency-mention {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  color: rgba(212,175,55,0.85);
+  text-transform: uppercase;
+}
+
+.presidency-name {
+  font-family: var(--font-title);
+  font-size: 17px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: 1.5px;
+  text-shadow: 0 0 20px rgba(212,175,55,0.3);
+}
+
+.presidency-sub {
+  font-size: 10px;
+  color: #B5D4C4;
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   8. THÈME DES TRAVAUX
+   ========================================================================== */
+.theme-ceremonial-box {
+  background: rgba(255,255,255,0.03) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212,175,55,0.3) !important;
+  border-radius: 18px;
+  padding: 20px 28px;
+  max-width: 760px;
+  margin: 0 auto 24px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+  animation: fadeUp 1s ease 0.4s both;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.theme-ceremonial-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 25px rgba(212,175,55,0.15);
+}
+
+.theme-header-bar {
+  margin-bottom: 10px;
+}
+
+.theme-badge-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--color-gold);
+  text-transform: uppercase;
+  background: rgba(212,175,55,0.1);
+  padding: 3px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(212,175,55,0.3);
+}
+
+.theme-quote {
+  font-family: var(--font-title);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.6;
+  color: #FFFFFF;
+  font-style: italic;
+  border: none;
+  margin: 10px 0 8px;
+  padding: 0;
+  text-align: center;
+}
+
+.theme-card-footer span {
+  font-size: 11px;
+  color: rgba(181,212,196,0.8);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   9. PILIERS DATE / HEURE / LIEU
+   ========================================================================== */
+.hero-pillars-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 14px !important;
+  margin: 0 auto 24px !important;
+  max-width: 760px !important;
+  animation: fadeUp 1s ease 0.5s both;
+}
+
+.hero-pillar-card {
+  background: linear-gradient(145deg, rgba(16,74,51,0.55) 0%, rgba(7,38,26,0.75) 100%);
+  border: 1px solid rgba(212,175,55,0.3);
+  border-radius: 16px;
+  padding: 20px 14px 18px;
+  text-align: center;
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(6px);
+}
+
+.hero-pillar-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.07), transparent);
+  transition: left 0.6s ease;
+}
+
+.hero-pillar-card:hover::before { left: 100%; }
+
+.hero-pillar-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(212,175,55,0.65);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 20px rgba(212,175,55,0.15);
+}
+
+.hero-pillar-card.highlight {
+  border-color: rgba(212,175,55,0.6);
+  background: linear-gradient(145deg, rgba(25,90,62,0.7) 0%, rgba(12,50,32,0.85) 100%);
+  animation: borderGlowAnim 3s ease-in-out infinite;
+}
+
+.pillar-badge {
+  display: inline-block;
+  font-size: 8.5px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #030C07;
+  background: linear-gradient(135deg, #D4AF37, #F7D878);
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+}
+
+.pillar-icon { font-size: 22px; margin-bottom: 6px; display: block; }
+
+.pillar-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+  color: rgba(212,175,55,0.75);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.pillar-value {
+  font-family: var(--font-title);
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #FFFFFF;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+
+.pillar-note {
+  font-size: 10px;
+  color: rgba(181,212,196,0.75);
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   10. COMPTE À REBOURS PRESTIGE
+   ========================================================================== */
+.countdown-prestige-card {
+  background: linear-gradient(145deg, rgba(3,16,10,0.95) 0%, rgba(2,10,6,0.98) 100%) !important;
+  border: 1.5px solid rgba(212,175,55,0.5) !important;
+  border-radius: 20px;
+  padding: 22px 20px 26px;
+  max-width: 580px;
+  margin: 0 auto 28px;
+  box-shadow: 0 15px 50px rgba(0,0,0,0.6), inset 0 1px 0 rgba(212,175,55,0.1);
+  animation: borderGlowAnim 3.5s ease-in-out infinite, fadeUp 1s ease 0.6s both;
+}
+
+.countdown-header-tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.pulse-gold-dot {
+  width: 8px; height: 8px;
+  background: var(--color-gold);
+  border-radius: 50%;
+  display: inline-block;
+  animation: goldPulse 1.5s ease-in-out infinite;
+}
+
+.countdown-header-tag span:last-child {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--color-gold);
+  text-transform: uppercase;
+}
+
+.countdown-grid {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+}
+
+.count-box {
+  background: linear-gradient(180deg, #0F4A30 0%, #062018 100%) !important;
+  border: 1px solid rgba(212,175,55,0.5) !important;
+  border-radius: 14px !important;
+  padding: 14px 18px !important;
+  min-width: 72px !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04) !important;
+  transition: transform 0.3s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.count-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,175,55,0.5), transparent);
+}
+
+.count-box:hover { transform: scale(1.1) !important; }
+
+.count-number {
+  display: block !important;
+  font-family: var(--font-title) !important;
+  font-size: 32px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  margin-bottom: 5px !important;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F7D878 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.count-unit {
+  font-size: 8.5px !important;
+  letter-spacing: 1.5px !important;
+  color: rgba(212,175,55,0.9) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+}
+
+.count-divider {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  color: rgba(212,175,55,0.6) !important;
+  animation: pulseGold 1.5s ease-in-out infinite !important;
+}
+
+/* ==========================================================================
+   11. BOUTONS ACTIONS
+   ========================================================================== */
+.hero-executive-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  animation: fadeUp 1s ease 0.7s both;
+  margin-top: 10px;
+}
+
+.btn-hero-prestige {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: linear-gradient(135deg, #C8A42E 0%, #F7D878 40%, #FFE89A 55%, #F7D878 70%, #C8A42E 100%) !important;
+  background-size: 300% auto !important;
+  color: #030E09 !important;
+  font-family: var(--font-body) !important;
+  font-weight: 800 !important;
+  font-size: 13px !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  border: none !important;
+  border-radius: 50px !important;
+  padding: 14px 30px !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: background-position 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease !important;
+  box-shadow: 0 6px 25px rgba(212,175,55,0.5) !important;
+  animation: shimmerSlide 3s linear infinite !important;
+}
+
+.btn-hero-prestige:hover {
+  transform: translateY(-4px) scale(1.04) !important;
+  box-shadow: 0 15px 45px rgba(212,175,55,0.65) !important;
+}
+
+.btn-hero-outline-gold {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  background: rgba(212,175,55,0.08) !important;
+  color: #F7D878 !important;
+  font-family: var(--font-body) !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  letter-spacing: 0.8px !important;
+  border: 1.5px solid rgba(212,175,55,0.5) !important;
+  border-radius: 50px !important;
+  padding: 13px 24px !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+  transition: all 0.35s cubic-bezier(0.16,1,0.3,1) !important;
+  backdrop-filter: blur(6px) !important;
+}
+
+.btn-hero-outline-gold:hover {
+  background: rgba(212,175,55,0.2) !important;
+  border-color: rgba(212,175,55,0.9) !important;
+  transform: translateY(-3px) !important;
+  box-shadow: 0 10px 30px rgba(212,175,55,0.3) !important;
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   12. CARTE PRÉSIDENT ACTUEL
+   ========================================================================== */
+.president-card {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F9F5ED 100%);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(212,175,55,0.2);
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  margin-bottom: 36px;
+}
+
+.president-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.18), 0 0 0 1.5px rgba(212,175,55,0.4);
+}
+
+.president-photo-frame {
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--color-gold) !important;
+  box-shadow: 0 0 0 6px rgba(212,175,55,0.15), 0 10px 30px rgba(0,0,0,0.3) !important;
+  animation: goldPulse 4s ease-in-out infinite;
+  transition: transform 0.4s ease;
+}
+
+.president-photo-frame:hover { transform: scale(1.05); }
+
+/* ==========================================================================
+   13. FILTRES BUREAU EXÉCUTIF
+   ========================================================================== */
+.bureau-filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.bureau-filter-btn {
+  border: 1.5px solid rgba(16,79,54,0.25) !important;
+  border-radius: 50px !important;
+  padding: 8px 18px !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.16,1,0.3,1) !important;
+  background: transparent !important;
+  color: var(--color-text-main) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.bureau-filter-btn:hover,
+.bureau-filter-btn.active {
+  background: linear-gradient(135deg, var(--color-emerald), var(--color-emerald-medium)) !important;
+  color: #FFFFFF !important;
+  border-color: var(--color-emerald) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(16,79,54,0.3) !important;
+}
+
+/* ==========================================================================
+   14. CARTES MEMBRES
+   ========================================================================== */
+.member-card {
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 22px 16px 18px;
+  text-align: center;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+  overflow: hidden;
+}
+
+.member-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-emerald), var(--color-gold), var(--color-emerald));
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+  transform-origin: center;
+}
+
+.member-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.14), 0 0 0 1px rgba(212,175,55,0.25);
+}
+
+.member-card:hover::after { transform: scaleX(1); }
+
+.member-avatar-wrap {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 12px;
+  border: 3px solid rgba(212,175,55,0.4);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.member-card:hover .member-avatar-wrap {
+  border-color: var(--color-gold);
+  box-shadow: 0 6px 20px rgba(212,175,55,0.3);
+}
+
+.member-dept-tag {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--color-emerald-soft), #DDF0E7);
+  color: var(--color-emerald);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 8px;
+  border: 1px solid rgba(16,79,54,0.15);
+}
+
+/* ==========================================================================
+   15. ANCIENS PRÉSIDENTS
+   ========================================================================== */
+.ancien-president-card {
+  background: linear-gradient(145deg, #FFFFFF 0%, #F9F7F2 100%);
+  border-radius: 20px;
+  padding: 24px 18px 20px;
+  text-align: center;
+  border: 1px solid rgba(212,175,55,0.2);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+  transition: all 0.4s cubic-bezier(0.16,1,0.3,1);
+  position: relative;
+  overflow: hidden;
+}
+
+.ancien-president-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold), var(--color-gold-bright), var(--color-gold));
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.ancien-president-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(0,0,0,0.14), 0 0 0 1.5px rgba(212,175,55,0.4);
+}
+
+.ancien-president-card:hover::before { opacity: 1; }
+
+.ancien-avatar-frame {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 10px auto 14px;
+  border: 3px solid rgba(212,175,55,0.5);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transition: border-color 0.3s ease, transform 0.4s ease;
+}
+
+.ancien-president-card:hover .ancien-avatar-frame {
+  border-color: var(--color-gold);
+  transform: scale(1.07);
+}
+
+.ancien-mandat-pill {
+  display: inline-block;
+  background: linear-gradient(135deg, #FDF3D0, #FFF8E1);
+  color: var(--color-gold-dark);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(212,175,55,0.4);
+}
+
+/* ==========================================================================
+   16. FOOTER
+   ========================================================================== */
+.royal-footer {
+  background: linear-gradient(180deg, #030C07 0%, #020805 100%) !important;
+  border-top: 2px solid rgba(212,175,55,0.4) !important;
+  position: relative;
+}
+
+.royal-footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 500px; height: 200px;
+  background: radial-gradient(ellipse, rgba(212,175,55,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   17. RSVP CARD
+   ========================================================================== */
+.rsvp-card {
+  background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(16,79,54,0.12) 100%) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(212,175,55,0.3) !important;
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04) !important;
+  transition: transform 0.4s ease !important;
+}
+
+.rsvp-card:hover { transform: translateY(-4px) !important; }
+
+/* ==========================================================================
+   18. RESPONSIVE MOBILE
+   ========================================================================== */
+@media (max-width: 600px) {
+  .royal-hero { padding: 48px 0 40px; }
+
+  .hero-institution-header { gap: 14px; }
+  .hero-logo-emblem { width: 68px; height: 68px; }
+  .hero-org-title { font-size: 18px; }
+
+  .hero-main-title { font-size: clamp(24px, 7.5vw, 36px) !important; }
+
+  .hero-pillars-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .hero-pillar-card { padding: 14px 8px 12px; }
+  .pillar-value { font-size: 11.5px; }
+
+  .count-box { min-width: 58px !important; padding: 10px 12px !important; }
+  .count-number { font-size: 26px !important; }
+
+  .hero-executive-actions { gap: 10px; }
+  .btn-hero-prestige { padding: 12px 22px !important; font-size: 12px !important; }
+  .btn-hero-outline-gold { padding: 11px 18px !important; font-size: 12px !important; }
+
+  .presidency-seal-inner { padding: 10px 18px; gap: 10px; }
+  .presidency-name { font-size: 15px; }
+}
+
+@media (max-width: 400px) {
+  .hero-pillars-grid { grid-template-columns: 1fr 1fr 1fr !important; gap: 6px !important; }
+  .pillar-label { font-size: 7.5px; letter-spacing: 1px; }
+  .pillar-value { font-size: 10.5px; }
+  .count-box { min-width: 50px !important; }
+  .count-number { font-size: 22px !important; }
+
+  .hero-executive-actions { flex-direction: column; align-items: center; }
+  .btn-hero-prestige, .btn-hero-outline-gold { width: 100%; justify-content: center; }
+}
