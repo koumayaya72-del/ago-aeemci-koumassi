@@ -449,7 +449,7 @@
   text-align: center !important;
   transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
   position: relative !important;
-  overflow: hidden !important;
+  overflow: visible !important; /* Visible pour ne jamais tronquer le badge CONVOCATION */
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
 }
@@ -1129,70 +1129,71 @@
   }
 
   /* ═════════════════════════════════════════════════════════════
-     LES 3 PILIERS SUR MOBILE : DISPOSITION AÉRÉE & PRESTIGIEUSE
-     (Fini l'écrasement en 3 colonnes de 100px illisibles !)
+     LES 3 PILIERS SUR MOBILE : 3 COLONNES PARFAITES & NON-TRONQUÉES
      ═════════════════════════════════════════════════════════════ */
   .hero-pillars-grid {
-    grid-template-columns: 1fr !important;
-    gap: 14px !important;
-    max-width: 380px !important;
-    margin: 0 auto 24px !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 8px !important;
+    margin: 14px auto 22px !important;
+    padding-top: 14px !important;
     width: 100% !important;
+    max-width: 100% !important;
   }
 
   .hero-pillar-card {
     display: flex !important;
-    flex-direction: row !important;
+    flex-direction: column !important;
     align-items: center !important;
-    text-align: left !important;
-    gap: 16px !important;
-    padding: 16px 18px !important;
-    border-radius: 16px !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 16px 4px 12px !important;
+    border-radius: 14px !important;
+    overflow: visible !important;
+    position: relative !important;
+    gap: 0 !important;
   }
 
   .hero-pillar-card .pillar-icon {
-    font-size: 32px !important;
-    margin-bottom: 0 !important;
-    flex-shrink: 0 !important;
-    width: 48px !important;
-    height: 48px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    background: rgba(212, 175, 55, 0.12) !important;
-    border: 1px solid rgba(212, 175, 55, 0.4) !important;
-    border-radius: 12px !important;
+    font-size: 24px !important;
+    margin-bottom: 5px !important;
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    border: none !important;
   }
 
   .hero-pillar-card .pillar-label {
-    font-size: 8px !important;
-    letter-spacing: 1.5px !important;
-    margin-bottom: 3px !important;
+    font-size: 7px !important;
+    letter-spacing: 0.8px !important;
+    margin-bottom: 4px !important;
+    white-space: nowrap !important;
   }
 
   .hero-pillar-card .pillar-value {
-    font-size: 14.5px !important;
+    font-size: 11px !important;
     font-weight: 800 !important;
     line-height: 1.25 !important;
-    margin-bottom: 2px !important;
+    margin-bottom: 3px !important;
   }
 
   .hero-pillar-card .pillar-note {
-    font-size: 10px !important;
-  }
-
-  .hero-pillar-card.highlight {
-    position: relative !important;
+    font-size: 8.5px !important;
+    line-height: 1.2 !important;
   }
 
   .hero-pillar-card.highlight .pillar-badge {
     position: absolute !important;
-    top: -10px !important;
-    right: 14px !important;
-    left: auto !important;
-    transform: none !important;
+    top: -11px !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translateX(-50%) !important;
     font-size: 7px !important;
-    padding: 2px 10px !important;
+    padding: 2px 8px !important;
+    white-space: nowrap !important;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.4) !important;
+    z-index: 10 !important;
   }
 
   /* Compte à rebours mobile */
