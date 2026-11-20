@@ -1,5 +1,5 @@
 /* ==========================================================================
-   MOBILE-PREMIUM.CSS v3 — Prestige Royal Suprême
+   MOBILE-PREMIUM.CSS v4 — Prestige Royal Suprême
    Portail Officiel A.G.O. 2026 — AEEMCI Sous-Comité de Koumassi
    ========================================================================== */
 
@@ -762,14 +762,15 @@
 .ancien-president-card {
   background: linear-gradient(160deg, #FFFFFF 0%, #FDFAF3 60%, #FBF6E8 100%) !important;
   border-radius: 22px !important;
-  padding: 32px 20px 22px !important;
+  padding: 28px 20px 22px !important;  /* padding-top réduit car pill maintenant à l'intérieur */
   border: 1px solid rgba(212, 175, 55, 0.25) !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(212, 175, 55, 0.1) !important;
   text-align: center !important;
   position: relative !important;
-  overflow: hidden !important;
+  overflow: visible !important;  /* IMPORTANT: visible pour que la pill dépasse */
   transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1) !important;
   cursor: default;
+  margin-top: 14px !important;   /* espace pour la pill qui dépasse en haut */
 }
 
 /* Barre dorée en haut de chaque carte */
@@ -779,11 +780,12 @@
   top: 0 !important; left: 0 !important; right: 0 !important;
   height: 4px !important;
   background: linear-gradient(90deg, #917118, #D4AF37, #F7D878, #D4AF37, #917118) !important;
+  border-radius: 22px 22px 0 0 !important;
   opacity: 0.7 !important;
   transition: opacity 0.4s ease !important;
 }
 
-/* Reflet lumineux au hover */
+/* Reflet lumineux au hover — clippé proprement */
 .ancien-president-card::after {
   content: '' !important;
   position: absolute !important;
@@ -792,6 +794,8 @@
   background: linear-gradient(105deg, transparent 40%, rgba(212, 175, 55, 0.07) 50%, transparent 60%) !important;
   transition: left 0.6s ease !important;
   pointer-events: none !important;
+  border-radius: inherit !important;
+  overflow: hidden !important;
 }
 
 .ancien-president-card:hover {
