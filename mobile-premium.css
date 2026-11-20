@@ -1287,18 +1287,51 @@
 
   /* Bureau exécutif en mobile */
   .bureau-filter-container {
-    padding: 6px 10px !important;
-    gap: 6px !important;
+    padding: 6px 10px 12px !important;
+    gap: 8px !important;
+    display: flex !important;
+    flex-wrap: nowrap !important;
     overflow-x: auto !important;
     justify-content: flex-start !important;
     -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  .bureau-filter-container::-webkit-scrollbar {
+    display: none !important;
   }
 
   .bureau-filter-btn {
     white-space: nowrap !important;
     font-size: 11px !important;
-    padding: 6px 14px !important;
+    padding: 7px 15px !important;
     flex-shrink: 0 !important;
+    border-radius: 20px !important;
+  }
+
+  /* Élimination du blanc vide au scroll : contenu immédiatement visible */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* Bouton audio flottant discret sur mobile pour ne pas couvrir le contenu */
+  .floating-audio-btn {
+    bottom: 12px !important;
+    right: 12px !important;
+    padding: 6px 10px !important;
+    font-size: 10px !important;
+    opacity: 0.8 !important;
+    transform: scale(0.85) !important;
+    transform-origin: bottom right !important;
+    z-index: 999 !important;
+  }
+
+  /* Continuité visuelle fluide des sections */
+  .section-alt {
+    background: #FDFBF7 !important;
+    border-top: 2px solid rgba(212, 175, 55, 0.3) !important;
   }
 
   /* Formulaire RSVP mobile */
