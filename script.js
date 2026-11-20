@@ -55,7 +55,7 @@ function initEnvelopeOpening() {
     setTimeout(() => {
       introScreen.classList.add('opened');
       toggleAudio(true);
-    }, 700);
+    }, 350);
   }
 
   seal.addEventListener('click', (e) => {

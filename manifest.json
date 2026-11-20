@@ -1,0 +1,26 @@
+{
+  "name": "A.G.O. 2026 — AEEMCI Koumassi",
+  "short_name": "AGO Koumassi",
+  "description": "Portail Officiel de convocation et d'émargement — Assemblée Générale Ordinaire 2026 du Sous-Comité AEEMCI de Koumassi",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#030E09",
+  "theme_color": "#051D14",
+  "orientation": "portrait",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "logo-aeemci.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo-aeemci.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ]
+}
