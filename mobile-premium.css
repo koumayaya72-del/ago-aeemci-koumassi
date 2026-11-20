@@ -116,27 +116,33 @@
 }
 
 /* ==========================================================================
-   3. EN-TÊTE INSTITUTIONNEL
+   3. EN-TÊTE INSTITUTIONNEL — BLOC OFFICIEL GLASSMORPHISM
    ========================================================================== */
 .hero-institution-header {
-  display: flex;
-  flex-direction: column;       /* centré verticalement */
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin-bottom: 22px;
-  animation: fadeUp 0.7s ease both;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 20px !important;
+  margin: 0 auto 22px !important;
+  max-width: 680px !important;
+  /* Encadré glassmorphism officiel */
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(212, 175, 55, 0.4) !important;
+  border-radius: 18px !important;
+  padding: 18px 26px !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+  animation: fadeUp 0.7s ease both !important;
 }
 
-/* On utilise flex-row uniquement sur desktop */
-@media (min-width: 640px) {
+/* Mobile : empilement */
+@media (max-width: 540px) {
   .hero-institution-header {
-    flex-direction: row;
-    gap: 22px;
-    text-align: left;
-  }
-  .hero-inst-labels {
-    text-align: left !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    padding: 14px 16px !important;
   }
 }
 
@@ -172,7 +178,20 @@
 }
 
 .hero-inst-labels {
-  text-align: center;
+  text-align: left !important;
+  /* Séparateur vertical doré entre logo et texte */
+  border-left: 1px solid rgba(212, 175, 55, 0.35) !important;
+  padding-left: 20px !important;
+}
+
+@media (max-width: 540px) {
+  .hero-inst-labels {
+    border-left: none !important;
+    padding-left: 0 !important;
+    text-align: center !important;
+    border-top: 1px solid rgba(212, 175, 55, 0.3) !important;
+    padding-top: 10px !important;
+  }
 }
 
 .hero-national-motto {
