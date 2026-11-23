@@ -1,7 +1,26 @@
 /* ==========================================================================
-   MOBILE-PREMIUM.CSS v4 — Prestige Royal Suprême
+   MOBILE-PREMIUM.CSS v5 — Vitesse & Fluidité Suprême 60 FPS
    Portail Officiel A.G.O. 2026 — AEEMCI Sous-Comité de Koumassi
    ========================================================================== */
+
+/* Verrouillage anti-déraillement horizontal & Défilement vertical pur */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+  position: relative !important;
+  touch-action: pan-y !important; /* Bloque les dérapages latéraux */
+  -webkit-overflow-scrolling: touch !important;
+}
+
+/* Sections optimisées pour le GPU (rendu instantané, 0 saccade) */
+.section,
+.section-alt,
+.section-dark,
+.royal-footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500px;
+}
 
 /* ==========================================================================
    1. ANIMATIONS KEYFRAMES
@@ -1040,6 +1059,20 @@
    18. RESPONSIVE MOBILE ULTRA-PREMIUM (OPTIMISÉ SMARTPHONE)
    ========================================================================== */
 @media (max-width: 680px) {
+  /* Allègement GPU mobile : suppression des repaints lourds pour 60fps stables */
+  .royal-hero::before,
+  .royal-hero::after {
+    animation: none !important;
+    opacity: 0.45 !important;
+  }
+
+  .hero-status-pill,
+  .hero-pillar-card.highlight,
+  .presidency-seal-inner,
+  .countdown-prestige-card {
+    animation: none !important;
+  }
+
   /* Espacement général du Hero sur mobile */
   .royal-hero {
     padding: 36px 14px 32px !important;
