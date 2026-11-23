@@ -3,7 +3,7 @@
    Vitesse extrême & Fonctionnement autonome hors-ligne sur Smartphone
    ========================================================================== */
 
-const CACHE_NAME = 'ago-koumassi-v20261123_v52';
+const CACHE_NAME = 'ago-koumassi-v20261123_v53';
 const STATIC_ASSETS = [
   './',
   './index.html',
