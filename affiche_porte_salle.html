@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Affiche Officielle Inscription Entrée de Salle — A.G.O. 2026 AEEMCI Koumassi</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       AFFICHE OFFICIELLE ENTRÉE DE SALLE — A.G.O. 2026 AEEMCI KOUMASSI
+       Format Standard A4 (210mm x 297mm) — Prêt à imprimer
+       ========================================================================== */
+    :root {
+      --color-emerald-deep: #051D14;
+      --color-emerald-mid: #0E3C2A;
+      --color-gold: #D4AF37;
+      --color-gold-bright: #F7D878;
+      --color-gold-dark: #A57E1E;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0B130E;
+      color: #051D14;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 10px 40px;
+      min-height: 100vh;
+    }
+
+    /* Barre d'actions en haut (non imprimée) */
+    .no-print-bar {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 14px;
+      padding: 12px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+
+    .no-print-bar .instructions {
+      color: #E2E8F0;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-action-print {
+      background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-bright) 100%);
+      color: #051D14;
+      font-weight: 800;
+      font-size: 14px;
+      padding: 10px 22px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-print:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+    }
+
+    .btn-action-back {
+      background: transparent;
+      color: #CBD5E1;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .btn-action-back:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #FFFFFF;
+    }
+
+    /* ==========================================================================
+       FEUILLE OFFICIELLE A4 (210mm x 297mm)
+       ========================================================================== */
+    .a4-poster {
+      width: 210mm;
+      min-height: 297mm;
+      background: #FFFFFF;
+      position: relative;
+      padding: 12mm 14mm 10mm;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      border-radius: 4px;
+    }
+
+    /* Cadre prestigieux avec double filet doré */
+    .poster-inner-frame {
+      position: absolute;
+      top: 6mm;
+      bottom: 6mm;
+      left: 6mm;
+      right: 6mm;
+      border: 2.5px solid #0E3C2A;
+      pointer-events: none;
+    }
+
+    .poster-inner-frame::after {
+      content: '';
+      position: absolute;
+      top: 2.5mm;
+      bottom: 2.5mm;
+      left: 2.5mm;
+      right: 2.5mm;
+      border: 1px solid #D4AF37;
+    }
+
+    /* Coins ornementaux */
+    .frame-corner {
+      position: absolute;
+      width: 14mm;
+      height: 14mm;
+      border-color: #D4AF37;
+      border-style: solid;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .corner-tl { top: 7mm; left: 7mm; border-width: 2px 0 0 2px; }
+    .corner-tr { top: 7mm; right: 7mm; border-width: 2px 2px 0 0; }
+    .corner-bl { bottom: 7mm; left: 7mm; border-width: 0 0 2px 2px; }
+    .corner-br { bottom: 7mm; right: 7mm; border-width: 0 2px 2px 0; }
+
+    /* ==========================================================================
+       1. EN-TÊTE DE L'AFFICHE
+       ========================================================================== */
+    .poster-header {
+      text-align: center;
+      position: relative;
+      z-index: 3;
+      padding-bottom: 3mm;
+      border-bottom: 1.5px solid #E2E8F0;
+    }
+
+    .poster-devise {
+      font-size: 8pt;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: #64748B;
+      text-transform: uppercase;
+      margin-bottom: 2mm;
+    }
+
+    .poster-branding {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 2mm;
+    }
+
+    .poster-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      object-fit: cover;
+      border: 1.5px solid #D4AF37;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .poster-org-title {
+      font-family: 'Cinzel', serif;
+      font-size: 18pt;
+      font-weight: 900;
+      color: #0E3C2A;
+      letter-spacing: 1.5px;
+      line-height: 1.1;
+    }
+
+    .poster-suborg {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #D4AF37;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .poster-jurisdiction {
+      font-size: 8.5pt;
+      color: #475569;
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       2. TITRE PRINCIPAL & MANDATURE
+       ========================================================================== */
+    .poster-event-block {
+      text-align: center;
+      position: relative;
+      z-index: 3;
+      margin-top: 3mm;
+      padding: 3mm 0;
+      background: linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%);
+      border-radius: 8px;
+      border: 1px solid #E2E8F0;
+    }
+
+    .poster-badge-ago {
+      display: inline-block;
+      background: #0E3C2A;
+      color: #F7D878;
+      font-family: 'Cinzel', serif;
+      font-size: 13pt;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 3px 18px;
+      border-radius: 20px;
+      border: 1.5px solid #D4AF37;
+      box-shadow: 0 3px 10px rgba(14, 60, 42, 0.25);
+    }
+
+    .poster-presidency-line {
+      font-size: 9.5pt;
+      color: #0E3C2A;
+      font-weight: 700;
+      margin-top: 2mm;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .poster-presidency-line strong {
+      color: #0E3C2A;
+    }
+
+    /* ==========================================================================
+       3. CŒUR DE L'AFFICHE : ÉMARGEMENT DEVANT LA SALLE & GRAND QR CODE
+       ========================================================================== */
+    .poster-cta-box {
+      background: linear-gradient(135deg, #051D14 0%, #0E3C2A 100%);
+      color: #FFFFFF;
+      border-radius: 14px;
+      padding: 5mm 6mm 4mm;
+      text-align: center;
+      position: relative;
+      z-index: 3;
+      margin: 4mm 0;
+      border: 2px solid #D4AF37;
+      box-shadow: 0 10px 30px rgba(14, 60, 42, 0.35);
+    }
+
+    .poster-cta-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(212, 175, 55, 0.2);
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      color: #F7D878;
+      font-size: 9pt;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 14px;
+      border-radius: 20px;
+      margin-bottom: 2mm;
+    }
+
+    .poster-cta-title {
+      font-family: 'Cinzel', serif;
+      font-size: 19pt;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: 1px;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .poster-cta-desc {
+      font-size: 10.5pt;
+      color: #E2E8F0;
+      font-weight: 500;
+      margin-top: 2mm;
+      line-height: 1.4;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Cadre du Grand QR Code */
+    .poster-qr-wrapper {
+      background: #FFFFFF;
+      display: inline-block;
+      padding: 10px;
+      border-radius: 16px;
+      border: 4px solid #D4AF37;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+      margin: 3mm auto 2mm;
+    }
+
+    .poster-qr-img {
+      width: 72mm;
+      height: 72mm;
+      display: block;
+      border-radius: 8px;
+    }
+
+    .poster-qr-instructions {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #F7D878;
+      letter-spacing: 0.5px;
+      margin-top: 2mm;
+    }
+
+    .poster-steps {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 3mm;
+      padding-top: 2.5mm;
+      border-top: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 8.5pt;
+      color: #CBD5E1;
+      font-weight: 600;
+    }
+
+    .step-num {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #D4AF37;
+      color: #051D14;
+      font-weight: 800;
+      font-size: 8pt;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ==========================================================================
+       4. DÉTAILS DE LA SESSION (DATE & LIEU)
+       ========================================================================== */
+    .poster-details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      position: relative;
+      z-index: 3;
+      margin: 2mm 0;
+    }
+
+    .detail-card {
+      background: #F8FAFC;
+      border: 1px solid #CBD5E1;
+      border-radius: 10px;
+      padding: 3mm 4mm;
+      text-align: center;
+    }
+
+    .detail-card-label {
+      font-size: 8pt;
+      font-weight: 800;
+      color: #D4AF37;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .detail-card-val {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #0E3C2A;
+      margin-top: 1mm;
+      line-height: 1.2;
+    }
+
+    .detail-card-sub {
+      font-size: 8.5pt;
+      color: #64748B;
+      margin-top: 1mm;
+      font-weight: 500;
+    }
+
+    /* ==========================================================================
+       5. PIED DE PAGE DE L'AFFICHE
+       ========================================================================== */
+    .poster-footer {
+      text-align: center;
+      position: relative;
+      z-index: 3;
+      padding-top: 2.5mm;
+      border-top: 1.5px solid #E2E8F0;
+    }
+
+    .poster-footer-notice {
+      font-size: 8.5pt;
+      color: #0E3C2A;
+      font-weight: 700;
+    }
+
+    .poster-footer-sub {
+      font-size: 7.5pt;
+      color: #64748B;
+      margin-top: 1mm;
+    }
+
+    /* ==========================================================================
+       IMPRESSION A4 STRICTE (@media print)
+       ========================================================================== */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .no-print-bar {
+        display: none !important;
+      }
+
+      .a4-poster {
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 297mm !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        page-break-after: avoid !important;
+        page-break-inside: avoid !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barre d'action supérieure (masquée à l'impression) -->
+  <div class="no-print-bar">
+    <a href="index.html" class="btn-action-back">← Retour au Portail Officiel</a>
+    <div class="instructions">
+      <span>📄 <strong>Format A4 officiel</strong> — Imprimez et collez cette affiche à la porte de la salle</span>
+    </div>
+    <button type="button" class="btn-action-print" onclick="window.print()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+      </svg>
+      <span>Imprimer l'Affiche</span>
+    </button>
+  </div>
+
+  <!-- FEUILLE A4 OFFICIELLE -->
+  <div class="a4-poster">
+    
+    <!-- Cadres et filets dorés -->
+    <div class="poster-inner-frame"></div>
+    <div class="frame-corner corner-tl"></div>
+    <div class="frame-corner corner-tr"></div>
+    <div class="frame-corner corner-bl"></div>
+    <div class="frame-corner corner-br"></div>
+
+    <!-- 1. EN-TÊTE OFFICIEL -->
+    <header class="poster-header">
+      <p class="poster-devise">RÉPUBLIQUE DE CÔTE D'IVOIRE • FOI — UNION — DISCIPLINE</p>
+      <div class="poster-branding">
+        <img src="logo-aeemci.jpeg" alt="Logo Officiel AEEMCI" class="poster-logo">
+        <div>
+          <h1 class="poster-org-title">A. E. E. M. C. I.</h1>
+          <p class="poster-suborg">Sous-Comité de Koumassi</p>
+        </div>
+      </div>
+      <p class="poster-jurisdiction">Secrétariat Régional Abidjan-Sud (SERAS) • 21 Sections Scolaires et Universitaires</p>
+    </header>
+
+    <!-- 2. TITRE DE L'ÉVÉNEMENT -->
+    <div class="poster-event-block">
+      <div class="poster-badge-ago">ASSEMBLÉE GÉNÉRALE ORDINAIRE 2026</div>
+      <p class="poster-presidency-line">
+        <span>Sous la Présidence effective du</span>
+        <strong>Frère SOW Mohamed</strong>
+        <span>• Mandat 2025–2026</span>
+      </p>
+    </div>
+
+    <!-- 3. CŒUR : ÉMARGEMENT DEVANT LA SALLE & GRAND QR CODE -->
+    <div class="poster-cta-box">
+      <div class="poster-cta-tag">
+        <span>📍 ENTRÉE DE SALLE • ÉMARGEMENT IMMÉDIAT</span>
+      </div>
+
+      <h2 class="poster-cta-title">SCANNEZ POUR VOUS ENREGISTRER</h2>
+
+      <p class="poster-cta-desc">
+        Chers Délégués statutaires, Présidents de section & Invités d'honneur : 
+        ouvrez l'appareil photo de votre téléphone, <strong>scannez le QR Code ci-dessous</strong> pour enregistrer votre présence et obtenir votre Pass Officiel.
+      </p>
+
+      <!-- Grand QR Code d'inscription -->
+      <div class="poster-qr-wrapper">
+        <img 
+          src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=0&color=051D14&bgcolor=FFFFFF&data=https%3A%2F%2Fkoumayaya72-del.github.io%2Fago-aeemci-koumassi%2F%23rsvp" 
+          alt="QR Code Inscription Devant la Salle AGO 2026 Koumassi" 
+          class="poster-qr-img"
+        >
+      </div>
+
+      <p class="poster-qr-instructions">
+        👉 Pointez simplement l'appareil photo de votre smartphone vers le code
+      </p>
+
+      <!-- 3 Étapes claires -->
+      <div class="poster-steps">
+        <div class="step-item">
+          <span class="step-num">1</span>
+          <span>Scannez le code</span>
+        </div>
+        <div class="step-item">
+          <span class="step-num">2</span>
+          <span>Saisissez votre Nom &amp; Section</span>
+        </div>
+        <div class="step-item">
+          <span class="step-num">3</span>
+          <span>Obtenez votre Pass d'Accès</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. DATE ET LIEU DE LA SESSION -->
+    <div class="poster-details-grid">
+      <div class="detail-card">
+        <div class="detail-card-label">📅 Date &amp; Horaire</div>
+        <div class="detail-card-val">Samedi 28 Novembre 2026</div>
+        <div class="detail-card-sub">Ouverture des émargements dès 13h30 • Début à 14h00 GMT</div>
+      </div>
+
+      <div class="detail-card">
+        <div class="detail-card-label">📍 Lieu de la Session</div>
+        <div class="detail-card-val">Lycée Municipal de Koumassi (LMK)</div>
+        <div class="detail-card-sub">Cantine Principale • Koumassi Grand Campement</div>
+      </div>
+    </div>
+
+    <!-- 5. PIED DE PAGE -->
+    <footer class="poster-footer">
+      <p class="poster-footer-notice">
+        Besoin d'aide ? Les membres de la <strong>Commission Accueil &amp; Émargement</strong> sont à votre disposition à la porte.
+      </p>
+      <p class="poster-footer-sub">
+        Portail Officiel : https://koumayaya72-del.github.io/ago-aeemci-koumassi/ • Document officiel Sous-Comité AEEMCI Koumassi
+      </p>
+    </footer>
+
+  </div>
+
+</body>
+</html>

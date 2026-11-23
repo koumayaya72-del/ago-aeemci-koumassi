@@ -30,8 +30,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cinzel+Decorative:wght@700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=20261120_v50">
-  <link rel="stylesheet" href="mobile-premium.css?v=20261120_v50">
+  <link rel="stylesheet" href="style.css?v=20261123_v51">
+  <link rel="stylesheet" href="mobile-premium.css?v=20261123_v51">
 </head>
 <body>
 
@@ -198,6 +198,22 @@
               <span class="count-unit">SECONDES</span>
             </div>
           </div>
+        </div>
+
+        <!-- Raccourcis Rapides : Inscription Entrée de Salle & Affiche QR Porte -->
+        <div class="hero-quick-access-bar">
+          <a href="#rsvp" class="hero-quick-btn primary">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+            <span>📲 S'inscrire devant la salle</span>
+          </a>
+          <a href="affiche_porte_salle.html" target="_blank" class="hero-quick-btn secondary">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor">
+              <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+            </svg>
+            <span>🖨️ Affiche QR Porte (A4)</span>
+          </a>
         </div>
 
       </div>
@@ -1004,23 +1020,53 @@
     </section>
 
     <!-- ============================================ -->
-    <!-- 10. SECTION : RSVP STATUTAIRE SUR WHATSAPP   -->
+    <!-- 10. SECTION : ÉMARGEMENT DEVANT LA SALLE & INSCRIPTION -->
     <!-- ============================================ -->
     <section class="section section-alt" id="rsvp" style="padding-top: 10px;">
       <div class="container reveal">
         <div class="rsvp-card">
           <div class="section-ornament">❖</div>
-          <span class="section-sub">CONFIRMATION OFFICIELLE DE PARTICIPATION</span>
-          <h2 class="section-title">RSVP des Délégués &amp; Invités</h2>
+          <span class="section-sub">INSCRIPTION EN DIRECT • ENTRÉE DE SALLE</span>
+          <h2 class="section-title">Enregistrement des Délégués &amp; Invités</h2>
           <div class="gold-line"></div>
+
+          <!-- Badge officiel Entrée de Salle -->
+          <div class="rsvp-hall-badge">
+            <span class="hall-badge-dot"></span>
+            <span>📍 DEVANT LA SALLE DU LYCÉE MUNICIPAL • ÉMARGEMENT EN DIRECT</span>
+          </div>
+
           <p class="rsvp-note">
-            Afin d'assurer le quorum, les dossiers de travail et la restauration fraternelle, chaque délégué ou invité est prié de confirmer avant le <strong>Jeudi 26 Novembre 2026</strong>.
+            Chers Délégués et Invités d'honneur, enregistrez votre présence dès votre arrivée devant la salle pour valider votre émargement statutaire et obtenir instantanément votre <strong>Pass Officiel avec QR Code</strong>.
           </p>
 
+          <!-- Bouton Affiche QR Code pour la Porte (Organisateurs) -->
+          <div class="rsvp-poster-action-box">
+            <a href="affiche_porte_salle.html" target="_blank" class="btn-poster-door" title="Imprimer l'Affiche QR Code pour la porte de la salle">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/>
+              </svg>
+              <span>🖨️ Affiche QR Code pour la Porte (Format A4)</span>
+            </a>
+          </div>
+
+          <!-- Notification Pass Existant si déjà enregistré sur ce téléphone (Comme Formation en Word) -->
+          <div id="rsvpExistingPassCard" class="existing-pass-card" style="display: none;">
+            <div>
+              <p class="existing-pass-title">🎫 Pass d'accès déjà actif sur ce téléphone</p>
+              <p class="existing-pass-sub" id="existingPassNameLabel">Matricule : AGO-KMSSI-26-XXXX</p>
+            </div>
+            <div class="existing-pass-actions">
+              <button type="button" class="btn-view-existing-pass" id="btnViewExistingPass">Consulter mon Pass</button>
+              <button type="button" class="btn-new-registration" id="btnNewRegistration">Nouvelle Inscription</button>
+            </div>
+          </div>
+
+          <!-- Formulaire d'enregistrement -->
           <form class="rsvp-form" id="rsvpForm">
             <div class="form-group">
               <label for="rsvpName">Nom &amp; Prénoms Complets *</label>
-              <input type="text" id="rsvpName" placeholder="Ex: Frère Koné Ibrahim ou Sœur Traoré Aminata" required>
+              <input type="text" id="rsvpName" placeholder="Ex: Frère Koné Ibrahim ou Sœur Traoré Aminata" required autocomplete="name">
             </div>
 
             <div class="form-row">
@@ -1028,7 +1074,7 @@
                 <label for="rsvpRole">Qualité Statutaire *</label>
                 <select id="rsvpRole" required>
                   <option value="Secrétaire Général de Section (Votant)">Secrétaire Général de Section (Votant)</option>
-                  <option value="Délégué Officiel de Section (Votant)">Délégué Officiel de Section (Votant)</option>
+                  <option value="Délégué Officiel de Section (Votant)" selected>Délégué Officiel de Section (Votant)</option>
                   <option value="Membre du Bureau du Sous-Comité">Membre du Bureau du Sous-Comité</option>
                   <option value="Membre du Présidium">Membre du Présidium de Séance</option>
                   <option value="Commissaire aux Comptes">Commissaire aux Comptes</option>
@@ -1050,7 +1096,7 @@
               <div class="form-group">
                 <label for="rsvpAttendance">Statut de Présence *</label>
                 <select id="rsvpAttendance" required>
-                  <option value="Présence Confirmée avec Certitude">Oui, Présence Confirmée avec Certitude</option>
+                  <option value="Présence Confirmée avec Certitude" selected>Présent(e) à l'Assemblée</option>
                   <option value="Empêché avec Procuration écrite">Empêché (Procuration transmise)</option>
                   <option value="Empêché de Cœur">Empêché de cœur avec prières</option>
                 </select>
@@ -1058,22 +1104,39 @@
 
               <div class="form-group">
                 <label for="rsvpPhone">Numéro Téléphone / WhatsApp</label>
-                <input type="tel" id="rsvpPhone" placeholder="Ex: +225 07 11 98 58 10">
+                <input type="tel" id="rsvpPhone" placeholder="Ex: +225 07 11 98 58 10" autocomplete="tel">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="rsvpMessage">Observation ou Message à l'attention du Président Sow Mohamed</label>
-              <textarea id="rsvpMessage" rows="3" placeholder="Puisse Allah bénir les délibérations de notre sous-comité..."></textarea>
+              <label for="rsvpMessage">Observation ou Message (facultatif)</label>
+              <textarea id="rsvpMessage" rows="2" placeholder="Observation éventuelle pour la commission d'accueil..."></textarea>
             </div>
 
-            <button type="submit" class="btn-royal-submit">
-              <span>Confirmer &amp; Générer mon Pass d'Émargement</span>
+            <button type="submit" class="btn-royal-submit" id="btnSubmitRsvp">
+              <span>Valider mon Inscription &amp; Générer mon Pass</span>
               <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
                 <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.78 14.07c-.24.67-1.39 1.28-1.92 1.34-.52.06-1.19.09-3.41-.83-2.83-1.17-4.66-4.04-4.8-4.23-.14-.19-1.15-1.53-1.15-2.92 0-1.39.73-2.07.99-2.35.26-.28.57-.35.77-.35.19 0 .38 0 .55.01.18.01.42-.07.65.49.24.58.82 2 .89 2.15.07.15.12.33.02.53-.1.2-.15.32-.3.49-.15.18-.31.4-.44.53-.15.15-.31.31-.13.62.18.31.8 1.31 1.71 2.12 1.18 1.05 2.17 1.38 2.48 1.53.31.15.49.13.67-.08.18-.21.78-.91.99-1.22.21-.31.42-.26.7-.15.28.1.1.78 3.87 2.08.38.2.63.33.72.48.09.15.09.87-.15 1.54z"/>
               </svg>
             </button>
           </form>
+
+          <!-- Carte de Confirmation post-inscription (Comme Formation en Word) -->
+          <div id="rsvpPostSubmitActions" class="post-submit-actions" style="display: none;">
+            <p class="post-submit-success">✅ Présence enregistrée avec succès !</p>
+            <div class="post-submit-btn-row">
+              <button type="button" class="btn-royal" id="btnReopenPassModal">
+                <span>🎫 Revoir mon Pass &amp; QR Code</span>
+              </button>
+              <button type="button" class="btn-royal-outline" id="btnRegisterAnotherPerson">
+                <span>➕ Inscrire un autre participant</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
 
           
 
@@ -1284,8 +1347,8 @@
   <script src="qrcode.min.js" defer></script>
   <script src="html5-qrcode.min.js" defer></script>
   <script src="jspdf.umd.min.js" defer></script>
-  <script src="base_donnees_ago.js?v=20261120_v40" defer></script>
-  <script src="script.js?v=20261120_v40" defer></script>
+  <script src="base_donnees_ago.js?v=20261123_v51" defer></script>
+  <script src="script.js?v=20261123_v51" defer></script>
 
   <!-- Enregistrement Service Worker pour fonctionnement autonome & ultra-rapide -->
   <script>

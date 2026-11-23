@@ -752,6 +752,92 @@ function imprimerPassIsole() {
   }, 400);
 }
 
+/* ==========================================================================
+   FONCTION GLOBALE D'AFFICHAGE DU PASS OFFICIEL (QR CODE & BILLETERIE)
+   ========================================================================== */
+function afficherModalPassOfficiel(delegue, phone, messageNotes) {
+  if (!delegue) return;
+  currentPassDelegue = delegue;
+
+  const passModal = document.getElementById('passModalBackdrop');
+  const passMatricule = document.getElementById('passMatricule');
+  const passNom = document.getElementById('passNom');
+  const passRole = document.getElementById('passRole');
+  const passSection = document.getElementById('passSection');
+  const passStatusPill = document.getElementById('passStatusPill');
+  const btnPassNotifyWa = document.getElementById('btnPassNotifyWa');
+
+  if (passMatricule) passMatricule.textContent = delegue.matricule || 'AGO-KMSSI-2026';
+  if (passNom) passNom.textContent = delegue.nom || 'Délégué Statutaire';
+  if (passRole) passRole.textContent = delegue.role || 'Délégué Officiel (Votant)';
+  if (passSection) passSection.textContent = delegue.section || 'Sous-Comité Koumassi';
+  if (passStatusPill) {
+    passStatusPill.textContent = delegue.emarge ? "Présence Validée" : "En attente d'émargement";
+  }
+
+  // Rendu dynamique du QR Code
+  const qrCanvas = document.getElementById('passQrCodeCanvas');
+  if (qrCanvas) {
+    qrCanvas.innerHTML = '';
+    const qrPayload = [
+      (delegue.matricule || 'AGO-KMSSI-2026').trim(),
+      (delegue.nom || '').trim(),
+      (delegue.section || '').trim(),
+      (delegue.role || '').trim()
+    ].join('|');
+    let qrSuccess = false;
+
+    if (typeof QRCode !== 'undefined') {
+      try {
+        new QRCode(qrCanvas, {
+          text: qrPayload,
+          width: 140,
+          height: 140,
+          colorDark: '#051D14',
+          colorLight: '#FFFFFF',
+          correctLevel: QRCode.CorrectLevel.M
+        });
+        qrSuccess = true;
+      } catch (qrErr) {
+        console.warn("QRCode local render notice:", qrErr);
+      }
+    }
+
+    setTimeout(() => {
+      const hasChild = qrCanvas.querySelector('canvas, img');
+      if (!hasChild || !qrSuccess) {
+        qrCanvas.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=0&data=${encodeURIComponent(qrPayload)}" alt="QR Code ${qrPayload}" width="140" height="140" style="display:block; width:140px; height:140px; border-radius:6px; margin:0 auto;">`;
+      }
+    }, 50);
+  }
+
+  // Lien WhatsApp de notification
+  if (btnPassNotifyWa) {
+    let waText = `🏛️ *CONFIRMATION STATUTAIRE & PASS D'ÉMARGEMENT*\n`;
+    waText += `*A.G.O. AEEMCI KOUMASSI 2026*\n`;
+    waText += `*Sous la Présidence du Frère SOW Mohamed*\n`;
+    waText += `━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    waText += `🎫 *Matricule Officiel :* ${delegue.matricule}\n`;
+    waText += `👤 *Nom & Prénoms :* ${delegue.nom}\n`;
+    waText += `🏷️ *Qualité :* ${delegue.role}\n`;
+    waText += `🏢 *Section :* ${delegue.section || 'Non précisée'}\n`;
+    waText += `📱 *Contact :* ${phone || delegue.telephone || 'Non précisé'}\n`;
+    waText += `📍 *Lieu :* Lycée Municipal de Koumassi (LMK) — Cantine\n`;
+    waText += `📅 *Date :* Samedi 28 Novembre 2026 à 14h00 GMT\n`;
+    if (messageNotes || delegue.message) {
+      waText += `💬 *Note :* "${messageNotes || delegue.message}"\n`;
+    }
+    waText += `━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+    waText += `_Mon Pass officiel avec QR Code d'émargement a été généré avec succès._`;
+
+    btnPassNotifyWa.href = `https://wa.me/${CONFIG.whatsappPhone}?text=${encodeURIComponent(waText)}`;
+  }
+
+  if (passModal) {
+    passModal.classList.add('active');
+  }
+}
+
 function initRsvpForm() {
   const form = document.getElementById('rsvpForm');
   if (!form) return;
@@ -760,7 +846,51 @@ function initRsvpForm() {
   const btnClosePassModal = document.getElementById('btnClosePassModal');
   const btnPrintPassPdf = document.getElementById('btnPrintPassPdf');
   const btnDownloadPassImg = document.getElementById('btnDownloadPassImg');
-  const btnPassNotifyWa = document.getElementById('btnPassNotifyWa');
+  const existingPassCard = document.getElementById('rsvpExistingPassCard');
+  const existingPassNameLabel = document.getElementById('existingPassNameLabel');
+  const btnViewExistingPass = document.getElementById('btnViewExistingPass');
+  const btnNewRegistration = document.getElementById('btnNewRegistration');
+  const postSubmitActions = document.getElementById('rsvpPostSubmitActions');
+  const btnReopenPassModal = document.getElementById('btnReopenPassModal');
+  const btnRegisterAnotherPerson = document.getElementById('btnRegisterAnotherPerson');
+
+  // Vérifier si un Pass a déjà été généré sur ce téléphone (Persistance comme Formation en Word)
+  try {
+    const savedPassData = localStorage.getItem('aeemci_ago_user_pass');
+    if (savedPassData) {
+      const savedPass = JSON.parse(savedPassData);
+      if (savedPass && savedPass.matricule) {
+        currentPassDelegue = savedPass;
+        if (existingPassCard) {
+          existingPassCard.style.display = 'flex';
+          if (existingPassNameLabel) {
+            existingPassNameLabel.textContent = `${savedPass.nom} • ${savedPass.matricule} (${savedPass.section || 'Section'})`;
+          }
+        }
+      }
+    }
+  } catch (e) {
+    console.warn("Lecture du Pass local:", e);
+  }
+
+  // Consulter le Pass existant
+  if (btnViewExistingPass) {
+    btnViewExistingPass.addEventListener('click', () => {
+      if (currentPassDelegue) {
+        afficherModalPassOfficiel(currentPassDelegue);
+      }
+    });
+  }
+
+  // Nouvelle inscription (masquer l'encart existant pour inscrire un autre délégué)
+  if (btnNewRegistration) {
+    btnNewRegistration.addEventListener('click', () => {
+      if (existingPassCard) existingPassCard.style.display = 'none';
+      form.reset();
+      const inputNom = document.getElementById('rsvpName');
+      if (inputNom) inputNom.focus();
+    });
+  }
 
   // Téléchargement direct Pass en Image PNG
   if (btnDownloadPassImg) {
@@ -782,6 +912,29 @@ function initRsvpForm() {
   // Téléchargement PDF du Pass — 1 SEULE PAGE DIRECTE
   if (btnPrintPassPdf) {
     btnPrintPassPdf.addEventListener('click', telechargerPassEnPDF);
+  }
+
+  // Bouton Ré-ouvrir le Pass après soumission
+  if (btnReopenPassModal) {
+    btnReopenPassModal.addEventListener('click', () => {
+      if (currentPassDelegue) {
+        afficherModalPassOfficiel(currentPassDelegue);
+      }
+    });
+  }
+
+  // Bouton Inscrire un autre participant (Pour la Commission Accueil à la porte)
+  if (btnRegisterAnotherPerson) {
+    btnRegisterAnotherPerson.addEventListener('click', () => {
+      form.reset();
+      if (postSubmitActions) postSubmitActions.style.display = 'none';
+      const inputNom = document.getElementById('rsvpName');
+      if (inputNom) {
+        inputNom.focus();
+        inputNom.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      showToast("Formulaire prêt pour le participant suivant !");
+    });
   }
 
   // Soumission du formulaire d'inscription
@@ -821,7 +974,7 @@ function initRsvpForm() {
     }
 
     try {
-      // 1. Enregistrement dans la Base de Données Locale
+      // 1. Enregistrement dans la Base de Données
       let delegue = null;
       if (typeof ajouterInscriptionAGO === 'function') {
         delegue = ajouterInscriptionAGO({
@@ -843,90 +996,29 @@ function initRsvpForm() {
           nom: name,
           role: role,
           section: section || 'Sous-Comité Koumassi',
+          telephone: phone,
+          message: messageNotes,
           emarge: false
         };
       }
 
-      currentPassDelegue = delegue;
+      // Sauvegarde dans le localStorage pour persistance sur ce téléphone
+      try {
+        localStorage.setItem('aeemci_ago_user_pass', JSON.stringify(delegue));
+      } catch (err) {}
 
-      // 2. Remplissage des champs visuels du Pass Officiel
-      const passMatricule = document.getElementById('passMatricule');
-      const passNom = document.getElementById('passNom');
-      const passRole = document.getElementById('passRole');
-      const passSection = document.getElementById('passSection');
-      const passStatusPill = document.getElementById('passStatusPill');
+      // 2. Affichage immédiat du Pass Officiel dans le Modal
+      afficherModalPassOfficiel(delegue, phone, messageNotes);
 
-      if (passMatricule) passMatricule.textContent = delegue.matricule || 'AGO-KMSSI-2026';
-      if (passNom) passNom.textContent = delegue.nom || name;
-      if (passRole) passRole.textContent = delegue.role || role;
-      if (passSection) passSection.textContent = delegue.section || section || 'Sous-Comité Koumassi';
-      if (passStatusPill) {
-        passStatusPill.textContent = delegue.emarge ? "Présence Validée" : "En attente d'émargement";
+      // 3. Affichage du bloc post-soumission (Permet d'inscrire une autre personne ou revoir son pass)
+      if (postSubmitActions) {
+        postSubmitActions.style.display = 'block';
       }
-
-      // 3. Rendu dynamique du QR Code (Matricule officiel compact & ultra-net)
-      const qrCanvas = document.getElementById('passQrCodeCanvas');
-      if (qrCanvas) {
-        qrCanvas.innerHTML = '';
-        // Payload enrichi : MATRICULE|NOM|SECTION|ROLE pour fonctionner sans base cloud
-        const qrPayload = [
-          (delegue.matricule || 'AGO-KMSSI-2026').trim(),
-          (delegue.nom || '').trim(),
-          (delegue.section || '').trim(),
-          (delegue.role || '').trim()
-        ].join('|');
-        let qrSuccess = false;
-
-        if (typeof QRCode !== 'undefined') {
-          try {
-            new QRCode(qrCanvas, {
-              text: qrPayload,
-              width: 140,
-              height: 140,
-              colorDark: '#051D14',
-              colorLight: '#FFFFFF',
-              correctLevel: QRCode.CorrectLevel.M
-            });
-            qrSuccess = true;
-          } catch (qrErr) {
-            console.warn("QRCode local render notice:", qrErr);
-          }
+      if (existingPassCard) {
+        existingPassCard.style.display = 'flex';
+        if (existingPassNameLabel) {
+          existingPassNameLabel.textContent = `${delegue.nom} • ${delegue.matricule} (${delegue.section || 'Section'})`;
         }
-
-        // Sécurité visuelle : si qrcode.js n'a pas rendu d'élément, afficher image QR de secours haute résolution
-        setTimeout(() => {
-          const hasChild = qrCanvas.querySelector('canvas, img');
-          if (!hasChild || !qrSuccess) {
-            qrCanvas.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=140x140&margin=0&data=${encodeURIComponent(qrPayload)}" alt="QR Code ${qrPayload}" width="140" height="140" style="display:block; width:140px; height:140px; border-radius:6px; margin:0 auto;">`;
-          }
-        }, 50);
-      }
-
-      // 4. Lien de notification WhatsApp
-      if (btnPassNotifyWa) {
-        let waText = `🏛️ *CONFIRMATION STATUTAIRE & PASS D'ÉMARGEMENT*\n`;
-        waText += `*A.G.O. AEEMCI KOUMASSI 2026*\n`;
-        waText += `*Sous la Présidence du Frère SOW Mohamed*\n`;
-        waText += `━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-        waText += `🎫 *Matricule Officiel :* ${delegue.matricule}\n`;
-        waText += `👤 *Nom & Prénoms :* ${delegue.nom}\n`;
-        waText += `🏷️ *Qualité :* ${delegue.role}\n`;
-        waText += `🏢 *Section :* ${delegue.section || 'Non précisée'}\n`;
-        waText += `📱 *Contact :* ${phone || 'Non précisé'}\n`;
-        waText += `📍 *Lieu :* Lycée Municipal de Koumassi (LMK) — Cantine\n`;
-        waText += `📅 *Date :* Samedi 28 Novembre 2026 à 14h00 GMT\n`;
-        if (messageNotes) {
-          waText += `💬 *Note :* "${messageNotes}"\n`;
-        }
-        waText += `━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-        waText += `_Mon Pass officiel avec QR Code d'émargement a été généré avec succès._`;
-
-        btnPassNotifyWa.href = `https://wa.me/${CONFIG.whatsappPhone}?text=${encodeURIComponent(waText)}`;
-      }
-
-      // 5. Affichage du Modal Pass
-      if (passModal) {
-        passModal.classList.add('active');
       }
 
       if (typeof playSolemnChime === 'function') {
